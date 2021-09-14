@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { Breakpoint } from "react-socks";
+import Login from "./Components/Login";
 
-export default class App extends Component {
+export default class Root extends Component {
   render() {
     //   This page is only for routings
     return (
       <React.Fragment>
         <Breakpoint large up>
-          <h2 className="head">Hello world</h2>
+            <Login/>
         </Breakpoint>
         <Breakpoint medium down>
-          <h2 className="head">Open in web view to use this website.</h2>
+         
         </Breakpoint>
       </React.Fragment>
     );
