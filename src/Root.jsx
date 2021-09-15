@@ -8,10 +8,10 @@ export default class Root extends Component {
     return (
       <React.Fragment>
         <Breakpoint large up>
-            <Login/>
+          this is a web screen
         </Breakpoint>
         <Breakpoint medium down>
-         
+          this is mobile size
         </Breakpoint>
       </React.Fragment>
     );
