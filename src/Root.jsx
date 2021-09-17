@@ -7,12 +7,7 @@ export default class Root extends Component {
     //   This page is only for routings
     return (
       <React.Fragment>
-        <Breakpoint large up>
-          this is a web screen
-        </Breakpoint>
-        <Breakpoint medium down>
-          this is mobile size
-        </Breakpoint>
+        <Login/>
       </React.Fragment>
     );
   }
