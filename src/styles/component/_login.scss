@@ -4,111 +4,165 @@
   box-sizing: border-box;
 }
 
+.MuiDialog-scrollPaper{
+  margin: 0 auto;
+  width: 45rem;
+}
+
 .login {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 80%;
+  height:100%;
+ 
   &__left {
+    width:18rem;
+    height:100%;
     background-color: $theme-a;
     p {
-      color: $background;
-      font-family: "Roboto", sans-serif;
-      margin: -15px 14px 77px 14px;
-      font-size: 0.65rem;
+      color: white;
+      font-family: Roboto, sans-serif;
+      padding-top:8px!important;
+      font-size: 0.8125rem;
+      padding-left: 24px !important;
+      letter-spacing: 0.03em;
+      font-weight: 500;
     }
     h1 {
-      color: $background;
-      margin: 20px 4px;
-      font-family: "Roboto", sans-serif;
-      font-weight: 500;
-      font-size: 1.7rem;
-    }
-    h2 {
-      color: $background;
+      color: white;
       font-family: "Roboto", sans-serif;
       text-align: center;
+      padding-left: 8px !important;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    h2 {
+      color: white;
+      font-family: "Roboto", sans-serif;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      margin-top: 5rem;
     }
     &__logo {
       display: flex;
-      margin: 10px;
+      align-items: center;
+      padding: 24px 0 0 24px !important;
 
       img {
-        width: 45px;
-        height: 45px;
-        margin: 21px 8px;
-        margin-bottom: 2px;
+        width: 2.5rem;
+        height: 2.5rem;
       }
     }
     &__loginImage {
       position: relative;
-      // border: 5px solid red;
       overflow: hidden;
-      object-fit: cover;
+      display: flex;
+      width: 18rem;
+      margin-top: 1rem;
 
       img {
-        width: 250px;
-        height: 250px;
-        margin: auto;
+        width: 100%;
+        height: 15rem;
+        margin: 0 auto;
+        object-fit: cover;
       }
     }
   }
   &__right {
+    width: 100%;
     h2 {
-      color: $light-grey;
+      color: $black;
       font-family: "Roboto", sans-serif;
       font-weight: 500;
       margin: 25px;
+      font-size: 1.45rem;
+      letter-spacing: 0.03em;
+      margin-top: 2rem;
     }
     &__myForm {
-      margin: 34px 31px;
+      padding-left: 25px !important;
+      padding-right: 25px !important;
       font-family: "Roboto", sans-serif;
-
+      margin-top: 12px;
+      width: 100%;
       &__formData {
         font-family: "Roboto", sans-serif;
         color: $dark-grey;
-        margin-bottom: 29px;
-
+        margin-bottom: 24px;
+        &__username{
+          width: 100%;
+          div{
+            margin-top: 8px;
+            background: $background;
+            border: none;
+            border-radius: 2px;
+            padding: 9px !important;
+            width: 100%;
+            font-size: 0.875rem;
+            letter-spacing: 0.03em;
+            fieldset{
+              border: none !important;
+            }
+          }
+        }
         label {
-          color: $black;
+          color: $light-grey;
           font-family: "Roboto", sans-serif;
           font-weight: 500;
+          font-size: 0.875rem;
+          letter-spacing: 0.03em;
         }
       }
 
       &__pass {
         font-family: "Roboto", sans-serif;
         font-weight: 500;
-        color: $theme-grey;
-        margin-top: -11px;
+        color: $light-grey;
+        margin-top: -15px;
+        font-size: 0.85rem;
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        &:hover{
+          color: $theme-a;
+          text-decoration: underline;
+        }
       }
       Button {
-        color: $background;
-        background-color: $theme-a;
-        width: 87%;
+        color: white;
+        background-color: #9147FF;
+        width: 100%;
         margin: 17px 0px;
-        padding: 4px;
-        border-radius: 3px;
         font-size: 1.1rem;
+        padding: 4px 0 !important;
+        border-radius: 2px;
+        font-family: Oswald;
+        letter-spacing: 0.05em;
+        margin-top: 2.5rem;
       }
       Button:hover {
-        color: $dark-grey;
         background-color: $theme-a;
-        font-family: "Oswald", sans-serif;
+        filter: brightness(0.8);
       }
 
       &__signup {
         font-family: "Roboto", sans-serif;
         color: $light-grey;
-        margin-top: 65px;
+        margin-top: 24px;
+        font-size: .875rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
 
         a {
           text-decoration: none;
           color: $dark-grey;
-          font-weight: 400;
+          font-weight: 500;
         }
         a:hover {
           text-decoration: underline;
+          color: $theme-a;
         }
       }
     }
