@@ -12,8 +12,8 @@ import {
 } from "@material-ui/core";
 import LoginImage from "../assets/LoginImage.svg";
 import WebsiteLogo from "../assets/WebsiteLogo.svg";
+import LoginMobo from "../assets/LoginMobo.svg";
 import CloseIcon from '@material-ui/icons/Close';
-
 export default class Login extends Component {
   render() {
     return (
@@ -75,7 +75,19 @@ export default class Login extends Component {
           </Dialog>
         </Breakpoint>
         <Breakpoint medium down>
-          this is mobile size
+        <Dialog
+            open={true}
+            aria-labelledby="form-dialog-title"
+            fullWidth
+            fullScreen
+            maxWidth="lg"
+          >
+            <DialogTitle id="form-dialog-title"></DialogTitle>
+            <DialogContent style={{ overflow: "hidden"}}>
+        
+            </DialogContent>
+            <DialogActions></DialogActions>
+          </Dialog>
         </Breakpoint>
       </React.Fragment>
     );
