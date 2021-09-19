@@ -4,7 +4,7 @@ html {
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 !important;
   overflow-y:scroll;
   box-sizing: border-box;
   /* Disables pull-to-refresh and not allows overscroll glow effects. */

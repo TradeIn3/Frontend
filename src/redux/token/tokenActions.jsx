@@ -1,5 +1,5 @@
 import { Request } from "../../api/Request";
-import { AuthTokenObtainPair, AuthTokenRefresh } from "../../api/pathConstants";
+import {  UserLogin, UserTokenRefresh } from "../../api/pathConstants";
 import cookie from "react-cookies";
 
 import {
@@ -96,7 +96,7 @@ export const getToken = () => {
       await dispatch(removeTokenRequest());
     } else {
       if (!isTokenValid(getState().token.access)) {
-        const updatedToken = await Request("POST", AuthTokenRefresh, null, {
+        const updatedToken = await Request("POST", UserTokenRefresh, null, {
           refresh: getState().token.refresh,
         });
         if (updatedToken && updatedToken.status === 200) {
@@ -153,7 +153,7 @@ export const setToken = (jwtToken) => {
 export const loginAction = (username, password, value) => {
   return async (dispatch) => {
     await dispatch(getLoginRequest());
-    const res = await Request("POST", AuthTokenObtainPair, null, {
+    const res = await Request("POST", UserLogin, null, {
       username,
       password,
     });
