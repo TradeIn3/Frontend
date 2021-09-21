@@ -100,12 +100,14 @@
             border: none;
             border-radius: 2px;
             padding: 9px !important;
-            width: 100%;
+            // width: 100%;
             font-size: 0.875rem;
             letter-spacing: 0.03em;
             div{
               padding: 0 !important;
               margin: 0 !important;
+              margin-right: 12px !important;
+              margin-left: 6px !important;
             }
             fieldset {
               border: none !important;

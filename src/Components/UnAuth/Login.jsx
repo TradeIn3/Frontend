@@ -83,6 +83,11 @@ class Login extends Component {
     await this.props.loginDispatch(username, password, "login");
     // }
   };
+  handleClickShowPassword = () =>{
+    this.setState({
+      showPassword:!this.state.showPassword,
+    })
+  }
   handleClose = () => {
     this.props.history.push("/");
   };
@@ -90,7 +95,6 @@ class Login extends Component {
     const { showPassword, formErrors, formValid, username, password } =
       this.state;
     const { loading, success } = this.props;
-    console.log(this.state);
     return (
       <React.Fragment>
         <Breakpoint large up>
@@ -141,30 +145,31 @@ class Login extends Component {
                       <label htmlFor="pass">Password</label>
                       <br />
                       <TextField
-                        type="password"
+                        type={showPassword ? "text":"password"}
                         required
                         value={password}
                         onChange={this.onHandleChange}
                         className="login__right__myForm__formData__username"
                         variant="outlined"
                         name="password"
-                        // InputProps={{
-                        //   endAdornment: (
-                        //     <InputAdornment position="end">
-                        //       <IconButton
-                        //         aria-label="toggle password visibility"
-                        //         // onClick={this.handleClickShowPassword}
-                        //         style={{ fontSize: "1rem" }}
-                        //       >
-                        //         {showPassword ? (
-                        //           <VisibilityIcon />
-                        //         ) : (
-                        //           <VisibilityOffIcon />
-                        //         )}
-                        //       </IconButton>
-                        //     </InputAdornment>
-                        //   ),
-                        // }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                                style={{ fontSize: "1rem" }}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityIcon />
+                                ) : (
+                                  <VisibilityOffIcon />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       ></TextField>
                       <FormHelperText className="errormessage">
                         {formErrors.password}
