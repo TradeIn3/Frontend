@@ -50,15 +50,20 @@ export const getLoginRequest = () => {
 
 export const getExpirationDate = (jwtToken) => {
   if (!jwtToken) {
+    console.log("yes3")
     return null;
   }
   const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
+  console.log("yes4");
+  console.log(jwt);
+
   // multiply by 1000 to convert seconds into milliseconds
   return (jwt && jwt.exp && jwt.exp * 1000) || null;
 };
 
 export const isExpired = (exp) => {
   if (!exp) {
+    console.log("whu");
     return true;
   }
   return Date.now() >= exp;
@@ -66,6 +71,7 @@ export const isExpired = (exp) => {
 
 export const isTokenValid = (jwtToken) => {
   if (!jwtToken) {
+    console.log("yes")
     return false;
   }
   const isValid = jwtToken.match(
@@ -73,9 +79,11 @@ export const isTokenValid = (jwtToken) => {
   );
   if (isValid) {
     if (!isExpired(getExpirationDate(jwtToken))) {
+      console.log("all ok")
       return true;
     }
   }
+  console.log("yes2")
   return false;
 };
 
@@ -93,11 +101,12 @@ export const getToken = () => {
   return async (dispatch, getState) => {
     await dispatch(getTokenRequest());
     if (!isTokenValid(getState().token.refresh)) {
+      console.log("refresh");
       await dispatch(removeTokenRequest());
     } else {
       if (!isTokenValid(getState().token.access)) {
         const updatedToken = await Request("POST", UserTokenRefresh, null, {
-          refresh: getState().token.refresh,
+          refresh_token: getState().token.refresh,
         });
         if (updatedToken && updatedToken.status === 200) {
           await dispatch(setToken(updatedToken.data));
@@ -121,27 +130,18 @@ export const setToken = (jwtToken) => {
       const expiresRefresh = new Date();
       expiresAccess.setMinutes(today.getMinutes() + 30);
       expiresRefresh.setDate(today.getDate() + 1);
-      cookie.save("access", jwtToken.access, {
+      cookie.save("access", jwtToken.access_token, {
         path: "/",
         expires: expiresAccess,
-        // domain: 'https://quriverse.com',
-        // secure: true,
-        // httpOnly: true
       });
-      cookie.save("refresh", jwtToken.refresh, {
+      cookie.save("refresh", jwtToken.refresh_token, {
         path: "/",
         expires: expiresRefresh,
-        // domain: 'https://quriverse.com',
-        // secure: true,
-        // httpOnly: true
       });
-      cookie.save("session_id", jwtToken.session_id, {
-        path: "/",
-        expires: expiresRefresh,
-        // domain: 'https://quriverse.com',
-        // secure: true,
-        // httpOnly: true
-      });
+      // cookie.save("session_id", jwtToken.session_id, {
+      //   path: "/",
+      //   expires: expiresRefresh,
+      // });
 
       await dispatch(setTokenSuccess(jwtToken));
     } catch (e) {
@@ -150,15 +150,18 @@ export const setToken = (jwtToken) => {
   };
 };
 
-export const loginAction = (username, password, value) => {
+export const loginAction = (user_id, password, value) => {
   return async (dispatch) => {
     await dispatch(getLoginRequest());
     const res = await Request("POST", UserLogin, null, {
-      username,
+      user_id,
       password,
     });
     if (res) {
-      if (res && res.status === 200) {
+      if(res.status !== 200){
+        await dispatch(openSnackbar("Something went wrong"));
+      }
+      if (res.status === 200) {
         await dispatch(setToken(res.data));
       } else if (!res.status) {
         await dispatch(openSnackbar("Network error"));

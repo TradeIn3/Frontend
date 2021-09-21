@@ -13,7 +13,7 @@ const initialState = {
   loading: false,
   access: cookie.load("access") || null,
   refresh: cookie.load("refresh") || null,
-  session_id: cookie.load("session_id") || null,
+  // session_id: cookie.load("session_id") || null,
   isLoggedIn: isTokenValid(cookie.load("refresh") || null),
   success: false,
 };
@@ -34,9 +34,9 @@ const reducer = (state = initialState, action) => {
       return {
         loading: false,
         success: true,
-        access: action.token.access,
-        refresh: action.token.refresh,
-        session_id: action.token.session_id,
+        access: action.token.access_token,
+        refresh: action.token.refresh_token,
+        // session_id: action.token.session_id,
         isLoggedIn: true,
       };
 
@@ -48,9 +48,9 @@ const reducer = (state = initialState, action) => {
     case GET_TOKEN_SUCCESS:
       return {
         loading: false,
-        access: action.data.access,
-        refresh: action.data.refresh,
-        session_id: action.data.session_id,
+        access: action.data.access_token,
+        refresh: action.data.refresh_token,
+        // session_id: action.data.session_id,
         isLoggedIn: true,
         success: true,
       };

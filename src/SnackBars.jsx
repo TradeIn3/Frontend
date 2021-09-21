@@ -5,7 +5,7 @@ import {
   setOpen,
   setMessageInfo,
   setSnackPack,
-} from "../redux/snackbar/snackbarActions";
+} from "./redux/snackbar/snackbarActions";
 
 const SnackBars = (props) => {
   const { snackPack, open, messageInfo } = props.snackbar;

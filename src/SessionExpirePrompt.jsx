@@ -4,8 +4,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { connect } from "react-redux";
-import { openPrompt } from "../redux/snackbar/snackbarActions";
-import { removeTokenRequest } from "../redux/token/tokenActions";
+import { openPrompt } from "./redux/snackbar/snackbarActions";
+import { removeTokenRequest } from "./redux/token/tokenActions";
 
 const SessionExpirePrompt = (props) => {
   const handleClick = () => {

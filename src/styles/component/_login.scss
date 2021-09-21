@@ -103,6 +103,10 @@
             width: 100%;
             font-size: 0.875rem;
             letter-spacing: 0.03em;
+            div{
+              padding: 0 !important;
+              margin: 0 !important;
+            }
             fieldset {
               border: none !important;
             }
@@ -121,7 +125,7 @@
         font-family: "Roboto", sans-serif;
         font-weight: 500;
         color: $light-grey;
-        margin-top: -15px;
+        margin-top: -12px;
         font-size: 0.85rem;
         letter-spacing: 0.03em;
         cursor: pointer;
@@ -130,35 +134,57 @@
           text-decoration: underline;
         }
       }
-      Button {
-        color: white;
-        background-color: #9147ff;
-        width: 100%;
-        margin: 17px 0px;
-        font-size: 1.1rem;
+      &__loginButton {
+        color: white !important;
+        background-color: #9147ff !important;
+        width: 100% !important;
+        margin: 17px 0px !important;
+        font-size: 1.1rem !important;
         padding: 4px 0 !important;
-        border-radius: 2px;
-        font-family: Oswald;
-        letter-spacing: 0.05em;
-        margin-top: 2.5rem;
+        border-radius: 2px !important;
+        margin-top: 2.2rem !important;
+        &__disable{
+          width: 100% !important;
+          margin: 17px 0px !important;
+          font-size: 1.1rem !important;
+          padding: 4px 0 !important;
+          border-radius: 2px !important;
+          margin-top: 2.2rem !important;
+          background-color: #eee !important;
+          color: $light-grey!important;
+          span{
+            font-family: Oswald !important;
+            letter-spacing: 0.05em !important;
+            font-weight: 600 !important;
+          }
+        }
+        span{
+          font-family: Oswald !important;
+          letter-spacing: 0.05em !important;
+          font-weight: 600 !important;
+        }
+        &:hover {
+          background-color: $theme-a;
+          filter: brightness(0.8);
+        }
       }
-      Button:hover {
-        background-color: $theme-a;
-        filter: brightness(0.8);
-      }
+      
 
       &__signup {
-        font-family: "Roboto", sans-serif;
-        color: $light-grey;
+        font-family: "Roboto", sans-serif !important;
+        color: $light-grey !important;
         margin-top: 24px;
-        font-size: 0.875rem;
-        font-weight: 400;
+        font-size: 0.875rem !important;
+        font-weight: 400 !important;
         letter-spacing: 0.03em;
 
         a {
+          font-family: "Roboto", sans-serif !important;
           text-decoration: none;
-          color: $dark-grey;
-          font-weight: 500;
+          color: $dark-grey !important;
+          font-size: 0.875rem !important;
+          font-weight: 500 !important;
+          letter-spacing: 0.03em !important;
         }
         a:hover {
           text-decoration: underline;
@@ -169,11 +195,24 @@
   }
 }
 
+@media (max-width:991px) {
+  
+.MuiDialog-scrollPaper {
+  width: 100% !important;
+}
+  
 .loginMobo {
-  background: url("../../assets/LoginBg.svg") no-repeat center center/cover;
+  // background: url("../../assets/LoginBg.svg") no-repeat center center/cover;
   width: 100%;
   height: 100%;
-  filter: brightness(0.95);
+  position: relative;
+  &__bgImage{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  // filter: brightness(0.95);
 
   &__logo {
     display: flex;
@@ -190,9 +229,9 @@
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     margin: 25px;
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     letter-spacing: 0.03em;
-    margin-top: 32vh;
+    margin-top: 34vh;
     margin-left: 2rem;
   }
 
@@ -201,18 +240,34 @@
     padding-right: 25px !important;
     font-family: "Roboto", sans-serif;
     margin-top: 12px;
-    width: 100%;
-    border: 2px solid red;
+    width: 85%;
+    // border: 2px solid red;
     &__formData {
       font-family: "Roboto", sans-serif;
       color: $dark-grey;
       margin-bottom: 24px;
       &__username {
-        width: 84vw;
-        input {
-          &::placeholder {
+        width: 100% !important;
+        div{
+          input {
+            font-family: "Roboto", sans-serif !important;
             color: white !important;
-          }
+            letter-spacing: 0.03em !important;
+            font-size: 1.125rem !important;
+            &::placeholder {
+              color: white !important;
+              opacity: .9 !important ;
+            }
+          }     
+          fieldset{
+            border: none !important;
+            &:hover{
+              border: none !important;
+            }
+            &:focus{
+              border: none !important;
+            }
+          }  
         }
         div {
           margin-top: 10px;
@@ -234,104 +289,70 @@
       color: white;
       margin-top: 1.5rem;
       margin-left: 8px;
-      font-size: 1.003rem;
+      font-size: 1.05rem !important;
+      width: max-content;
       letter-spacing: 0.03em;
       cursor: pointer;
       &:hover {
-        color: #eee7e7;
         text-decoration: underline;
+        color: white;
       }
     }
     Button {
       color: white;
       background-color: #9147ff;
-      width: 84vw;
+      width: 100% !important;
       margin: 17px 0px;
-      font-size: 1.485rem;
-      padding: 3px 0 !important;
+      font-size: 1.5rem;
+      padding: 7px 0 !important;
       border: 1.5px solid white;
       border-radius: 2px;
-      font-family: "Oswald", sans-serif;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       margin-top: 2.5rem;
+      span{
+        font-family: Oswald !important;
+      }
     }
     Button:hover {
-      background-color: $theme-a;
-      filter: brightness(0.8);
+      background: white;
+      color: $theme-a;
     }
 
     &__signup {
       display: flex;
       flex-direction: row;
+      align-items: center;
       flex-wrap: wrap;
       font-family: "Roboto", sans-serif;
-      color: #e1dede;
+      color: white;
       margin-top: 24px;
       margin-left: 4px;
-      font-size: 1.018rem;
+      font-size: 1rem !important;
       font-weight: 400;
       letter-spacing: 0.03em;
 
       a {
+        font-family: "Roboto", sans-serif !important;
         text-decoration: none;
         color: white !important;
         font-weight: 500;
-        font-size: 0.988rem;
+        font-size: 1.125rem;
         &:hover {
           text-decoration: underline;
-          color: #e4e0da;
+          color: white;
         }
       }
     }
   }
 }
 
-@media only screen and (max-width: 991px) and (min-width: 501px) {
-  .MuiDialog-scrollPaper {
-    margin: 0 auto;
-    width: 45rem;
-  }
+}
 
-  .loginMobo {
-    &__logo {
-      padding: 28px 0 0 28px !important;
-
-      img {
-        width: 4.92rem;
-        height: 4.92rem;
-      }
-    }
-    h2 {
-      font-size: 3rem;
-    }
-    &__myForm {
-      padding-left: 40px !important;
-      padding-right: 40px !important;
-      &__formData {
-        &__username {
-          width: 75vw;
-          div {
-            padding: 20px 30px !important;
-            margin-bottom: 5px;
-            font-size: 1.2rem;
-          }
-        }
-      }
-      &__pass {
-        font-size: 1.3rem;
-      }
-      button {
-        width: 75vw;
-        padding: 5px 0 !important;
-        font-size: 1.689rem;
-      }
-      &__signup {
-        font-size: 1.24rem;
-        a {
-          font-size: 1.14rem;
-        }
-      }
+@media (max-width:500px){
+  .loginMobo{
+    &__myForm{
+      width: 100%;
     }
   }
 }
