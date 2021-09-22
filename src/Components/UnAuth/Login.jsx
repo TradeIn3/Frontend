@@ -23,6 +23,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { withRouter } from "react-router-dom";
 import { loginAction } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
+import PersonIcon from '@material-ui/icons/Person';
+import HttpsIcon from '@material-ui/icons/Https';
 class Login extends Component {
   state = {
     username: "",
@@ -36,6 +38,7 @@ class Login extends Component {
       password: "",
     },
   };
+
   onHandleChange = (e) => {
     e.preventDefault();
     const name = e.target.name;
@@ -44,14 +47,16 @@ class Login extends Component {
       this.validateField(name, value);
     });
   };
+
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
     let usernameValid = this.state.usernameValid;
     let passwordValid = this.state.passwordValid;
     switch (fieldName) {
       case "username":
-        usernameValid = value.match(/^[A-Za-z0-9_@]{3,63}$/);
-        fieldValidationErrors.username = usernameValid ? "" : " is invalid";
+        usernameValid = value.match(/^[A-Za-z0-9_]{3,63}$/);
+        const errorMsg = value.length<3 || value.length>30 ? "length should be between 3-30 characters" : !usernameValid ? "Characters, Numbers and Underscores are allowed" : "";
+        fieldValidationErrors.username = errorMsg;
         break;
       case "password":
         passwordValid = value.length >= 8;
@@ -69,11 +74,13 @@ class Login extends Component {
       this.validateForm
     );
   }
+
   validateForm() {
     this.setState({
       formValid: this.state.usernameValid && this.state.passwordValid,
     });
   }
+
   onHandleSubmit = async (e) => {
     e.preventDefault();
     const { loading, success } = this.props;
@@ -83,14 +90,17 @@ class Login extends Component {
     await this.props.loginDispatch(username, password, "login");
     // }
   };
-  handleClickShowPassword = () =>{
+
+  handleClickShowPassword = () => {
     this.setState({
-      showPassword:!this.state.showPassword,
-    })
-  }
+      showPassword: !this.state.showPassword,
+    });
+  };
+
   handleClose = () => {
     this.props.history.push("/");
   };
+  
   render() {
     const { showPassword, formErrors, formValid, username, password } =
       this.state;
@@ -132,9 +142,17 @@ class Login extends Component {
                       <TextField
                         onChange={this.onHandleChange}
                         required
+                        placeholder="username"
                         className="login__right__myForm__formData__username"
                         name="username"
                         value={username}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon style={{color:"#9e9e9e", fontSize:"1.4rem"}} />
+                            </InputAdornment>
+                          ),
+                        }}
                         variant="outlined"
                       ></TextField>
                       <FormHelperText className="errormessage">
@@ -145,20 +163,26 @@ class Login extends Component {
                       <label htmlFor="pass">Password</label>
                       <br />
                       <TextField
-                        type={showPassword ? "text":"password"}
+                        type={showPassword ? "text" : "password"}
                         required
                         value={password}
+                        placeholder="password"
                         onChange={this.onHandleChange}
                         className="login__right__myForm__formData__username"
                         variant="outlined"
                         name="password"
                         InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <HttpsIcon style={{color:"#9e9e9e", fontSize:"1.4rem"}} />
+                            </InputAdornment>
+                          ),
                           endAdornment: (
                             <InputAdornment position="end">
                               <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={this.handleClickShowPassword}
-                                style={{ fontSize: "1rem" }}
+                                style={{color:"#9e9e9e", fontSize:"1.4rem" }}
                                 edge="end"
                               >
                                 {showPassword ? (
@@ -182,7 +206,11 @@ class Login extends Component {
                     <Button
                       disabled={!formValid || loading}
                       onClick={this.onHandleSubmit}
-                      className={!formValid || loading ? "login__right__myForm__loginButton__disable"  :"login__right__myForm__loginButton"}
+                      className={
+                        !formValid || loading
+                          ? "login__right__myForm__loginButton__disable"
+                          : "login__right__myForm__loginButton"
+                      }
                       type="submit"
                     >
                       Login
@@ -191,11 +219,11 @@ class Login extends Component {
                       New to TradeIn?&nbsp;
                       <a href="#">Create Account</a>
                     </div>
+                    <Button className="login__right__myForm__close" onClick={this.handleClose}>Close</Button>
                   </form>
                 </div>
               </div>
             </DialogContent>
-            <DialogActions></DialogActions>
           </Dialog>
         </Breakpoint>
         <Breakpoint medium down>

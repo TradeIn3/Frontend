@@ -88,6 +88,23 @@
       font-family: "Roboto", sans-serif;
       margin-top: 12px;
       width: 100%;
+      &__close{
+        position: absolute !important;
+        bottom: 14px;
+        right: 24px;
+        background: red !important;
+        padding: 5px 16px !important;
+        color: white !important;
+        span{
+          font-family: Oswald !important;
+          letter-spacing: 0.05em !important;
+          font-weight: 500 !important;
+          font-size: 0.875rem;
+        }
+        &:hover{
+          filter: brightness(0.8);
+        }
+      }
       &__formData {
         font-family: "Roboto", sans-serif;
         color: $dark-grey;
@@ -100,9 +117,23 @@
             border: none;
             border-radius: 2px;
             padding: 9px !important;
+            padding-left: 0 !important;
             // width: 100%;
             font-size: 0.875rem;
             letter-spacing: 0.03em;
+            input{
+              font-family: Roboto, sans-serif !important;
+              font-size: 0.875rem !important;
+              font-weight: 400 !important;
+              letter-spacing: 0.04em !important;
+              color: $black !important;
+              &::placeholder{
+                font-family: Roboto, sans-serif !important;
+                font-size: 0.8125rem !important;
+                letter-spacing: 0.03em !important;
+                color: $light-grey !important;
+              }
+            }
             div{
               padding: 0 !important;
               margin: 0 !important;
@@ -157,13 +188,13 @@
           span{
             font-family: Oswald !important;
             letter-spacing: 0.05em !important;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
           }
         }
         span{
           font-family: Oswald !important;
           letter-spacing: 0.05em !important;
-          font-weight: 600 !important;
+          font-weight: 500 !important;
         }
         &:hover {
           background-color: $theme-a;
@@ -175,7 +206,7 @@
       &__signup {
         font-family: "Roboto", sans-serif !important;
         color: $light-grey !important;
-        margin-top: 24px;
+        margin-top: 16px;
         font-size: 0.875rem !important;
         font-weight: 400 !important;
         letter-spacing: 0.03em;
@@ -187,11 +218,12 @@
           font-size: 0.875rem !important;
           font-weight: 500 !important;
           letter-spacing: 0.03em !important;
+          &:hover {
+            text-decoration: underline;
+            color: $theme-a !important;
+          }
         }
-        a:hover {
-          text-decoration: underline;
-          color: $theme-a;
-        }
+      
       }
     }
   }
