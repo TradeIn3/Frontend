@@ -4,7 +4,7 @@ import Navbar from '../Layout/Navbar'
 export default function LandingPage() {
     return (
         <div>
-            <Navbar/>
+            <h1>This is unauth  home page.</h1>
         </div>
     )
 }
