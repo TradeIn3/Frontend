@@ -1,5 +1,8 @@
 import axios from "axios";
 const API_HOSTNAME = "https://tradein-api-backend.herokuapp.com/api/";
+// const API_LOCALHOSTNAME = "http://127.0.0.1:8000/api/";
+
+
 
 export const Request = async (method, endpoint, token, data) => {
   return await axios({
