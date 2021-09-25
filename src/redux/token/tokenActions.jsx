@@ -1,5 +1,5 @@
 import { Request } from "../../api/Request";
-import {  UserLogin, UserTokenRefresh } from "../../api/pathConstants";
+import { UserLogin, UserTokenRefresh } from "../../api/pathConstants";
 import cookie from "react-cookies";
 
 import {
@@ -50,12 +50,9 @@ export const getLoginRequest = () => {
 
 export const getExpirationDate = (jwtToken) => {
   if (!jwtToken) {
-    console.log("yes3")
     return null;
   }
   const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
-  console.log("yes4");
-  console.log(jwt);
 
   // multiply by 1000 to convert seconds into milliseconds
   return (jwt && jwt.exp && jwt.exp * 1000) || null;
@@ -63,7 +60,6 @@ export const getExpirationDate = (jwtToken) => {
 
 export const isExpired = (exp) => {
   if (!exp) {
-    console.log("whu");
     return true;
   }
   return Date.now() >= exp;
@@ -71,7 +67,6 @@ export const isExpired = (exp) => {
 
 export const isTokenValid = (jwtToken) => {
   if (!jwtToken) {
-    console.log("yes")
     return false;
   }
   const isValid = jwtToken.match(
@@ -79,11 +74,9 @@ export const isTokenValid = (jwtToken) => {
   );
   if (isValid) {
     if (!isExpired(getExpirationDate(jwtToken))) {
-      console.log("all ok")
       return true;
     }
   }
-  console.log("yes2")
   return false;
 };
 
@@ -100,23 +93,25 @@ export const isTokenValid = (jwtToken) => {
 export const getToken = () => {
   return async (dispatch, getState) => {
     await dispatch(getTokenRequest());
-    if (!isTokenValid(getState().token.refresh)) {
-      console.log("refresh");
+    const refresh = await getState().token.refresh;
+    if (!isTokenValid(refresh)) {
       await dispatch(removeTokenRequest());
     } else {
-      if (!isTokenValid(getState().token.access)) {
+      const access = await getState().token.access;
+      if (!isTokenValid(access)) {
         const updatedToken = await Request("POST", UserTokenRefresh, null, {
-          refresh_token: getState().token.refresh,
+          refresh_token: refresh,
         });
         if (updatedToken && updatedToken.status === 200) {
           await dispatch(setToken(updatedToken.data));
-        } else if (!updatedToken.status) {
+        } else if (updatedToken && !updatedToken.status) {
           await dispatch(openSnackbar("Network Error"));
         } else {
           await dispatch(removeTokenRequest());
         }
       } else {
-        dispatch(getTokenSuccess(getState().token));
+        const tokens = await getState().token;
+        // dispatch(getTokenSuccess(tokens));
       }
     }
   };
@@ -158,7 +153,7 @@ export const loginAction = (user_id, password, value) => {
       password,
     });
     if (res) {
-      if(res.status !== 200){
+      if (res.status !== 200) {
         await dispatch(openSnackbar("Something went wrong"));
       }
       if (res.status === 200) {

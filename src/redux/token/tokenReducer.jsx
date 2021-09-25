@@ -47,9 +47,10 @@ const reducer = (state = initialState, action) => {
       };
     case GET_TOKEN_SUCCESS:
       return {
+        ...state,
         loading: false,
-        access: action.data.access_token,
-        refresh: action.data.refresh_token,
+        // access: action.data.access_token,
+        // refresh: action.data.refresh_token,
         // session_id: action.data.session_id,
         isLoggedIn: true,
         success: true,
