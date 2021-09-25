@@ -9,6 +9,8 @@ import SnackBars from './SnackBars';
 import SessionExpirePrompt from './SessionExpirePrompt';
 import LandingPage from './Components/UnAuth/LandingPage';
 import Home from './Components/Auth/Home';
+import Layout from "./Components/Layout/Layout";
+import MainLoader from "./Components/Loaders/MainLoader";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
@@ -68,16 +70,18 @@ function Root(props) {
         </UnAuthorizedRoute>
         <AuthorizedRoute path={AUTH_HOME_PATH} exact>
           {(props) => (
-            //<Layout {...props}>
+            <Layout {...props}>
               <Home {...props} />
-            //</Layout>
+            </Layout>
           )}
         </AuthorizedRoute>
         
 
         <Route path="*">
-          {(props) =>
-              <FourOFourError {...props} />
+          {props.isLoggedIn ? (props) =>
+            <Layout {...props}>   <FourOFourError {...props} /> </Layout>
+            :  (props) =>
+            <FourOFourError {...props} />
           }
         </Route>
       </Switch>

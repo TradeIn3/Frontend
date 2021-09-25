@@ -54,7 +54,7 @@ class Login extends Component {
     let passwordValid = this.state.passwordValid;
     switch (fieldName) {
       case "username":
-        usernameValid = value.match(/^[A-Za-z0-9_]{3,63}$/);
+        usernameValid = value.match(/^[A-Za-z0-9_@]{3,63}$/);
         const errorMsg = value.length<3 || value.length>30 ? "length should be between 3-30 characters" : !usernameValid ? "Characters, Numbers and Underscores are allowed" : "";
         fieldValidationErrors.username = errorMsg;
         break;
@@ -115,8 +115,8 @@ class Login extends Component {
             fullWidth
             maxWidth="lg"
           >
-            <DialogTitle id="form-dialog-title"></DialogTitle>
-            <DialogContent style={{ overflow: "hidden", height: "30rem" }}>
+         
+            <DialogContent style={{ overflow: "hidden", height: "30rem",padding:"0" }}>
               <div className="login">
                 <div className="login__left">
                   <div className="login__left__logo">

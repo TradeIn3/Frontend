@@ -6,7 +6,7 @@ export default function LandingPage() {
     return (
         <div>
             <h1>This is unauth  home page.</h1>
-            <Link To ="/login">Login</Link>
+            <Link to ="/login">Login</Link>
         </div>
     )
 }
