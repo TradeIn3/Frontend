@@ -8,9 +8,13 @@ import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import SwapHorizontalCircleIcon from '@material-ui/icons/SwapHorizontalCircle';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { Breakpoint } from "react-socks";
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 export default class Navbar extends Component {
   state = {
     style: "none",
+    show:"none",
   };
   render() {
     return (
@@ -57,8 +61,27 @@ export default class Navbar extends Component {
             </ul>
           </li>
 
-            <a href="#">
+            <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
               <img src={DummyPic} className="nav__profile" />
+              <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
+              <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
+              <div className="nav__dropdownprofile__head">
+              <img src={DummyPic} className="nav__profile" />
+                <div>
+                <h5>Rohit Jain</h5>
+                <h6>@rohit0301</h6>
+                </div>
+              </div>
+              <li className="nav__dropdownprofile__list">
+                <a href="#"><AccountCircleOutlinedIcon/>Profile</a>
+              </li>
+              <li className="nav__dropdownprofile__list">
+                <a href="#"><BookmarkBorderOutlinedIcon/>Saved</a>
+              </li>
+              <li className="nav__dropdownprofile__list" style={{border:"none"}}>
+                <a href="#"><ExitToAppIcon/>Logout</a>
+              </li>
+            </ul>
             </a>
         
         </ul>

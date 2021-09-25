@@ -21,7 +21,7 @@ export const getMyDetails = () => {
         await dispatch(addMyDetails(res.data));
       } else if (res && res.status !== 200) {
         await dispatch(removeTokenRequest());
-      } else if (!res.status) {
+      } else {
         await dispatch(openSnackbar("Network error"));
       }
     }

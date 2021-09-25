@@ -23,8 +23,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { withRouter } from "react-router-dom";
 import { loginAction } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
-import PersonIcon from '@material-ui/icons/Person';
-import HttpsIcon from '@material-ui/icons/Https';
+import PersonIcon from "@material-ui/icons/Person";
+import HttpsIcon from "@material-ui/icons/Https";
 class Login extends Component {
   state = {
     username: "",
@@ -55,7 +55,12 @@ class Login extends Component {
     switch (fieldName) {
       case "username":
         usernameValid = value.match(/^[A-Za-z0-9_@]{3,63}$/);
-        const errorMsg = value.length<3 || value.length>30 ? "length should be between 3-30 characters" : !usernameValid ? "Characters, Numbers and Underscores are allowed" : "";
+        const errorMsg =
+          value.length < 3 || value.length > 30
+            ? "length should be between 3-30 characters"
+            : !usernameValid
+            ? "Characters, Numbers and Underscores are allowed"
+            : "";
         fieldValidationErrors.username = errorMsg;
         break;
       case "password":
@@ -100,7 +105,7 @@ class Login extends Component {
   handleClose = () => {
     this.props.history.push("/");
   };
-  
+
   render() {
     const { showPassword, formErrors, formValid, username, password } =
       this.state;
@@ -115,8 +120,9 @@ class Login extends Component {
             fullWidth
             maxWidth="lg"
           >
-         
-            <DialogContent style={{ overflow: "hidden", height: "30rem",padding:"0" }}>
+            <DialogContent
+              style={{ overflow: "hidden", height: "30rem", padding: "0" }}
+            >
               <div className="login">
                 <div className="login__left">
                   <div className="login__left__logo">
@@ -149,7 +155,9 @@ class Login extends Component {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <PersonIcon style={{color:"#9e9e9e", fontSize:"1.4rem"}} />
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
                             </InputAdornment>
                           ),
                         }}
@@ -174,7 +182,9 @@ class Login extends Component {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <HttpsIcon style={{color:"#9e9e9e", fontSize:"1.4rem"}} />
+                              <HttpsIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
                             </InputAdornment>
                           ),
                           endAdornment: (
@@ -182,7 +192,7 @@ class Login extends Component {
                               <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={this.handleClickShowPassword}
-                                style={{color:"#9e9e9e", fontSize:"1.4rem" }}
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
                                 edge="end"
                               >
                                 {showPassword ? (
@@ -219,7 +229,12 @@ class Login extends Component {
                       New to TradeIn?&nbsp;
                       <a href="#">Create Account</a>
                     </div>
-                    <Button className="login__right__myForm__close" onClick={this.handleClose}>Close</Button>
+                    <Button
+                      className="login__right__myForm__close"
+                      onClick={this.handleClose}
+                    >
+                      Close
+                    </Button>
                   </form>
                 </div>
               </div>
@@ -229,46 +244,120 @@ class Login extends Component {
         <Breakpoint medium down>
           <Dialog
             open={true}
+            onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
             fullWidth
             fullScreen
             maxWidth="lg"
           >
-            <DialogTitle id="form-dialog-title"></DialogTitle>
-            <DialogContent style={{ overflow: "hidden" }}>
-              <div className="loginMobo">
-                <img src={LoginBg} className="loginMobo__bgImage" />
-                <div className="loginMobo__logo">
-                  <img src={WebsiteLogo} />
+            <DialogTitle>
+              <div>
+                    <img src={WebsiteLogo} />
+                    <h1>TradeIn</h1>
+                  </div>
+                  <p>A better place to buy and sell products</p></DialogTitle>
+            <DialogContent
+              style={{ overflow: "hidden", height: "30rem", padding: "0" }}
+            >
+              <div className="login">
+                <div className="login__right">
+                  {loading && <LinearProgress style={{ height: "5.5px" }} />}
+                  <h2>Login to your account</h2>
+                  <form
+                    className="login__right__myForm"
+                    onSubmit={this.onHandleSubmit}
+                  >
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Username</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="username"
+                        className="login__right__myForm__formData__username"
+                        name="username"
+                        value={username}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.username}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="pass">Password</label>
+                      <br />
+                      <TextField
+                        type={showPassword ? "text" : "password"}
+                        required
+                        value={password}
+                        placeholder="password"
+                        onChange={this.onHandleChange}
+                        className="login__right__myForm__formData__username"
+                        variant="outlined"
+                        name="password"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <HttpsIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.handleClickShowPassword}
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityIcon />
+                                ) : (
+                                  <VisibilityOffIcon />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.password}
+                      </FormHelperText>
+                    </div>
+
+                    <div className="login__right__myForm__pass">
+                      Forgot Password?
+                    </div>
+                    <Button
+                      disabled={!formValid || loading}
+                      onClick={this.onHandleSubmit}
+                      className={
+                        !formValid || loading
+                          ? "login__right__myForm__loginButton__disable"
+                          : "login__right__myForm__loginButton"
+                      }
+                      type="submit"
+                    >
+                      Login
+                    </Button>
+                    <div className="login__right__myForm__signup">
+                      New to TradeIn?&nbsp;
+                      <a href="#">Create Account</a>
+                    </div>
+                  </form>
                 </div>
-                <h2>Login</h2>
-                <FormControl className="loginMobo__myForm">
-                  <div className="loginMobo__myForm__formData">
-                    <TextField
-                      className="loginMobo__myForm__formData__username"
-                      name="username"
-                      variant="outlined"
-                      placeholder="Username"
-                    ></TextField>
-                  </div>
-                  <div className="loginMobo__myForm__FormData">
-                    <TextField
-                      className="loginMobo__myForm__formData__username"
-                      name="password"
-                      variant="outlined"
-                      placeholder="Password"
-                    ></TextField>
-                  </div>
-                  <a className="loginMobo__myForm__pass">Forgot Password?</a>
-                  <Button type="submit">Login</Button>
-                  <div className="loginMobo__myForm__signup">
-                    New to TradeIn?&nbsp;
-                    <a href="#">Create Account</a>
-                  </div>
-                </FormControl>
               </div>
             </DialogContent>
-            <DialogActions></DialogActions>
           </Dialog>
         </Breakpoint>
       </React.Fragment>
