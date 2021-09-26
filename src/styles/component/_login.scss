@@ -88,20 +88,20 @@
       font-family: "Roboto", sans-serif;
       margin-top: 12px;
       width: 100%;
-      &__close{
+      &__close {
         position: absolute !important;
         bottom: 14px;
         right: 24px;
         background: $light-grey !important;
         padding: 5px 16px !important;
         color: white !important;
-        span{
+        span {
           font-family: Oswald !important;
           letter-spacing: 0.05em !important;
           font-weight: 500 !important;
           font-size: 0.875rem;
         }
-        &:hover{
+        &:hover {
           filter: brightness(0.8);
         }
       }
@@ -121,21 +121,21 @@
             // width: 100%;
             font-size: 0.875rem;
             letter-spacing: 0.03em;
-            input{
+            input {
               font-family: Roboto, sans-serif !important;
               font-size: 0.875rem !important;
               font-weight: 400 !important;
               letter-spacing: 0.04em !important;
               color: $black !important;
-              padding:0;
-              &::placeholder{
+              padding: 0;
+              &::placeholder {
                 font-family: Roboto, sans-serif !important;
                 font-size: 0.8125rem !important;
                 letter-spacing: 0.03em !important;
                 color: $light-grey !important;
               }
             }
-            div{
+            div {
               padding: 0 !important;
               margin: 0 !important;
               margin-right: 12px !important;
@@ -177,7 +177,7 @@
         padding: 4px 0 !important;
         border-radius: 2px !important;
         margin-top: 2.2rem !important;
-        &__disable{
+        &__disable {
           width: 100% !important;
           margin: 17px 0px !important;
           font-size: 1.1rem !important;
@@ -185,14 +185,14 @@
           border-radius: 2px !important;
           margin-top: 2.2rem !important;
           background-color: #eee !important;
-          color: $light-grey!important;
-          span{
+          color: $light-grey !important;
+          span {
             font-family: Oswald !important;
             letter-spacing: 0.05em !important;
             font-weight: 500 !important;
           }
         }
-        span{
+        span {
           font-family: Oswald !important;
           letter-spacing: 0.05em !important;
           font-weight: 500 !important;
@@ -202,7 +202,6 @@
           filter: brightness(0.8);
         }
       }
-      
 
       &__signup {
         font-family: "Roboto", sans-serif !important;
@@ -224,170 +223,73 @@
             color: $theme-a !important;
           }
         }
-      
       }
     }
   }
 }
 
-@media (max-width:991px) {
-  
-.MuiDialog-scrollPaper {
-  width: 100% !important;
-}
-  
-.loginMobo {
-  // background: url("../../assets/LoginBg.svg") no-repeat center center/cover;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  &__bgImage{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.moboLogo {
+  display: flex;
+  img {
+    width: 3.2rem;
+    height: 3.2rem;
   }
-  // filter: brightness(0.95);
+  h1 {
+    font-size: 1.8rem;
+    padding-left: 9px;
+  }
 
-  &__logo {
-    display: flex;
-    align-items: center;
-    padding: 24px 0 0 24px !important;
-
-    img {
-      width: 4.5rem;
-      height: 4.5rem;
+  &__icon {
+    padding: 2px 0;
+    margin-top: 0.85rem;
+  }
+}
+.para {
+  padding-left: 3rem;
+}
+@media (max-width: 991px) {
+  .MuiDialog-scrollPaper {
+    width: 100% !important;
+  }
+  .login {
+    &__right {
+      h2 {
+        font-size: 1.18rem;
+        padding-left: 1.32rem;
+      }
+      &__myForm {
+        padding: 0 2.5rem !important;
+      }
     }
   }
-  h2 {
-    color: white;
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    margin: 25px;
-    font-size: 2.5rem;
-    letter-spacing: 0.03em;
-    margin-top: 34vh;
-    margin-left: 2rem;
-  }
+}
 
-  &__myForm {
-    padding-left: 25px !important;
-    padding-right: 25px !important;
-    font-family: "Roboto", sans-serif;
-    margin-top: 12px;
-    width: 85%;
-    // border: 2px solid red;
-    &__formData {
-      font-family: "Roboto", sans-serif;
-      color: $dark-grey;
-      margin-bottom: 24px;
-      &__username {
-        width: 100% !important;
-        div{
-          input {
-            font-family: "Roboto", sans-serif !important;
-            color: white !important;
-            letter-spacing: 0.03em !important;
-            font-size: 1.125rem !important;
-            &::placeholder {
-              color: white !important;
-              opacity: .9 !important ;
-            }
-          }     
-          fieldset{
-            border: none !important;
-            &:hover{
-              border: none !important;
-            }
-            &:focus{
-              border: none !important;
-            }
-          }  
+@media screen and (min-device-width: 501px) and (max-device-width: 991px) {
+  .moboLogo {
+    padding-left: 3rem;
+    &__icon {
+      margin-left: -3rem;
+    }
+  }
+  .login {
+    &__right {
+      h2 {
+        text-align: center;
+        font-size: 1.45rem;
+      }
+      &__myForm {
+        width: 80%;
+        margin: 0 auto;
+        &__formData {
+          &__username {
+            width: 70vw;
+          }
         }
-        div {
-          margin-top: 10px;
-          background: $theme-a;
-          border: 1.5px solid white;
-          border-radius: 2px;
-          padding: 18px !important;
-          width: 100%;
-          font-size: 0.95rem;
-          letter-spacing: 0.03em;
-          color: white;
+        &__loginButton {
+          width: 70vw !important;
+          padding: 0 !important;
         }
       }
-    }
-
-    &__pass {
-      font-family: "Roboto", sans-serif;
-      font-weight: 500;
-      color: white;
-      margin-top: 1.5rem;
-      margin-left: 8px;
-      font-size: 1.05rem !important;
-      width: max-content;
-      letter-spacing: 0.03em;
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-        color: white;
-      }
-    }
-    Button {
-      color: white;
-      background-color: #9147ff;
-      width: 100% !important;
-      margin: 17px 0px;
-      font-size: 1.5rem;
-      padding: 7px 0 !important;
-      border: 1.5px solid white;
-      border-radius: 2px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      margin-top: 2.5rem;
-      span{
-        font-family: Oswald !important;
-      }
-    }
-    Button:hover {
-      background: white;
-      color: $theme-a;
-    }
-
-    &__signup {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex-wrap: wrap;
-      font-family: "Roboto", sans-serif;
-      color: white;
-      margin-top: 24px;
-      margin-left: 4px;
-      font-size: 1rem !important;
-      font-weight: 400;
-      letter-spacing: 0.03em;
-
-      a {
-        font-family: "Roboto", sans-serif !important;
-        text-decoration: none;
-        color: white !important;
-        font-weight: 500;
-        font-size: 1.125rem;
-        &:hover {
-          text-decoration: underline;
-          color: white;
-        }
-      }
-    }
-  }
-}
-
-}
-
-@media (max-width:500px){
-  .loginMobo{
-    &__myForm{
-      width: 100%;
     }
   }
 }
