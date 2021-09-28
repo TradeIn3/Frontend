@@ -1,0 +1,173 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.slick-slide img {
+  display: block;
+  border-radius: 18px;
+  border-bottom-right-radius: 25px;
+}
+.slick-slide {
+  height: 350px;
+}
+
+.slick-dots {
+  bottom: 17px;
+}
+.slick-dots li button:before {
+  font-size: 10px;
+  line-height: 10px;
+  color: white !important;
+  opacity: 0.75;
+}
+.slick-prev {
+  left: 10px;
+  z-index: 1;
+  opacity: 1;
+}
+.slick-prev:before,
+.slick-next:before {
+  font-family: "slick";
+  font-size: 33px;
+  line-height: 1;
+  opacity: 1;
+}
+.slick-next {
+  right: 30px;
+}
+
+.card {
+  width: 47%;
+  position: relative;
+  padding: 14px;
+  background-color: white;
+  left: 100px;
+  &__sell {
+    display: flex;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    &__btn {
+      background-color: #d83f87 !important;
+      color: white !important;
+      font-weight: 600 !important;
+      font-size: 1.2rem !important;
+      padding: 2px 24px !important;
+      font-family: Oswald, sans-serif;
+    }
+    &__icon {
+      position: absolute;
+      left: 90%;
+      cursor: pointer;
+    }
+  }
+  &__profile {
+    display: flex;
+
+    font-size: 0.89rem;
+    &__pic {
+      img {
+        margin-right: 5px;
+        max-width: 60px;
+        height: 60px;
+        background-clip: border-box;
+        padding: 3.2px;
+      }
+    }
+    &__name {
+      font-weight: 500;
+      font-family: Roboto, sans-serif;
+      padding-top: 8px;
+      span {
+        color: $light-grey;
+      }
+    }
+    &__email {
+      font-family: Roboto, sans-serif;
+      color: $light-grey;
+      padding-top: 8px;
+    }
+    &__lastSeen {
+      font-family: Roboto, sans-serif;
+      color: $light-grey;
+      padding-top: 8px;
+    }
+  }
+  &__product {
+    h1 {
+      font-size: 1.8rem;
+      padding-left: 22px;
+      font-family: Roboto, sans-serif;
+      font-weight: 500 !important;
+    }
+    &__carousel {
+      padding: 15px;
+      &__slides {
+        &__slick-dots {
+          bottom: 19px;
+        }
+      }
+    }
+    p {
+      color: $dark-grey;
+      font-size: 0.85em;
+      letter-spacing: 0.03em;
+      padding: 1px 23px 16px 23px;
+      font-family: Roboto, sans-serif;
+    }
+  }
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 4px 0px 4px;
+    &__used {
+      padding: 10px;
+      p {
+        color: $dark-grey;
+        font-size: 0.85em;
+        letter-spacing: 0.03em;
+        font-family: Roboto, sans-serif;
+      }
+      h3 {
+        font-family: Roboto, sans-serif;
+      }
+    }
+    &__sp {
+      padding: 10px;
+      p {
+        color: $dark-grey;
+        font-size: 0.85em;
+        letter-spacing: 0.03em;
+        font-family: Roboto, sans-serif;
+      }
+      h3 {
+        color: red;
+        font-family: Roboto, sans-serif;
+      }
+    }
+    &__bp {
+      padding: 10px;
+      p {
+        color: $dark-grey;
+        font-size: 0.85em;
+        letter-spacing: 0.03em;
+        font-family: Roboto, sans-serif;
+      }
+      h3 {
+        font-family: Roboto, sans-serif;
+      }
+    }
+    &__buy {
+      padding: 10px;
+      &__buybtn {
+        background-color: $theme-a !important;
+        color: white !important;
+        font-weight: 600 !important;
+        font-size: 1.2rem !important;
+        padding: 2px 24px !important;
+        font-family: Oswald, sans-serif;
+      }
+    }
+  }
+}

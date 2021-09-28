@@ -11,6 +11,7 @@ import LandingPage from './Components/UnAuth/LandingPage';
 import Home from './Components/Auth/Home';
 import Layout from "./Components/Layout/Layout";
 import MainLoader from "./Components/Loaders/MainLoader";
+import PostCard from "./Components/Card/PostCard";
 function Root(props) {
   useEffect(() => {
     async function getToken() {

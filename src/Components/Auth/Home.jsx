@@ -6,7 +6,6 @@ export default function Home() {
     return (
         <div>
             <h1>Auth Home Page</h1>
-            
         </div>
     )
 }
