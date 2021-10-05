@@ -19,7 +19,7 @@ function Root(props) {
     getToken();
   }, [props.isLoggedIn]);
 
-  const AuthorizedRoute = ({ children, ...rest }) => {
+ const AuthorizedRoute = ({ children, ...rest }) => {
     return (
       <Route
         {...rest}
@@ -38,7 +38,7 @@ function Root(props) {
       />
     );
   };
-  const UnAuthorizedRoute = ({ children, ...rest }) => {
+ const UnAuthorizedRoute = ({ children, ...rest }) => {
     return (
       <Route
         {...rest}
@@ -61,20 +61,20 @@ function Root(props) {
   return (
     <div className="config_css">
       <Switch>
-
-        <UnAuthorizedRoute path={UNAUTH_HOME_PATH} exact>
-          {(props) => <LandingPage {...props} />}
-        </UnAuthorizedRoute>
-        <UnAuthorizedRoute path={UNAUTH_LOGIN_PATH} exact>
-          {(props) => <Login {...props} />}
-        </UnAuthorizedRoute>
-        <AuthorizedRoute path={AUTH_HOME_PATH} exact>
+      <AuthorizedRoute path={AUTH_HOME_PATH} exact>
           {(props) => (
             <Layout {...props}>
               <Home {...props} />
-            </Layout>
+             </Layout>
           )}
         </AuthorizedRoute>
+        <UnAuthorizedRoute path={UNAUTH_HOME_PATH}>
+          {(props) => <LandingPage {...props} />}
+        </UnAuthorizedRoute>
+        {/* <UnAuthorizedRoute path={UNAUTH_LOGIN_PATH} exact>
+          {(props) => <Login {...props} />}
+        </UnAuthorizedRoute> */}
+       
         
 
         <Route path="*">

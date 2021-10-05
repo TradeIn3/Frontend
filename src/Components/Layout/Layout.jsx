@@ -10,6 +10,7 @@ import MainLoader from "../Loaders/MainLoader";
 import { Breakpoint } from "react-socks";
 class Layout extends Component {
   async componentDidMount() {
+    console.log("index");
     await this.props.myDetailsDispatch();
   }
   render() {
@@ -22,7 +23,7 @@ class Layout extends Component {
         </Breakpoint>
         <Breakpoint medium down>
           <Navbar />
-          {this.props.children}
+          {this.props.children} 
           <BottomBar />
         </Breakpoint>
       </>

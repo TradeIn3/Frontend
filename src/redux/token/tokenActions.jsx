@@ -22,7 +22,7 @@ export const getTokenRequest = () => {
 export const removeTokenRequest = () => {
   cookie.remove("access", { path: "/" });
   cookie.remove("refresh", { path: "/" });
-  cookie.remove("session_id", { path: "/" });
+  // cookie.remove("session_id", { path: "/" });
   return {
     type: REMOVE_TOKEN_REQUEST,
   };
@@ -80,15 +80,7 @@ export const isTokenValid = (jwtToken) => {
   return false;
 };
 
-// export const removeToken = () => {
-//   localStorage.clear();
-//   // localStorage.removeItem("myDetail");
-//   cookie.remove("access", { path: "/" });
-//   cookie.remove("refresh", { path: "/" });
-//   cookie.remove("session_id", { path: "/" });
 
-//   // setTokenValue({ access: null, refresh: null, session_id: null });
-// };
 
 export const getToken = () => {
   return async (dispatch, getState) => {

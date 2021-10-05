@@ -11,11 +11,18 @@ import { Breakpoint } from "react-socks";
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-export default class Navbar extends Component {
+import {Link} from 'react-router-dom';
+import { connect } from "react-redux";
+import { removeTokenRequest } from "../../redux/token/tokenActions";
+class Navbar extends Component {
   state = {
     style: "none",
     show:"none",
   };
+
+  logout = async() =>{
+    await this.props.removeTokenDispatch();
+  }
   render() {
     return (
       <>
@@ -73,13 +80,13 @@ export default class Navbar extends Component {
                 </div>
               </div>
               <li className="nav__dropdownprofile__list">
-                <a href="#"><AccountCircleOutlinedIcon/>Profile</a>
+                <Link href="#"><AccountCircleOutlinedIcon/>Profile</Link>
               </li>
               <li className="nav__dropdownprofile__list">
-                <a href="#"><BookmarkBorderOutlinedIcon/>Saved</a>
+                <Link href="#"><BookmarkBorderOutlinedIcon/>Saved</Link>
               </li>
               <li className="nav__dropdownprofile__list" style={{border:"none"}}>
-                <a href="#"><ExitToAppIcon/>Logout</a>
+                <Link onClick={this.logout} to="/"><ExitToAppIcon/>Logout</Link>
               </li>
             </ul>
             </a>
@@ -94,3 +101,17 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    myDetails: state.myDetails.myDetails,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeTokenDispatch: () => dispatch(removeTokenRequest()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
