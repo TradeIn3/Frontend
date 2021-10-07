@@ -12,6 +12,7 @@ import Home from './Components/Auth/Home';
 import Layout from "./Components/Layout/Layout";
 import MainLoader from "./Components/Loaders/MainLoader";
 import PostCard from "./Components/Card/PostCard";
+import PostFull from "./Components/PostFull";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
