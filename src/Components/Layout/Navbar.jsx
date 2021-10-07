@@ -37,16 +37,16 @@ class Navbar extends Component {
         </div>
         <ul>
           <li className="nav__tab">
-            <a href="/">HOME</a>
+            <Link to="/home">HOME</Link>
           </li>
           <li className="nav__tab">
-            <a href="#">BUY</a>
+            <Link to="/buy">BUY</Link>
           </li>
           <li className="nav__tab">
-            <a href="#">DONATION</a>
+            <Link to="/donate">DONATION</Link>
           </li>
           <li className="nav__tab">
-            <a href="#">EXCHANGE</a>
+            <Link to="/exchange">EXCHANGE</Link>
           </li>
 
           <li className="nav__tab1">

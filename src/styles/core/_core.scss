@@ -9,13 +9,17 @@ body {
   box-sizing: border-box;
   /* Disables pull-to-refresh and not allows overscroll glow effects. */
   overscroll-behavior-y: none;
-
+  background-color: white !important;
   // min-height: 720px;
   // min-width: 1200px;
 
   * {
     font-family: 'Open Sans', sans-serif;
   }
+}
+
+hr{
+  color: $border-color !important;
 }
 
 .errormessage{
@@ -48,7 +52,7 @@ h6 {
 
 p {
   margin: 0;
-  font-size: .75rem;
+  font-size: .682rem;
 }
 
 a {

@@ -87,6 +87,8 @@ export const getToken = () => {
     await dispatch(getTokenRequest());
     const refresh = await getState().token.refresh;
     if (!isTokenValid(refresh)) {
+      console.log("refresh invalid")
+      console.log(refresh)
       await dispatch(removeTokenRequest());
     } else {
       const access = await getState().token.access;
@@ -94,12 +96,16 @@ export const getToken = () => {
         const updatedToken = await Request("POST", UserTokenRefresh, null, {
           refresh_token: refresh,
         });
+        console.log("refresh ok");
+        console.log(updatedToken);
         if (updatedToken && updatedToken.status === 200) {
           await dispatch(setToken(updatedToken.data));
-        } else if (updatedToken && !updatedToken.status) {
-          await dispatch(openSnackbar("Network Error"));
+        } else if (updatedToken && updatedToken!==200) {
+          // await dispatch(removeTokenRequest());
+          console.log("this is the problem")
+         
         } else {
-          await dispatch(removeTokenRequest());
+          await dispatch(openSnackbar("Network Error"));
         }
       } else {
         const tokens = await getState().token;

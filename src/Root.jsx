@@ -1,16 +1,28 @@
 import React, { Component, useEffect } from "react";
 import Login from "./Components/UnAuth/Login";
-import { AUTH_HOME_PATH, UNAUTH_HOME_PATH, UNAUTH_LOGIN_PATH } from "./constants/routeConstants";
-import {Route,Switch,Redirect} from 'react-router-dom';
-import {getToken} from './redux/token/tokenActions';
+import {
+  AUTH_BUY_PATH,
+  AUTH_DONATE_PATH,
+  AUTH_HOME_PATH,
+  UNAUTH_HOME_PATH,
+  UNAUTH_LOGIN_PATH,
+} from "./constants/routeConstants";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { getToken } from "./redux/token/tokenActions";
 import { connect } from "react-redux";
 import FourOFourError from "./Components/FourOFour/FourOFourError";
-import SnackBars from './SnackBars';
-import SessionExpirePrompt from './SessionExpirePrompt';
-import LandingPage from './Components/UnAuth/LandingPage';
-import Home from './Components/Auth/Home';
+import SnackBars from "./SnackBars";
+import SessionExpirePrompt from "./SessionExpirePrompt";
+import LandingPage from "./Components/UnAuth/LandingPage";
+import Home from "./Components/Auth/Home";
 import Layout from "./Components/Layout/Layout";
 import MainLoader from "./Components/Loaders/MainLoader";
+import PostCard from "./Components/Card/PostCard";
+import Buy from "./Components/Auth/Buy";
+import Donate from "./Components/Auth/Donate";
+import Sidebar from "./Components/Layout/Sidebar";
+import { Breakpoint } from "react-socks";
+import { Grid } from "@material-ui/core";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
@@ -19,7 +31,7 @@ function Root(props) {
     getToken();
   }, [props.isLoggedIn]);
 
- const AuthorizedRoute = ({ children, ...rest }) => {
+  const AuthorizedRoute = ({ children, ...rest }) => {
     return (
       <Route
         {...rest}
@@ -38,7 +50,7 @@ function Root(props) {
       />
     );
   };
- const UnAuthorizedRoute = ({ children, ...rest }) => {
+  const UnAuthorizedRoute = ({ children, ...rest }) => {
     return (
       <Route
         {...rest}
@@ -61,28 +73,65 @@ function Root(props) {
   return (
     <div className="config_css">
       <Switch>
-      <AuthorizedRoute path={AUTH_HOME_PATH} exact>
+        <AuthorizedRoute path={AUTH_DONATE_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <Breakpoint large up>
+                <Grid container>
+                  <Grid item xs={2} style={{position:"relative"}}>
+                    <Sidebar />
+                  </Grid>
+                  <Grid item xs={10}>
+                    {" "}
+                    <Donate {...props} />
+                  </Grid>
+                </Grid>
+              </Breakpoint>
+              <Breakpoint medium down>
+                <Donate {...props} />
+              </Breakpoint>
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_BUY_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <Breakpoint large up>
+                <Grid container>
+                  <Grid item xs={2} style={{position:"relative"}}>
+                    <Sidebar />
+                  </Grid>
+                  <Grid item xs={10}>
+                    {" "}
+                    <Buy {...props} />
+                  </Grid>
+                </Grid>
+              </Breakpoint>
+              <Breakpoint medium down>
+                <Buy {...props} />
+              </Breakpoint>
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_HOME_PATH} exact>
           {(props) => (
             <Layout {...props}>
               <Home {...props} />
-             </Layout>
+            </Layout>
           )}
         </AuthorizedRoute>
         <UnAuthorizedRoute path={UNAUTH_HOME_PATH}>
           {(props) => <LandingPage {...props} />}
         </UnAuthorizedRoute>
-        {/* <UnAuthorizedRoute path={UNAUTH_LOGIN_PATH} exact>
-          {(props) => <Login {...props} />}
-        </UnAuthorizedRoute> */}
-       
-        
-
         <Route path="*">
-          {props.isLoggedIn ? (props) =>
-            <Layout {...props}>   <FourOFourError {...props} /> </Layout>
-            :  (props) =>
-            <FourOFourError {...props} />
-          }
+          {props.isLoggedIn
+            ? (props) => (
+                <Layout {...props}>
+                  {" "}
+                  <FourOFourError {...props} />{" "}
+                </Layout>
+              )
+            : (props) => <FourOFourError {...props} />}
         </Route>
       </Switch>
       <SessionExpirePrompt />

@@ -25,6 +25,7 @@ import { loginAction } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
 import PersonIcon from "@material-ui/icons/Person";
 import HttpsIcon from "@material-ui/icons/Https";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 class Login extends Component {
   state = {
     username: "",
@@ -250,14 +251,25 @@ class Login extends Component {
             fullScreen
             maxWidth="lg"
           >
-            <DialogTitle>
-              <div>
-                    <img src={WebsiteLogo} />
-                    <h1>TradeIn</h1>
+            <DialogTitle className="moboLogo__title">
+              <div className="moboLogo">
+                <div className="moboLogo__icon">
+                  <IconButton>
+                  <ArrowBackIosIcon />
+                   </IconButton>   
                   </div>
-                  <p>A better place to buy and sell products</p></DialogTitle>
+
+                <img src={WebsiteLogo} />
+                <h1>TradeIn</h1>
+              </div>
+              <div className="para">
+                <p>A better place to buy and sell products</p>
+              </div>
+            </DialogTitle>
+            
             <DialogContent
               style={{ overflow: "hidden", height: "30rem", padding: "0" }}
+              dividers
             >
               <div className="login">
                 <div className="login__right">

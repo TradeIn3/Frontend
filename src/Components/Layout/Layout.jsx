@@ -8,6 +8,8 @@ import { getMyDetails } from "../../redux/mydetails/myDetailsActions";
 import { connect } from "react-redux";
 import MainLoader from "../Loaders/MainLoader";
 import { Breakpoint } from "react-socks";
+import { Grid } from "@material-ui/core";
+import Sidebar from "./Sidebar";
 class Layout extends Component {
   async componentDidMount() {
     console.log("index");
@@ -18,12 +20,18 @@ class Layout extends Component {
     return (
       <>
         <Breakpoint large up>
-          <Navbar />
-          {this.props.children}
+          <Grid container>
+            <Grid xs={12}>
+              <Navbar />
+            </Grid>
+            <Grid item xs={12} style={{marginTop:"3rem"}}>
+              {this.props.children}
+            </Grid>
+          </Grid>
         </Breakpoint>
         <Breakpoint medium down>
           <Navbar />
-          {this.props.children} 
+          {this.props.children}
           <BottomBar />
         </Breakpoint>
       </>
