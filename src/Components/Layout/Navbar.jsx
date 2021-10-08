@@ -24,6 +24,8 @@ class Navbar extends Component {
     await this.props.removeTokenDispatch();
   }
   render() {
+    const {isLoggedIn} = this.props;
+    console.log(isLoggedIn)
     return (
       <>
       <Breakpoint large up>
@@ -48,7 +50,10 @@ class Navbar extends Component {
           <li className="nav__tab">
             <Link to="/exchange">EXCHANGE</Link>
           </li>
-
+          {!isLoggedIn && <li className="nav__login">
+            <Link to="?login=true">Login</Link>
+          </li>}
+          {isLoggedIn &&
           <li className="nav__tab1">
             <a href="#"  onMouseEnter={() => this.setState({ style: "block" })} onMouseLeave={() => this.setState({ style: "none" }) }>
               ADD POST <ExpandMoreIcon className="nav__expand"/>{" "}
@@ -66,9 +71,11 @@ class Navbar extends Component {
                 <a href="#"><LoopIcon/>Exchange</a>
               </li>
             </ul>
-          </li>
+          </li>}
 
-            <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
+
+
+          {isLoggedIn &&  <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
               <img src={DummyPic} className="nav__profile" />
               <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
               <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
@@ -86,10 +93,10 @@ class Navbar extends Component {
                 <Link href="#"><BookmarkBorderOutlinedIcon/>Saved</Link>
               </li>
               <li className="nav__dropdownprofile__list" style={{border:"none"}}>
-                <Link onClick={this.logout} to="/"><ExitToAppIcon/>Logout</Link>
+                <Link onClick={this.logout} to={this.props.location?this.props.location.pathname:"/"}><ExitToAppIcon/>Logout</Link>
               </li>
             </ul>
-            </a>
+            </a>}
         
         </ul>
       </div>
@@ -104,6 +111,7 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    isLoggedIn: state.token.isLoggedIn,
     myDetails: state.myDetails.myDetails,
   };
 };

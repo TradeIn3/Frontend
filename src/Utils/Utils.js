@@ -132,4 +132,17 @@ export const getFormattedPath = (pathname,routePath) => {
   return false;
 };
 
-
+export const getCategories = () =>{
+  return  {
+    'Electronics':["Laptops","Power Banks","Pen drives & Storage","Tablets","Computer & Accessories","Headphones & earphones","Speakers","Camera & accessories","Gaming accessories"],
+    "Mobile":["Mobile","Mobile Accessories"],
+    "Appliances":["Televisions","Kitches Appliances","Air conditioners","Refrigerators","Washing machine","Microwaves","Chimneys","Dishwashers","Cooler"],
+    "Men's Fashion":["Clothing","Footware","Watches","Bags","Wallets","Luggage","Sunglasses","Accessories"],
+    "Women's Fashion":["Clothing","Footware","Watches","Fashion & Jewellery","Hanbags & clutches","Sunglasses"],
+    "Home":["kitchen & appliances","Furniture","Home Decor","Indoor Lighting","Art & Crafts","Garden & Outdoors"],
+    "Sports & Fitness":["Cycle","Exercies & Fitness","Sports accessories"],
+    "Baby Products":["Clothing","Footware","School bags","Toys and Games"],
+    "Vehicles":["Two wheelers & accessories","Four wheelers & accessories","others"],
+    "Others":["Stationary Products","Arts & Handicrafts","Beauty"]
+  } 
+}

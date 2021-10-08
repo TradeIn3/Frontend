@@ -12,17 +12,18 @@ import { Grid } from "@material-ui/core";
 import Sidebar from "./Sidebar";
 class Layout extends Component {
   async componentDidMount() {
-    console.log("index");
+   if(this.props.isLoggedIn) 
     await this.props.myDetailsDispatch();
   }
   render() {
-    if (!this.props.myDetails) return <MainLoader />;
+    const {isLoggedIn} = this.props;
+    if (isLoggedIn && !this.props.myDetails) return <MainLoader />;
     return (
       <>
         <Breakpoint large up>
           <Grid container>
             <Grid xs={12}>
-              <Navbar />
+              <Navbar {...this.props}/>
             </Grid>
             <Grid item xs={12} style={{marginTop:"3rem"}}>
               {this.props.children}

@@ -73,12 +73,12 @@ function Root(props) {
   return (
     <div className="config_css">
       <Switch>
-        <AuthorizedRoute path={AUTH_DONATE_PATH} exact>
+        <Route path={AUTH_DONATE_PATH} exact>
           {(props) => (
             <Layout {...props}>
               <Breakpoint large up>
                 <Grid container>
-                  <Grid item xs={2} style={{position:"relative"}}>
+                  <Grid item xs={2} style={{ position: "relative" }}>
                     <Sidebar />
                   </Grid>
                   <Grid item xs={10}>
@@ -92,13 +92,13 @@ function Root(props) {
               </Breakpoint>
             </Layout>
           )}
-        </AuthorizedRoute>
-        <AuthorizedRoute path={AUTH_BUY_PATH} exact>
+        </Route>
+        <Route path={AUTH_BUY_PATH} exact>
           {(props) => (
             <Layout {...props}>
               <Breakpoint large up>
                 <Grid container>
-                  <Grid item xs={2} style={{position:"relative"}}>
+                  <Grid item xs={2} style={{ position: "relative" }}>
                     <Sidebar />
                   </Grid>
                   <Grid item xs={10}>
@@ -112,7 +112,7 @@ function Root(props) {
               </Breakpoint>
             </Layout>
           )}
-        </AuthorizedRoute>
+        </Route>
         <AuthorizedRoute path={AUTH_HOME_PATH} exact>
           {(props) => (
             <Layout {...props}>
@@ -120,20 +120,22 @@ function Root(props) {
             </Layout>
           )}
         </AuthorizedRoute>
-        <UnAuthorizedRoute path={UNAUTH_HOME_PATH}>
-          {(props) => <LandingPage {...props} />}
+        <UnAuthorizedRoute path={UNAUTH_HOME_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <Home {...props} />
+            </Layout>
+          )}
         </UnAuthorizedRoute>
+
         <Route path="*">
-          {props.isLoggedIn
-            ? (props) => (
-                <Layout {...props}>
-                  {" "}
-                  <FourOFourError {...props} />{" "}
-                </Layout>
-              )
-            : (props) => <FourOFourError {...props} />}
+          <Layout {...props}>
+            {" "}
+            <FourOFourError {...props} />{" "}
+          </Layout>
         </Route>
       </Switch>
+      <Route path={UNAUTH_LOGIN_PATH}>{(props) => <Login {...props} />}</Route>
       <SessionExpirePrompt />
       <SnackBars />
     </div>

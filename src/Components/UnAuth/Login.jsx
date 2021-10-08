@@ -104,13 +104,14 @@ class Login extends Component {
   };
 
   handleClose = () => {
-    this.props.history.push("/");
+    this.props.history.push(this.props.pathname);
   };
 
   render() {
     const { showPassword, formErrors, formValid, username, password } =
       this.state;
-    const { loading, success } = this.props;
+    const { loading, success, isLoggedIn } = this.props;
+    if(isLoggedIn || !new URLSearchParams(this.props.location.search).get("login")) return null
     return (
       <React.Fragment>
         <Breakpoint large up>
@@ -379,6 +380,7 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.token.loading,
+    isLoggedIn: state.token.isLoggedIn,
     success: state.token.success,
   };
 };
