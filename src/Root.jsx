@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from "react";
 import Login from "./Components/UnAuth/Login";
 import {
+  AUTH_BUY_FULL_PATH,
   AUTH_BUY_PATH,
   AUTH_DONATE_PATH,
   AUTH_HOME_PATH,
@@ -23,6 +24,7 @@ import Donate from "./Components/Auth/Donate";
 import Sidebar from "./Components/Layout/Sidebar";
 import { Breakpoint } from "react-socks";
 import { Grid } from "@material-ui/core";
+import PostFull from "./Components/PostFull/PostFull";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
@@ -92,6 +94,9 @@ function Root(props) {
               </Breakpoint>
             </Layout>
           )}
+        </Route>
+        <Route path={AUTH_BUY_FULL_PATH} exact>
+          <PostFull/>
         </Route>
         <Route path={AUTH_BUY_PATH} exact>
           {(props) => (

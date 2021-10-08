@@ -5,12 +5,16 @@ import PostCard from "../Card/PostCard";
 import { retrievePost } from "../../redux/post/postActions";
 import { connect } from "react-redux";
 import CardSkeleton from "../Skeleton/CardSkeleton";
+import PostFull from "../PostFull/PostFull";
+import {Link,Switch,Route} from 'react-router-dom';
+import { AUTH_BUY_FULL_PATH } from "../../constants/routeConstants";
 class Buy extends Component {
   async componentDidMount() {
     await this.props.retrievePostDispatch(null, null, false);
   }
   render() {
     return (
+      
       <div>
         <div className="buy">
           <div className="buy__head">
@@ -47,7 +51,9 @@ class Buy extends Component {
             xs={12}
             style={{ marginBottom: "1rem" }}
           >
-            <CardSkeleton />
+            <Link to="/buy/1">
+            <PostCard />
+            </Link>
           </Grid>
           <Grid item lg={3} md={3} sm={6} xs={12}>
             <CardSkeleton />
@@ -78,6 +84,7 @@ class Buy extends Component {
           </Grid>
         </Grid>
       </div>
+    
     );
   }
 }
