@@ -18,32 +18,8 @@
         flex-direction: column;
         padding: 28px 0px 5px 20px;
 
-        &__pic1 {
+        &__pic {
           padding-right: 0;
-          img {
-            width: 4.5rem;
-            height: 4.5rem;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-        }
-        &__pic2 {
-          img {
-            width: 4.5rem;
-            height: 4.5rem;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-        }
-        &__pic3 {
-          img {
-            width: 4.5rem;
-            height: 4.5rem;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-        }
-        &__pic4 {
           img {
             width: 4.5rem;
             height: 4.5rem;
@@ -68,7 +44,7 @@
             top: 50%;
             cursor: pointer;
             color: white;
-            left: 1.8rem;
+            left: 10px;
           }
           &__icon2 {
             position: absolute;
@@ -83,33 +59,39 @@
     }
     &__moreopt {
       display: flex;
-      padding: 0 0 19px 20px;
+      padding: 0 0 35px 20px;
+      position: relative;
       h3 {
         font-size: 0.85rem;
+        white-space: nowrap;
+        font-family: Roboto, sans-serif;
+        font-weight: 500 !important;
+        letter-spacing: 0.03em;
       }
       a {
         cursor: pointer;
-        padding-top: 6px;
+        padding-top: 3px;
         font-family: Roboto, sans-serif;
         font-size: 0.85rem;
+        white-space: nowrap;
+        font-family: Roboto, sans-serif;
+        letter-spacing: 0.03em;
       }
       &__like {
-        padding-left: 6rem;
-        Button {
+        position: absolute;
+        right: 0.2rem;
+        button {
           border: 2px solid $theme-a;
           color: $theme-a;
-          padding: 2px 52px 2px 52px;
           font-weight: 600 !important;
           text-transform: none;
           font-size: 1.13rem;
+          white-space: nowrap;
         }
       }
     }
     &__hr1 {
-      hr {
-        width: 90%;
-        margin-left: 19px;
-      }
+      padding-left: 0.8rem;
     }
 
     &__profile {
@@ -140,7 +122,7 @@
       }
       &__btn {
         padding-left: 1rem;
-        Button {
+        button {
           color: black;
           background: $background;
           padding: 0px 20px 0px 20px;
@@ -155,29 +137,37 @@
 
     &__ques {
       background: white;
-      width: 650px;
-      // border:1px solid $theme-a;
+      display: flex;
+      position: relative;
+      flex-direction: column;
       &__heading {
         display: flex;
-        padding: 16px 25px;
+        padding: 12px 25px;
+        position: relative;
         h2 {
-          padding-right: 2.8rem;
+          letter-spacing: 0.03em;
+          font-family: Roboto, sans-serif;
+          font-weight: 500 !important;
         }
         &__ask {
+          position: absolute;
+          right: 0.2rem;
+
           button {
             border: 2px solid $theme-a;
             color: $theme-a;
-            padding: 4px 18px 4px 18px;
             font-weight: 600 !important;
-            text-transform: none;
-            font-size: 1.13rem;
+            width: 100%;
+            text-transform: none !important;
+            font-size: 1.12rem;
+            font-family: Oswald, sans-serif;
           }
         }
       }
       &__q1 {
-        position: relative;
         display: flex;
-        padding: 0px 10px 12px 50px;
+        justify-content: space-between;
+        padding: 15px 10px 12px 50px;
         &__qa1 {
           display: flex;
           flex-direction: column;
@@ -186,84 +176,61 @@
           }
         }
         &__icon1 {
-          position: absolute;
-          left: 30rem;
           cursor: pointer;
         }
       }
-      &__q2 {
-        position: relative;
-        padding: 5px 10px 12px 50px;
-        display: flex;
-        &__qa2 {
-          display: flex;
-          flex-direction: column;
-          top: 12px;
-        }
-        &__icon2 {
-          position: absolute;
-          left: 30rem;
-          top: 13px;
-          cursor: pointer;
-        }
-      }
-      &__q3 {
-        position: relative;
-        padding: 5px 10px 16px 50px;
-        display: flex;
-        &__qa2 {
-          display: flex;
-          flex-direction: column;
-        }
 
-        &__icon3 {
-          position: absolute;
-          left: 30rem;
-          top: 15px;
-          cursor: pointer;
-        }
-      }
       &__hr2 {
-        width: 96%;
-        padding-left: 1.8rem;
-      }
-      &__hr3 {
-        width: 96%;
         padding-left: 1.8rem;
       }
     }
   }
   &__rt {
+    padding-left: 1.8rem;
     &__sell {
       padding: 2.2rem 0;
+      &__padbot {
+        padding-bottom: 0.8rem;
+      }
       h1 {
         letter-spacing: 0.03em;
+        font-family: Roboto, sans-serif;
+        font-weight: 500 !important;
       }
       &__deli {
         font-weight: 500;
-        cursor: pointer;
+        background: #ecedf1;
+        padding: 0 5px;
+        display: inline;
+        white-space: nowrap;
       }
       &__buttons {
         display: flex;
         padding-top: 1.7rem;
+        width: 94% !important;
+        justify-content: space-between;
+
         &__buy {
+          padding-right: 0.5rem;
           button {
             background: #9147ff;
             color: white !important;
             font-weight: 600 !important;
             font-size: 1.2rem !important;
-            padding: 4px 3.8rem !important;
+            white-space: nowrap;
+
+            width: 100%;
             font-family: Oswald, sans-serif;
-            margin-right: 25px;
           }
         }
         &__nego {
+          padding-left: 0.5rem;
           button {
             background: $pink;
             color: white !important;
             font-weight: 600 !important;
             font-size: 1.2rem !important;
-            padding: 4px 3.8rem !important;
+            width: 100%;
             font-family: Oswald, sans-serif;
           }
         }
@@ -275,8 +242,10 @@
           text-transform: none;
           color: black;
           font-weight: 600 !important;
-          font-size: 1.3rem !important;
+          font-size: 1.5rem !important;
           width: 94%;
+          padding-top: 1px;
+          padding-bottom: 1px;
           font-family: Oswald, sans-serif;
         }
       }
@@ -288,63 +257,16 @@
       padding-top: 1.2rem;
       &__cond {
         display: flex;
+        position: relative;
         &__condSt {
           h3 {
             color: $light-grey;
           }
         }
         &__state {
-          margin-left: 4.7rem;
           color: $dark-grey;
-        }
-      }
-
-      &__categ {
-        display: flex;
-        &__categTy {
-          h3 {
-            color: $light-grey;
-          }
-        }
-        &__type {
-          margin-left: 5rem;
-          h3 {
-            color: $dark-grey;
-          }
-        }
-      }
-
-      &__brand {
-        display: flex;
-        &__brandNa {
-          h3 {
-            color: $light-grey;
-          }
-        }
-        &__name {
-          margin-left: 6.8rem;
-          h3 {
-            color: $dark-grey;
-          }
-        }
-      }
-    }
-
-    &__details {
-      padding-top: 1.8rem;
-      &__postdetail {
-        display: flex;
-        &__post {
-          h3 {
-            color: $light-grey;
-          }
-        }
-        &__date {
-          margin-left: 6.2rem;
-          h3 {
-            color: $dark-grey;
-            font-size: 1.02rem;
-          }
+          position: absolute;
+          left: 10rem;
         }
       }
     }
@@ -354,7 +276,7 @@
 
       &__desctext {
         padding-top: 0.8rem;
-        width: 70%;
+        width: 75%;
         p {
           letter-spacing: 0.03em;
           font-weight: 500 !important;
@@ -363,6 +285,192 @@
     }
     &__hr4 {
       width: 92%;
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .product {
+    display: flex;
+    flex-direction: column;
+    &__lt {
+      padding: 0.5rem 0.7rem;
+      &__Box {
+        display: flex;
+        flex-direction: column-reverse;
+
+        &__imageWrapper {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          padding-top: 0.8rem;
+          padding-left: 0;
+          padding-bottom: 0.58rem;
+          &__pic {
+            padding-right: 0.6rem;
+            img {
+              width: 3rem;
+              height: 3rem;
+            }
+          }
+        }
+        &__outer {
+          padding-left: 0;
+          padding-bottom: 0rem;
+        }
+      }
+      &__moreopt {
+        padding: 0.5rem 0 1.2rem 0;
+        position: relative;
+        h3 {
+          font-size: 0.75rem;
+        }
+        a {
+          font-size: 0.75rem;
+        }
+        &__like {
+          position: absolute;
+          padding-left: 0.5rem;
+          button {
+            font-size: 0.7rem;
+            padding: 0 2px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    &__rt {
+      padding: 0.5rem 1.05rem;
+      width: 100%;
+      &__sell {
+        h1 {
+          font-size: 1.5rem;
+        }
+        padding: 0 0;
+        width: 100%;
+        &__buttons {
+          display: flex;
+          flex-direction: flex-start;
+          width: 100%;
+          &__buy {
+          }
+          &__nego {
+            padding: 0;
+          }
+        }
+        &__reserved {
+          padding-bottom: 0.8rem;
+          width: 100%;
+        }
+      }
+      &__desc {
+        &__desctext {
+          width: 100%;
+          padding-right: 0;
+        }
+      }
+      &__overview {
+        padding-top: 0.8rem;
+        &__cond {
+          position: relative;
+          &__state {
+            position: absolute;
+            left: 8rem;
+          }
+        }
+      }
+      &__desc {
+        padding-top: 0.8rem;
+      }
+      &__hr1 {
+        padding-top: 1.5rem;
+      }
+      &__profile {
+        display: flex;
+        padding: 20px 0 6px 4px;
+
+        &__pic {
+          img {
+            margin-right: 5px;
+            max-width: 60px;
+            height: 60px;
+            background-clip: border-box;
+            border: none;
+          }
+        }
+        &__name {
+          font-weight: 500;
+          font-size: 1.01rem;
+          font-family: Roboto, sans-serif;
+          padding-left: 7px;
+          span {
+            color: $light-grey;
+            font-size: 1.11rem;
+            font-weight: 600 !important;
+            padding-top: 0px;
+          }
+        }
+        &__btn {
+          padding-left: 1rem;
+          button {
+            color: black;
+            background: $background;
+            font-size: 1.12rem;
+            font-family: Oswald, sans-serif;
+            font-weight: 500;
+            text-transform: none;
+            background: #ecedf1;
+          }
+        }
+      }
+      &__ques {
+        background: white;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        &__heading {
+          position: relative;
+          display: flex;
+          padding: 12px 0 0px 3px;
+          white-space: nowrap;
+          h2 {
+            letter-spacing: 0.03em;
+            font-family: Roboto, sans-serif;
+            font-weight: 500 !important;
+            font-size: 1.22rem;
+          }
+          &__ask {
+            padding-left: 0.4rem;
+
+            button {
+              border: 1px solid $theme-a;
+              color: $theme-a;
+              font-weight: 600 !important;
+              width: 100%;
+              text-transform: none !important;
+              font-size: 1rem;
+              font-family: Oswald, sans-serif;
+              padding: 1px 0px !important;
+            }
+          }
+        }
+        &__q1 {
+          display: flex;
+          justify-content: space-between;
+          padding: 15px 0 0 24px;
+          &__qa1 {
+            display: flex;
+            flex-direction: column;
+            span {
+              color: $dark-grey;
+            }
+          }
+        }
+
+        &__hr2 {
+          padding-left: 1.2rem;
+        }
+      }
     }
   }
 }
