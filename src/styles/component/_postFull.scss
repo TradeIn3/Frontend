@@ -6,12 +6,14 @@
 
 .product {
   display: flex;
+
   &__lt {
     height: 100%;
+
     &__Box {
       display: flex;
       flex-direction: row;
-      
+
 
       &__imageWrapper {
         display: flex;
@@ -19,7 +21,8 @@
         // padding: 28px 0px 5px 20px;
 
         &__pic {
-          padding-bottom: 1.4rem ;
+          padding-bottom: 1.4rem;
+
           img {
             width: 8rem;
             height: 8rem;
@@ -27,20 +30,23 @@
             border-radius: 4px;
           }
         }
-        
+
       }
+
       &__outer {
         // padding: 28px 0 28px 20px;
         position: relative;
         height: 37rem;
         width: 41rem;
         padding-left: 1.4rem;
+
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           border-radius: 4px;
         }
+
         &__icons {
           &__icon1 {
             position: absolute;
@@ -50,6 +56,7 @@
             color: white;
             left: 1.8rem;
           }
+
           &__icon2 {
             position: absolute;
             cursor: pointer;
@@ -61,6 +68,7 @@
         }
       }
     }
+
     &__moreopt {
       display: flex;
       padding: 1.5rem 0;
@@ -68,14 +76,16 @@
       border-bottom: 2px solid #f4f4f4;
       align-items: center;
       justify-content: space-between;
+
       h3 {
         font-size: 1rem;
         margin: 0;
-        font-family: Roboto,sans-serif;
+        font-family: Roboto, sans-serif;
         font-weight: 400;
         letter-spacing: 0.03em;
         color: #333;
       }
+
       a {
         cursor: pointer;
         font-family: Roboto, sans-serif;
@@ -84,8 +94,10 @@
         font-weight: 500;
         letter-spacing: 0.03em;
       }
+
       &__like {
         padding-left: 6rem;
+
         Button {
           border-radius: 4px;
           border: 1px solid $theme-a;
@@ -97,6 +109,7 @@
         }
       }
     }
+
     &__hr1 {
       hr {
         width: 90%;
@@ -109,8 +122,10 @@
       padding: 10px 15px 6px 18px;
       margin-top: 2rem;
       justify-content: space-between;
+
       &__pic {
         display: flex;
+
         img {
           margin-right: 5px;
           max-width: 100px;
@@ -120,12 +135,14 @@
           border: none;
         }
       }
+
       &__name {
         font-weight: 500;
         font-size: 1.6rem;
         font-family: Roboto, sans-serif;
         padding-left: 24px;
         padding-top: 12px;
+
         span {
           color: $light-grey;
           font-size: 1.125rem;
@@ -133,9 +150,11 @@
           padding-top: 0px;
         }
       }
+
       &__btn {
         padding-left: 1rem;
         margin-top: 12px;
+
         button {
           color: black;
           background: $background;
@@ -143,7 +162,8 @@
           font-weight: 500;
           text-transform: none;
           background: #ecedf1;
-          span{
+
+          span {
             font-size: 1rem;
             font-family: Oswald, sans-serif;
             text-transform: uppercase;
@@ -156,20 +176,23 @@
     &__ques {
       background: white;
       // width: 650px;
-      border:1px solid $border-color;
+      border: 1px solid $border-color;
       margin-top: 2rem;
       margin-bottom: 2rem;
       padding-left: 24px;
       padding-right: 24px;
       height: 32rem;
       overflow: scroll;
+
       &__heading {
         display: flex;
         padding: 16px 0;
         justify-content: space-between;
+
         h2 {
           padding-right: 2.8rem;
         }
+
         &__ask {
           button {
             border: 1px solid $theme-a;
@@ -178,66 +201,77 @@
             font-weight: 500 !important;
             text-transform: none;
             font-size: 1.13rem;
-            span{
-              font-family: Roboto,sans-serif;
+
+            span {
+              font-family: Roboto, sans-serif;
             }
           }
         }
       }
+
       &__q1 {
         position: relative;
         display: flex;
-        padding:12px 25px 12px 25px;
+        padding: 12px 25px 12px 25px;
         justify-content: space-between;
         border: 2px solid $border-color;
-        margin-bottom:16px ;
-        &__icon1{
+        margin-bottom: 16px;
+
+        &__icon1 {
           display: flex;
           margin-top: 4px;
           height: max-content;
-          &__edit{
+
+          &__edit {
             color: $dark-grey;
             font-size: 1.6rem;
             margin-right: 1rem;
           }
-          &__delete{
+
+          &__delete {
             color: $dark-grey;
             font-size: 1.6rem;
           }
         }
+
         &__qa1 {
           display: flex;
           flex-direction: column;
+
           span {
             color: $dark-grey;
           }
         }
-       
+
       }
-      }
-      
+    }
+
   }
+
   &__rt {
     &__sell {
+
       // padding: 2.2rem 0;
       h1 {
-        font-family: Roboto,sans-serif;
+        font-family: Roboto, sans-serif;
         font-size: 2.5rem;
         font-weight: 500;
         letter-spacing: 0.01em;
         color: $black;
         margin-bottom: 0;
       }
-      h3{
-        font-family: Roboto,sans-serif;
+
+      h3 {
+        font-family: Roboto, sans-serif;
         font-size: 1.5rem;
         margin-top: 0;
         font-weight: 500;
         letter-spacing: 0.01em;
         color: $theme-a;
       }
+
       h2 {
-        font-family: Roboto,sans-serif;
+        font-family: Roboto, sans-serif;
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 0;
@@ -245,164 +279,190 @@
         letter-spacing: 0.01em;
         color: $black;
       }
+
       &__deli {
         width: max-content;
         background: #f1f1f1;
         padding: 5px 12px;
-        font-family: Roboto,sans-serif;
+        font-family: Roboto, sans-serif;
         font-weight: 500;
         color: $dark-grey;
         margin-top: 2px;
       }
+
       &__buttons {
         display: flex;
         padding-top: 2.5rem;
         justify-content: space-between;
+
         &__buy {
           width: 100%;
           margin-right: 16px;
+
           button {
-            background:$theme-a;
+            background: $theme-a;
             color: white !important;
             font-weight: 500 !important;
             padding: 8px 3.8rem !important;
             width: 100% !important;
             border-radius: 4px;
-            
-            span{
+
+            span {
               font-family: Oswald, sans-serif;
               font-size: 1.2rem !important;
               letter-spacing: 0.03em;
             }
+
             margin-right: 25px;
-            &:hover{
+
+            &:hover {
               background-color: $theme-a !important;
               filter: brightness(0.8);
             }
           }
         }
+
         &__nego {
           width: 100%;
+
           button {
             background: $pink;
             color: white !important;
             font-weight: 500 !important;
-            width:100% !important;
-            border-radius:4px ;
+            width: 100% !important;
+            border-radius: 4px;
             padding: 8px 3.8rem !important;
-            span{
+
+            span {
               font-family: Oswald, sans-serif;
               font-size: 1.2rem !important;
               letter-spacing: 0.03em;
             }
-            &:hover{
+
+            &:hover {
               background-color: $pink !important;
               filter: brightness(0.8);
             }
           }
         }
       }
+
       &__reserved {
         padding-top: 1.2rem;
         padding-bottom: 2rem;
         border-bottom: 2px solid $border-color;
+
         button {
           background: #ecedf1;
           text-transform: none;
           color: $black;
-          font-weight:500 !important;
+          font-weight: 500 !important;
           width: 100% !important;
-          border-radius:4px ;
+          border-radius: 4px;
           padding: 8px 3.8px !important;
-          span{
+
+          span {
             font-family: Oswald, sans-serif;
             font-size: 1.2rem !important;
             letter-spacing: 0.03em;
           }
-          &:hover{
+
+          &:hover {
             background-color: #ecedf1 !important;
             filter: brightness(0.8);
           }
         }
       }
     }
+
     &__overview {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding-top: 1.2rem;
-      h2{
-        font-family: Roboto,san-serif;
+
+      h2 {
+        font-family: Roboto, san-serif;
         color: $black;
         font-weight: 500;
         font-size: 1.4rem;
         letter-spacing: 0.02em;
       }
+
       &__cond {
         display: flex;
+
         &__condSt {
           h3 {
-            color:$light-grey;
-            font-family: Roboto,sans-serif !important;
+            color: $light-grey;
+            font-family: Roboto, sans-serif !important;
             font-weight: 400 !important;
             font-size: 1.2rem;
-            letter-spacing: 0.03em;   
+            letter-spacing: 0.03em;
 
           }
         }
+
         &__state {
           margin-left: 4.7rem;
-          h3{
-          color: $black;
-          font-family: Roboto,sans-serif !important;
-          font-weight: 400 !important;
-          font-size: 1.2rem;
-          letter-spacing: 0.03em;
+
+          h3 {
+            color: $black;
+            font-family: Roboto, sans-serif !important;
+            font-weight: 400 !important;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
           }
-          
+
         }
       }
 
       &__categ {
         display: flex;
+
         &__categTy {
           h3 {
             color: $light-grey;
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
             font-weight: 400;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
           }
         }
+
         &__type {
           margin-left: 5rem;
+
           h3 {
             color: $black;
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
             font-weight: 400;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
-            
+
           }
         }
       }
 
       &__brand {
         display: flex;
+
         &__brandNa {
           h3 {
             color: $light-grey;
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
             font-weight: 400;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
           }
         }
+
         &__name {
           margin-left: 6.8rem;
+
           h3 {
             color: $black;
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
             font-weight: 400;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
@@ -413,29 +473,34 @@
 
     &__details {
       padding-top: 1.8rem;
-      h2{
-        font-family: Roboto,san-serif;
+
+      h2 {
+        font-family: Roboto, san-serif;
         color: $black;
         font-weight: 500;
         font-size: 1.4rem;
         letter-spacing: 0.02em;
       }
+
       &__postdetail {
         display: flex;
+
         &__post {
           h3 {
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
             font-weight: 400;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
             color: $light-grey;
           }
         }
+
         &__date {
           margin-left: 6.2rem;
+
           h3 {
             color: $black;
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
             font-weight: 500;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
@@ -448,19 +513,22 @@
 
     &__desc {
       padding-top: 1.2rem;
-      h2{
-        font-family: Roboto,san-serif;
+
+      h2 {
+        font-family: Roboto, san-serif;
         color: $black;
         font-weight: 500;
         font-size: 1.4rem;
         letter-spacing: 0.02em;
       }
+
       &__desctext {
         padding-top: 0.8rem;
+
         // width: 70%;
         p {
           letter-spacing: 0.03em;
-          font-family: Roboto,sans-serif;
+          font-family: Roboto, sans-serif;
           font-weight: 400;
           font-size: 1.2rem;
           color: $black;
@@ -468,11 +536,13 @@
         }
       }
     }
+
     &__hr4 {
       padding-top: 2rem;
       width: 100%;
-      hr{
-        color:$border-color !important;
+
+      hr {
+        color: $border-color !important;
       }
     }
   }
@@ -481,152 +551,182 @@
 
 
 @media (max-width: 991px) {
-.product {
-display: flex;
-// flex-direction: column;
-&__lt {
-padding: 0.5rem 0.7rem;
-&__Box {
-display: flex;
+  .product {
+    display: flex;
 
-flex-direction: column;
+    // flex-direction: column;
+    &__lt {
+      padding: 0.5rem 0.7rem;
 
-&__imageWrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding-top: 0.8rem;
-  padding-left: 0;
-  // padding-bottom: 0.58rem;
-  &__pic {
-    padding-right: 1rem;
-    padding-bottom: 0;
-    img {
-      width: 6rem;
-      height: 6rem;
-    }
-  }
-}
-&__outer {
-  padding-left: 0;
-  padding-bottom: 0rem;
-  width: 100%;
-  height: 33rem;
-  img{
-    width: 100%;
-    height: 100%;
-  }
-}
-}
-&__moreopt {
-  padding: .7rem 0;
-position: relative;
-h3 {
-  font-size: 0.875rem;
-  a {
-    padding-left: 4px;
-    font-size: 0.875rem;
-  }
-}
+      &__Box {
+        display: flex;
 
-&__like {
+        flex-direction: column;
 
-  button {
-    font-size: 1rem;
-    padding: 2px 16px 3px 16px;
-  }
-}
-}
-&__ques{
-  &__heading{
-    h2 {
-      letter-spacing: 0.03em;
-      font-family: Roboto, sans-serif;
-      font-weight: 500 !important;
-      font-size: 1.22rem;
-      padding: 0;
-    }
-    &__ask{
-      &__button{
-        padding: 6px 19px;
-        span{
-          font-size: 1rem;
+        &__imageWrapper {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          padding-top: 0.8rem;
+          padding-left: 0;
+
+          // padding-bottom: 0.58rem;
+          &__pic {
+            padding-right: 1rem;
+            padding-bottom: 0;
+
+            img {
+              width: 6rem;
+              height: 6rem;
+            }
+          }
+        }
+
+        &__outer {
+          padding-left: 0;
+          padding-bottom: 0rem;
+          width: 100%;
+          height: 33rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      &__moreopt {
+        padding: .7rem 0;
+        position: relative;
+
+        h3 {
+          font-size: 0.875rem;
+
+          a {
+            padding-left: 4px;
+            font-size: 0.875rem;
+          }
+        }
+
+        &__like {
+
+          button {
+            font-size: 1rem;
+            padding: 2px 16px 3px 16px;
+          }
+        }
+      }
+
+      &__ques {
+        &__heading {
+          h2 {
+            letter-spacing: 0.03em;
+            font-family: Roboto, sans-serif;
+            font-weight: 500 !important;
+            font-size: 1.22rem;
+            padding: 0;
+          }
+
+          &__ask {
+            &__button {
+              padding: 6px 19px;
+
+              span {
+                font-size: 1rem;
+              }
+            }
+          }
+        }
+      }
+
+      &__profile {
+        padding: 0;
+
+        &__btn {
+          margin-top: 6px;
+
+          button {
+            padding: 6px 18px;
+
+            span {
+              font-size: 0.75rem;
+            }
+          }
+        }
+
+        &__name {
+          font-size: 1.25rem;
+          padding-top: 4px;
+          padding-left: 8px;
+
+          span {
+            font-size: 1rem;
+          }
+        }
+
+        &__pic {
+          img {
+            max-width: 65px;
+            height: 65px;
+          }
         }
       }
     }
-  }
-}
-&__profile{
-  padding: 0;
-  &__btn{
-    margin-top: 6px;
-    button{
-      padding: 6px 18px;
-      span{
-        font-size: 0.75rem;
-      }
-    }
-  }
-  &__name{
-    font-size: 1.25rem;
-    padding-top: 4px;
-    padding-left: 8px;
-    span{
-      font-size: 1rem;
-    }
-  }
-  &__pic{
-    img{
-      max-width: 65px;
-      height: 65px;
-    }
-  }
-}
-}
-&__rt {
-padding: 0.5rem 1.05rem;
-width: 100%;
-&__sell {
-padding: 0 0;
-width: 100%;
-&__buttons {
-  display: flex;
-  flex-direction: flex-start;
-  width: 100%;
-  &__buy {
-  }
-  &__nego {
-    padding: 0;
-  }
-}
-&__reserved {
-  padding-bottom: 0.8rem;
-  width: 100%;
-}
-}
-&__desc {
-&__desctext {
-  width: 100%;
-  padding-right: 0;
-}
-}
-&__overview {
-padding-top: 0.8rem;
-&__cond {
-  position: relative;
-  &__state {
-    position: absolute;
-    left: 8rem;
-  }
-}
-}
-&__desc {
-padding-top: 0.8rem;
-}
-&__hr1 {
-padding-top: 1.5rem;
-}
 
-}
-}
+    &__rt {
+      padding: 0.5rem 1.05rem;
+      width: 100%;
+
+      &__sell {
+        padding: 0 0;
+        width: 100%;
+
+        &__buttons {
+          display: flex;
+          flex-direction: flex-start;
+          width: 100%;
+
+          &__buy {}
+
+          &__nego {
+            padding: 0;
+          }
+        }
+
+        &__reserved {
+          padding-bottom: 0.8rem;
+          width: 100%;
+        }
+      }
+
+      &__desc {
+        &__desctext {
+          width: 100%;
+          padding-right: 0;
+        }
+      }
+
+      &__overview {
+        padding-top: 0.8rem;
+
+        &__cond {
+          position: relative;
+
+          &__state {
+            position: absolute;
+            left: 8rem;
+          }
+        }
+      }
+
+      &__desc {
+        padding-top: 0.8rem;
+      }
+
+      &__hr1 {
+        padding-top: 1.5rem;
+      }
+
+    }
+  }
 }

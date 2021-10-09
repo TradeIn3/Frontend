@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Grid } from "@material-ui/core";
+import { Breakpoint } from "react-socks";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DummyPic from "../../assets/DummyPic.svg";
 import DummyProduct1 from "../../assets/DummyProduct1.jpg";
@@ -233,7 +234,6 @@ export default class PostFull extends Component {
           <div classN ame="product">
             <div className="product__lt">
               <div className="product__lt__Box">
-              
                 <div className="product__lt__Box__outer">
                   <img src={DummyProduct1} />
 
@@ -265,25 +265,25 @@ export default class PostFull extends Component {
                   </div>
                 </div>
               </div>
-              
+
               <div className="product__lt__moreopt">
-                <h3>Have a similar item?<a href="#">Sell yours</a></h3>
+                <h3>
+                  Have a similar item?<a href="#">Sell yours</a>
+                </h3>
                 <div className="product__lt__moreopt__like">
                   <Button>Add to wishlist</Button>
                 </div>
               </div>
-             
             </div>
 
             <div className="product__rt">
               <div className="product__rt__sell">
-              <h1>Selling this product</h1>
+                <h1>Selling this product</h1>
                 <h3>Adidas</h3>
                 <h2>&#8377;250.00</h2>
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-
 
                 <div className="product__rt__sell__buttons">
                   <div className="product__rt__sell__buttons__buy">
@@ -303,7 +303,7 @@ export default class PostFull extends Component {
                   </Button>
                 </div>
               </div>
-            
+
               <div className="product__rt__overview">
                 <h2>Overview</h2>
                 <div className="product__rt__overview__cond">
@@ -364,7 +364,7 @@ export default class PostFull extends Component {
                   </p>
                 </div>
               </div>
-            
+
               <div className="product__rt__profile">
                 <div className="product__rt__profile__pic">
                   <img src={DummyPic} className="nav__profile" />
