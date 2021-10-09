@@ -96,7 +96,11 @@ function Root(props) {
           )}
         </Route>
         <Route path={AUTH_BUY_FULL_PATH} exact>
-          <PostFull/>
+        {(props) => (
+            <Layout {...props}>
+              <PostFull {...props} />
+            </Layout>
+          )}
         </Route>
         <Route path={AUTH_BUY_PATH} exact>
           {(props) => (

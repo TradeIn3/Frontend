@@ -8,6 +8,8 @@ import DummyProduct3 from "../../assets/DummyProduct3.jpg";
 import DummyProduct4 from "../../assets/DummyProduct4.jpg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // const images = [
 //     {
@@ -38,24 +40,24 @@ export default class PostFull extends Component {
       className: "slides",
     };
     return (
-      <Grid container className="product">
-        <Grid item xs={7} className="product__lt">
+      <Grid container className="product" style={{paddingLeft:"5rem",paddingTop:"2.5rem"}}>
+        <Grid item xs={6} className="product__lt">
           <div className="product__lt__Box">
             <div className="product__lt__Box__imageWrapper">
-              <div className="product__lt__Box__imageWrapper__pic1">
+              <div className="product__lt__Box__imageWrapper__pic">
                 <a herf="#pic1">
                   <img src={DummyProduct1} />
                 </a>
               </div>
-              <div className="product__lt__Box__imageWrapper__pic2">
+              <div className="product__lt__Box__imageWrapper__pic">
                 <a href="..#pic2">
                   <img src={DummyProduct2} />
                 </a>
               </div>
-              <div className="product__lt__Box__imageWrapper__pic3">
+              <div className="product__lt__Box__imageWrapper__pic">
                 <img src={DummyProduct3} />
               </div>
-              <div className="product__lt__Box__imageWrapper__pic4">
+              <div className="product__lt__Box__imageWrapper__pic" style={{paddingBottom:0}}>
                 <img src={DummyProduct4} />
               </div>
             </div>
@@ -72,22 +74,21 @@ export default class PostFull extends Component {
             </div>
           </div>
           <div className="product__lt__moreopt">
-            <h3>Have a similar item?</h3>&nbsp;
-            <a href="#">Sell yours</a>
+            <h3>Have a similar item?  <a href="#">Sell yours</a></h3>
+          
             <div className="product__lt__moreopt__like">
               <Button>Add to wishlist</Button>
             </div>
           </div>
-          <div className="product__lt__hr1">
-            <hr />
-          </div>
+         
           <div className="product__lt__profile">
             <div className="product__lt__profile__pic">
               <img src={DummyPic} className="nav__profile" />
-            </div>
-            <div className="product__lt__profile__name">
+              <div className="product__lt__profile__name">
               Sold by Rohit Jain <br /> <span>Nepanagar</span>
             </div>
+            </div>
+           
             <div className="product__lt__profile__btn">
               <Button>View Profile</Button>
             </div>
@@ -107,67 +108,42 @@ export default class PostFull extends Component {
               </div>
 
               <div className="product__lt__ques__q1__icon1">
-                <MoreVertIcon />
+                <EditIcon className="product__lt__ques__q1__icon1__edit"/>
+                <DeleteIcon className="product__lt__ques__q1__icon1__delete"/>
               </div>
             </div>
-            <div className="product__lt__ques__hr2">
-              {" "}
-              <hr />
             </div>
-            <div className="product__lt__ques__q2">
-              <div className="product__lt__ques__q2__qa2">
-                <h3>Q. This is a Question?</h3>
-                <h3 style={{ color: "#6e6e6e" }}>A. This is a Answer.</h3>
-                <div className="product__lt__ques__q2__icon2">
-                  <MoreVertIcon />
-                </div>
-              </div>
-            </div>
-            <div className="product__lt__ques__hr3">
-              {" "}
-              <hr />
-            </div>
-            <div className="product__lt__ques__q3">
-              <div className="product__lt__ques__q3__qa3">
-                <h3>Q. This is a Question?</h3>
-                <h3 style={{ color: "#6e6e6e" }}>A. This is a Answer.</h3>
-                <div className="product__lt__ques__q3__icon3">
-                  <MoreVertIcon />
-                </div>
-              </div>
-            </div>
-          </div>
+            
         </Grid>
 
-        <Grid item xs={5} className="product__rt">
+        <Grid item xs={5} className="product__rt" style={{paddingLeft:"4rem"}}>
           <div className="product__rt__sell">
             <h1>Selling this product</h1>
-            <h1>&#8377; 250.00</h1>
+            <h3>Adidas</h3>
+            <h2>&#8377;250.00</h2>
             <div className="product__rt__sell__deli">
-              +&#8377;15 delivery charges
+              + &#8377;15 delivery charges
             </div>
 
             <div className="product__rt__sell__buttons">
-              <div className="product__rt__sell__buttons__buy">
+              <div className="product__rt__sell__buttons__buy" style={{width:"100%"}}>
                 <Button className="product__rt__sell__buttons__buy__buybtn">
                   Buy Now
                 </Button>
               </div>
-              <div className="product__rt__sell__buttons__nego">
-                <Button className="product__rt__sell__buttons__negobtn">
+              <div className="product__rt__sell__buttons__nego" style={{width:"100%"}}>
+                <Button className="product__rt__sell__buttons__nego__negobtn">
                   Negotiate
                 </Button>
               </div>
             </div>
             <div className="product__rt__sell__reserved">
-              <Button className="product__rt__sell__reservedbtn">
-                Reserved
+              <Button className="product__rt__sell__reserved__reservedbtn">
+                RESERVED
               </Button>
             </div>
           </div>
-          <div className="product__rt__hr4">
-            <hr />
-          </div>
+        
           <div className="product__rt__overview">
             <h2>Overview</h2>
             <div className="product__rt__overview__cond">

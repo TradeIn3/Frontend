@@ -8,53 +8,33 @@
   display: flex;
   &__lt {
     height: 100%;
-    padding-left: 0.45rem;
     &__Box {
       display: flex;
       flex-direction: row;
+      
 
       &__imageWrapper {
         display: flex;
         flex-direction: column;
-        padding: 28px 0px 5px 20px;
+        // padding: 28px 0px 5px 20px;
 
-        &__pic1 {
-          padding-right: 0;
+        &__pic {
+          padding-bottom: 1.4rem ;
           img {
-            width: 4.5rem;
-            height: 4.5rem;
+            width: 8rem;
+            height: 8rem;
             object-fit: cover;
             border-radius: 4px;
           }
         }
-        &__pic2 {
-          img {
-            width: 4.5rem;
-            height: 4.5rem;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-        }
-        &__pic3 {
-          img {
-            width: 4.5rem;
-            height: 4.5rem;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-        }
-        &__pic4 {
-          img {
-            width: 4.5rem;
-            height: 4.5rem;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-        }
+        
       }
       &__outer {
-        padding: 28px 0 28px 20px;
+        // padding: 28px 0 28px 20px;
         position: relative;
+        height: 37rem;
+        width: 41rem;
+        padding-left: 1.4rem;
         img {
           width: 100%;
           height: 100%;
@@ -83,22 +63,34 @@
     }
     &__moreopt {
       display: flex;
-      padding: 0 0 19px 20px;
+      padding: 1.5rem 0;
+      padding-right: 12px;
+      border-bottom: 2px solid #f4f4f4;
+      align-items: center;
+      justify-content: space-between;
       h3 {
-        font-size: 0.85rem;
+        font-size: 1rem;
+        margin: 0;
+        font-family: Roboto,sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        color: #333;
       }
       a {
         cursor: pointer;
-        padding-top: 6px;
         font-family: Roboto, sans-serif;
-        font-size: 0.85rem;
+        font-size: 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.03em;
       }
       &__like {
         padding-left: 6rem;
         Button {
-          border: 2px solid $theme-a;
+          border-radius: 4px;
+          border: 1px solid $theme-a;
           color: $theme-a;
-          padding: 2px 52px 2px 52px;
+          padding: 6px 52px 6px 52px;
           font-weight: 600 !important;
           text-transform: none;
           font-size: 1.13rem;
@@ -115,12 +107,14 @@
     &__profile {
       display: flex;
       padding: 10px 15px 6px 18px;
-
+      margin-top: 2rem;
+      justify-content: space-between;
       &__pic {
+        display: flex;
         img {
           margin-right: 5px;
-          max-width: 70px;
-          height: 70px;
+          max-width: 100px;
+          height: 100px;
           background-clip: border-box;
           padding: 3.2px;
           border: none;
@@ -128,56 +122,89 @@
       }
       &__name {
         font-weight: 500;
-        font-size: 1.35rem;
+        font-size: 1.6rem;
         font-family: Roboto, sans-serif;
-        padding-left: 7px;
+        padding-left: 24px;
+        padding-top: 12px;
         span {
           color: $light-grey;
-          font-size: 1.11rem;
-          font-weight: 600 !important;
+          font-size: 1.125rem;
+          font-weight: 500 !important;
           padding-top: 0px;
         }
       }
       &__btn {
         padding-left: 1rem;
-        Button {
+        margin-top: 12px;
+        button {
           color: black;
           background: $background;
-          padding: 0px 20px 0px 20px;
-          font-size: 1.12rem;
-          font-family: Oswald, sans-serif;
+          padding: 7px 32px;
           font-weight: 500;
           text-transform: none;
           background: #ecedf1;
+          span{
+            font-size: 1rem;
+            font-family: Oswald, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+          }
         }
       }
     }
 
     &__ques {
       background: white;
-      width: 650px;
-      // border:1px solid $theme-a;
+      // width: 650px;
+      border:1px solid $border-color;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      padding-left: 24px;
+      padding-right: 24px;
+      height: 32rem;
+      overflow: scroll;
       &__heading {
         display: flex;
-        padding: 16px 25px;
+        padding: 16px 0;
+        justify-content: space-between;
         h2 {
           padding-right: 2.8rem;
         }
         &__ask {
           button {
-            border: 2px solid $theme-a;
+            border: 1px solid $theme-a;
             color: $theme-a;
-            padding: 4px 18px 4px 18px;
-            font-weight: 600 !important;
+            padding: 6px 32px 6px 32px;
+            font-weight: 500 !important;
             text-transform: none;
             font-size: 1.13rem;
+            span{
+              font-family: Roboto,sans-serif;
+            }
           }
         }
       }
       &__q1 {
         position: relative;
         display: flex;
-        padding: 0px 10px 12px 50px;
+        padding:12px 25px 12px 25px;
+        justify-content: space-between;
+        border: 2px solid $border-color;
+        margin-bottom:16px ;
+        &__icon1{
+          display: flex;
+          margin-top: 4px;
+          height: max-content;
+          &__edit{
+            color: $dark-grey;
+            font-size: 1.6rem;
+            margin-right: 1rem;
+          }
+          &__delete{
+            color: $dark-grey;
+            font-size: 1.6rem;
+          }
+        }
         &__qa1 {
           display: flex;
           flex-direction: column;
@@ -185,99 +212,117 @@
             color: $dark-grey;
           }
         }
-        &__icon1 {
-          position: absolute;
-          left: 30rem;
-          cursor: pointer;
-        }
+       
       }
-      &__q2 {
-        position: relative;
-        padding: 5px 10px 12px 50px;
-        display: flex;
-        &__qa2 {
-          display: flex;
-          flex-direction: column;
-          top: 12px;
-        }
-        &__icon2 {
-          position: absolute;
-          left: 30rem;
-          top: 13px;
-          cursor: pointer;
-        }
       }
-      &__q3 {
-        position: relative;
-        padding: 5px 10px 16px 50px;
-        display: flex;
-        &__qa2 {
-          display: flex;
-          flex-direction: column;
-        }
-
-        &__icon3 {
-          position: absolute;
-          left: 30rem;
-          top: 15px;
-          cursor: pointer;
-        }
-      }
-      &__hr2 {
-        width: 96%;
-        padding-left: 1.8rem;
-      }
-      &__hr3 {
-        width: 96%;
-        padding-left: 1.8rem;
-      }
-    }
+      
   }
   &__rt {
     &__sell {
-      padding: 2.2rem 0;
+      // padding: 2.2rem 0;
       h1 {
-        letter-spacing: 0.03em;
+        font-family: Roboto,sans-serif;
+        font-size: 2.5rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: $black;
+        margin-bottom: 0;
+      }
+      h3{
+        font-family: Roboto,sans-serif;
+        font-size: 1.5rem;
+        margin-top: 0;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: $theme-a;
+      }
+      h2 {
+        font-family: Roboto,sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0;
+        padding-top: 20px;
+        letter-spacing: 0.01em;
+        color: $black;
       }
       &__deli {
+        width: max-content;
+        background: #f1f1f1;
+        padding: 5px 12px;
+        font-family: Roboto,sans-serif;
         font-weight: 500;
-        cursor: pointer;
+        color: $dark-grey;
+        margin-top: 2px;
       }
       &__buttons {
         display: flex;
-        padding-top: 1.7rem;
+        padding-top: 2.5rem;
+        justify-content: space-between;
         &__buy {
+          width: 100%;
+          margin-right: 16px;
           button {
-            background: #9147ff;
+            background:$theme-a;
             color: white !important;
-            font-weight: 600 !important;
-            font-size: 1.2rem !important;
-            padding: 4px 3.8rem !important;
-            font-family: Oswald, sans-serif;
+            font-weight: 500 !important;
+            padding: 8px 3.8rem !important;
+            width: 100% !important;
+            border-radius: 4px;
+            
+            span{
+              font-family: Oswald, sans-serif;
+              font-size: 1.2rem !important;
+              letter-spacing: 0.03em;
+            }
             margin-right: 25px;
+            &:hover{
+              background-color: $theme-a !important;
+              filter: brightness(0.8);
+            }
           }
         }
         &__nego {
+          width: 100%;
           button {
             background: $pink;
             color: white !important;
-            font-weight: 600 !important;
-            font-size: 1.2rem !important;
-            padding: 4px 3.8rem !important;
-            font-family: Oswald, sans-serif;
+            font-weight: 500 !important;
+            width:100% !important;
+            border-radius:4px ;
+            padding: 8px 3.8rem !important;
+            span{
+              font-family: Oswald, sans-serif;
+              font-size: 1.2rem !important;
+              letter-spacing: 0.03em;
+            }
+            &:hover{
+              background-color: $pink !important;
+              filter: brightness(0.8);
+            }
           }
         }
       }
       &__reserved {
         padding-top: 1.2rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid $border-color;
         button {
           background: #ecedf1;
           text-transform: none;
-          color: black;
-          font-weight: 600 !important;
-          font-size: 1.3rem !important;
-          width: 94%;
-          font-family: Oswald, sans-serif;
+          color: $black;
+          font-weight:500 !important;
+          width: 100% !important;
+          border-radius:4px ;
+          padding: 8px 3.8px !important;
+          span{
+            font-family: Oswald, sans-serif;
+            font-size: 1.2rem !important;
+            letter-spacing: 0.03em;
+          }
+          &:hover{
+            background-color: #ecedf1 !important;
+            filter: brightness(0.8);
+          }
         }
       }
     }
@@ -286,16 +331,35 @@
       flex-direction: column;
       justify-content: space-between;
       padding-top: 1.2rem;
+      h2{
+        font-family: Roboto,san-serif;
+        color: $black;
+        font-weight: 500;
+        font-size: 1.4rem;
+        letter-spacing: 0.02em;
+      }
       &__cond {
         display: flex;
         &__condSt {
           h3 {
-            color: $light-grey;
+            color:$light-grey;
+            font-family: Roboto,sans-serif !important;
+            font-weight: 400 !important;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;   
+
           }
         }
         &__state {
           margin-left: 4.7rem;
-          color: $dark-grey;
+          h3{
+          color: $black;
+          font-family: Roboto,sans-serif !important;
+          font-weight: 400 !important;
+          font-size: 1.2rem;
+          letter-spacing: 0.03em;
+          }
+          
         }
       }
 
@@ -304,12 +368,21 @@
         &__categTy {
           h3 {
             color: $light-grey;
+            font-family: Roboto,sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
           }
         }
         &__type {
           margin-left: 5rem;
           h3 {
-            color: $dark-grey;
+            color: $black;
+            font-family: Roboto,sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
+            
           }
         }
       }
@@ -319,12 +392,20 @@
         &__brandNa {
           h3 {
             color: $light-grey;
+            font-family: Roboto,sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
           }
         }
         &__name {
           margin-left: 6.8rem;
           h3 {
-            color: $dark-grey;
+            color: $black;
+            font-family: Roboto,sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
           }
         }
       }
@@ -332,17 +413,33 @@
 
     &__details {
       padding-top: 1.8rem;
+      h2{
+        font-family: Roboto,san-serif;
+        color: $black;
+        font-weight: 500;
+        font-size: 1.4rem;
+        letter-spacing: 0.02em;
+      }
       &__postdetail {
         display: flex;
         &__post {
           h3 {
+            font-family: Roboto,sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
             color: $light-grey;
           }
         }
         &__date {
           margin-left: 6.2rem;
           h3 {
-            color: $dark-grey;
+            color: $black;
+            font-family: Roboto,sans-serif;
+            font-weight: 500;
+            font-size: 1.2rem;
+            letter-spacing: 0.03em;
+
             font-size: 1.02rem;
           }
         }
@@ -351,18 +448,32 @@
 
     &__desc {
       padding-top: 1.2rem;
-
+      h2{
+        font-family: Roboto,san-serif;
+        color: $black;
+        font-weight: 500;
+        font-size: 1.4rem;
+        letter-spacing: 0.02em;
+      }
       &__desctext {
         padding-top: 0.8rem;
-        width: 70%;
+        // width: 70%;
         p {
           letter-spacing: 0.03em;
-          font-weight: 500 !important;
+          font-family: Roboto,sans-serif;
+          font-weight: 400;
+          font-size: 1.2rem;
+          color: $black;
+          line-height: 1.4rem;
         }
       }
     }
     &__hr4 {
-      width: 92%;
+      padding-top: 2rem;
+      width: 100%;
+      hr{
+        color:$border-color !important;
+      }
     }
   }
 }
