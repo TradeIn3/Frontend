@@ -19,15 +19,25 @@
         // padding: 28px 0px 5px 20px;
 
         &__pic {
+<<<<<<< HEAD
           padding-bottom: 1.4rem ;
           img {
             width: 8rem;
             height: 8rem;
+=======
+          padding-right: 0;
+          img {
+            width: 4.5rem;
+            height: 4.5rem;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
             object-fit: cover;
             border-radius: 4px;
           }
         }
+<<<<<<< HEAD
         
+=======
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
       }
       &__outer {
         // padding: 28px 0 28px 20px;
@@ -48,7 +58,7 @@
             top: 50%;
             cursor: pointer;
             color: white;
-            left: 1.8rem;
+            left: 10px;
           }
           &__icon2 {
             position: absolute;
@@ -63,6 +73,7 @@
     }
     &__moreopt {
       display: flex;
+<<<<<<< HEAD
       padding: 1.5rem 0;
       padding-right: 12px;
       border-bottom: 2px solid #f4f4f4;
@@ -91,17 +102,41 @@
           border: 1px solid $theme-a;
           color: $theme-a;
           padding: 6px 52px 6px 52px;
+=======
+      padding: 0 0 35px 20px;
+      position: relative;
+      h3 {
+        font-size: 0.85rem;
+        white-space: nowrap;
+        font-family: Roboto, sans-serif;
+        font-weight: 500 !important;
+        letter-spacing: 0.03em;
+      }
+      a {
+        cursor: pointer;
+        padding-top: 3px;
+        font-family: Roboto, sans-serif;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        font-family: Roboto, sans-serif;
+        letter-spacing: 0.03em;
+      }
+      &__like {
+        position: absolute;
+        right: 0.2rem;
+        button {
+          border: 2px solid $theme-a;
+          color: $theme-a;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
           font-weight: 600 !important;
           text-transform: none;
           font-size: 1.13rem;
+          white-space: nowrap;
         }
       }
     }
     &__hr1 {
-      hr {
-        width: 90%;
-        margin-left: 19px;
-      }
+      padding-left: 0.8rem;
     }
 
     &__profile {
@@ -135,7 +170,10 @@
       }
       &__btn {
         padding-left: 1rem;
+<<<<<<< HEAD
         margin-top: 12px;
+=======
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
         button {
           color: black;
           background: $background;
@@ -155,6 +193,7 @@
 
     &__ques {
       background: white;
+<<<<<<< HEAD
       // width: 650px;
       border:1px solid $border-color;
       margin-top: 2rem;
@@ -167,13 +206,28 @@
         display: flex;
         padding: 16px 0;
         justify-content: space-between;
+=======
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      &__heading {
+        display: flex;
+        padding: 12px 25px;
+        position: relative;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
         h2 {
-          padding-right: 2.8rem;
+          letter-spacing: 0.03em;
+          font-family: Roboto, sans-serif;
+          font-weight: 500 !important;
         }
         &__ask {
+          position: absolute;
+          right: 0.2rem;
+
           button {
             border: 1px solid $theme-a;
             color: $theme-a;
+<<<<<<< HEAD
             padding: 6px 32px 6px 32px;
             font-weight: 500 !important;
             text-transform: none;
@@ -181,17 +235,29 @@
             span{
               font-family: Roboto,sans-serif;
             }
+=======
+            font-weight: 600 !important;
+            width: 100%;
+            text-transform: none !important;
+            font-size: 1.12rem;
+            font-family: Oswald, sans-serif;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
           }
         }
       }
       &__q1 {
-        position: relative;
         display: flex;
+<<<<<<< HEAD
         padding:12px 25px 12px 25px;
         justify-content: space-between;
         border: 2px solid $border-color;
         margin-bottom:16px ;
         &__icon1{
+=======
+        justify-content: space-between;
+        padding: 15px 10px 12px 50px;
+        &__qa1 {
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
           display: flex;
           margin-top: 4px;
           height: max-content;
@@ -205,6 +271,7 @@
             font-size: 1.6rem;
           }
         }
+<<<<<<< HEAD
         &__qa1 {
           display: flex;
           flex-direction: column;
@@ -214,11 +281,22 @@
         }
        
       }
+=======
+        &__icon1 {
+          cursor: pointer;
+        }
+      }
+
+      &__hr2 {
+        padding-left: 1.8rem;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
       }
       
   }
   &__rt {
+    padding-left: 1.8rem;
     &__sell {
+<<<<<<< HEAD
       // padding: 2.2rem 0;
       h1 {
         font-family: Roboto,sans-serif;
@@ -244,6 +322,16 @@
         padding-top: 20px;
         letter-spacing: 0.01em;
         color: $black;
+=======
+      padding: 2.2rem 0;
+      &__padbot {
+        padding-bottom: 0.8rem;
+      }
+      h1 {
+        letter-spacing: 0.03em;
+        font-family: Roboto, sans-serif;
+        font-weight: 500 !important;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
       }
       &__deli {
         width: max-content;
@@ -251,6 +339,7 @@
         padding: 5px 12px;
         font-family: Roboto,sans-serif;
         font-weight: 500;
+<<<<<<< HEAD
         color: $dark-grey;
         margin-top: 2px;
       }
@@ -261,9 +350,25 @@
         &__buy {
           width: 100%;
           margin-right: 16px;
+=======
+        background: #ecedf1;
+        padding: 0 5px;
+        display: inline;
+        white-space: nowrap;
+      }
+      &__buttons {
+        display: flex;
+        padding-top: 1.7rem;
+        width: 94% !important;
+        justify-content: space-between;
+
+        &__buy {
+          padding-right: 0.5rem;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
           button {
             background:$theme-a;
             color: white !important;
+<<<<<<< HEAD
             font-weight: 500 !important;
             padding: 8px 3.8rem !important;
             width: 100% !important;
@@ -299,6 +404,25 @@
               background-color: $pink !important;
               filter: brightness(0.8);
             }
+=======
+            font-weight: 600 !important;
+            font-size: 1.2rem !important;
+            white-space: nowrap;
+
+            width: 100%;
+            font-family: Oswald, sans-serif;
+          }
+        }
+        &__nego {
+          padding-left: 0.5rem;
+          button {
+            background: $pink;
+            color: white !important;
+            font-weight: 600 !important;
+            font-size: 1.2rem !important;
+            width: 100%;
+            font-family: Oswald, sans-serif;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
           }
         }
       }
@@ -309,6 +433,7 @@
         button {
           background: #ecedf1;
           text-transform: none;
+<<<<<<< HEAD
           color: $black;
           font-weight:500 !important;
           width: 100% !important;
@@ -323,6 +448,15 @@
             background-color: #ecedf1 !important;
             filter: brightness(0.8);
           }
+=======
+          color: black;
+          font-weight: 600 !important;
+          font-size: 1.5rem !important;
+          width: 94%;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          font-family: Oswald, sans-serif;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
         }
       }
     }
@@ -340,6 +474,7 @@
       }
       &__cond {
         display: flex;
+        position: relative;
         &__condSt {
           h3 {
             color:$light-grey;
@@ -351,6 +486,7 @@
           }
         }
         &__state {
+<<<<<<< HEAD
           margin-left: 4.7rem;
           h3{
           color: $black;
@@ -360,11 +496,42 @@
           letter-spacing: 0.03em;
           }
           
+=======
+          color: $dark-grey;
+          position: absolute;
+          left: 10rem;
         }
       }
+    }
 
-      &__categ {
+    &__desc {
+      padding-top: 1.2rem;
+
+      &__desctext {
+        padding-top: 0.8rem;
+        width: 75%;
+        p {
+          letter-spacing: 0.03em;
+          font-weight: 500 !important;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
+        }
+      }
+    }
+    &__hr4 {
+      width: 92%;
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .product {
+    display: flex;
+    flex-direction: column;
+    &__lt {
+      padding: 0.5rem 0.7rem;
+      &__Box {
         display: flex;
+<<<<<<< HEAD
         &__categTy {
           h3 {
             color: $light-grey;
@@ -428,9 +595,122 @@
             font-weight: 400;
             font-size: 1.2rem;
             letter-spacing: 0.03em;
-            color: $light-grey;
+=======
+        flex-direction: column-reverse;
+
+        &__imageWrapper {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          padding-top: 0.8rem;
+          padding-left: 0;
+          padding-bottom: 0.58rem;
+          &__pic {
+            padding-right: 0.6rem;
+            img {
+              width: 3rem;
+              height: 3rem;
+            }
           }
         }
+        &__outer {
+          padding-left: 0;
+          padding-bottom: 0rem;
+        }
+      }
+      &__moreopt {
+        padding: 0.5rem 0 1.2rem 0;
+        position: relative;
+        h3 {
+          font-size: 0.75rem;
+        }
+        a {
+          font-size: 0.75rem;
+        }
+        &__like {
+          position: absolute;
+          padding-left: 0.5rem;
+          button {
+            font-size: 0.7rem;
+            padding: 0 2px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    &__rt {
+      padding: 0.5rem 1.05rem;
+      width: 100%;
+      &__sell {
+        h1 {
+          font-size: 1.5rem;
+        }
+        padding: 0 0;
+        width: 100%;
+        &__buttons {
+          display: flex;
+          flex-direction: flex-start;
+          width: 100%;
+          &__buy {
+          }
+          &__nego {
+            padding: 0;
+          }
+        }
+        &__reserved {
+          padding-bottom: 0.8rem;
+          width: 100%;
+        }
+      }
+      &__desc {
+        &__desctext {
+          width: 100%;
+          padding-right: 0;
+        }
+      }
+      &__overview {
+        padding-top: 0.8rem;
+        &__cond {
+          position: relative;
+          &__state {
+            position: absolute;
+            left: 8rem;
+          }
+        }
+      }
+      &__desc {
+        padding-top: 0.8rem;
+      }
+      &__hr1 {
+        padding-top: 1.5rem;
+      }
+      &__profile {
+        display: flex;
+        padding: 20px 0 6px 4px;
+
+        &__pic {
+          img {
+            margin-right: 5px;
+            max-width: 60px;
+            height: 60px;
+            background-clip: border-box;
+            border: none;
+          }
+        }
+        &__name {
+          font-weight: 500;
+          font-size: 1.01rem;
+          font-family: Roboto, sans-serif;
+          padding-left: 7px;
+          span {
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
+            color: $light-grey;
+            font-size: 1.11rem;
+            font-weight: 600 !important;
+            padding-top: 0px;
+          }
+        }
+<<<<<<< HEAD
         &__date {
           margin-left: 6.2rem;
           h3 {
@@ -441,11 +721,41 @@
             letter-spacing: 0.03em;
 
             font-size: 1.02rem;
+=======
+        &__btn {
+          padding-left: 1rem;
+          button {
+            color: black;
+            background: $background;
+            font-size: 1.12rem;
+            font-family: Oswald, sans-serif;
+            font-weight: 500;
+            text-transform: none;
+            background: #ecedf1;
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
           }
         }
       }
-    }
+      &__ques {
+        background: white;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        &__heading {
+          position: relative;
+          display: flex;
+          padding: 12px 0 0px 3px;
+          white-space: nowrap;
+          h2 {
+            letter-spacing: 0.03em;
+            font-family: Roboto, sans-serif;
+            font-weight: 500 !important;
+            font-size: 1.22rem;
+          }
+          &__ask {
+            padding-left: 0.4rem;
 
+<<<<<<< HEAD
     &__desc {
       padding-top: 1.2rem;
       h2{
@@ -475,158 +785,37 @@
         color:$border-color !important;
       }
     }
-  }
-}
+=======
+            button {
+              border: 1px solid $theme-a;
+              color: $theme-a;
+              font-weight: 600 !important;
+              width: 100%;
+              text-transform: none !important;
+              font-size: 1rem;
+              font-family: Oswald, sans-serif;
+              padding: 1px 0px !important;
+            }
+          }
+        }
+        &__q1 {
+          display: flex;
+          justify-content: space-between;
+          padding: 15px 0 0 24px;
+          &__qa1 {
+            display: flex;
+            flex-direction: column;
+            span {
+              color: $dark-grey;
+            }
+          }
+        }
 
-
-
-@media (max-width: 991px) {
-.product {
-display: flex;
-// flex-direction: column;
-&__lt {
-padding: 0.5rem 0.7rem;
-&__Box {
-display: flex;
-
-flex-direction: column;
-
-&__imageWrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding-top: 0.8rem;
-  padding-left: 0;
-  // padding-bottom: 0.58rem;
-  &__pic {
-    padding-right: 1rem;
-    padding-bottom: 0;
-    img {
-      width: 6rem;
-      height: 6rem;
-    }
-  }
-}
-&__outer {
-  padding-left: 0;
-  padding-bottom: 0rem;
-  width: 100%;
-  height: 33rem;
-  img{
-    width: 100%;
-    height: 100%;
-  }
-}
-}
-&__moreopt {
-  padding: .7rem 0;
-position: relative;
-h3 {
-  font-size: 0.875rem;
-  a {
-    padding-left: 4px;
-    font-size: 0.875rem;
-  }
-}
-
-&__like {
-
-  button {
-    font-size: 1rem;
-    padding: 2px 16px 3px 16px;
-  }
-}
-}
-&__ques{
-  &__heading{
-    h2 {
-      letter-spacing: 0.03em;
-      font-family: Roboto, sans-serif;
-      font-weight: 500 !important;
-      font-size: 1.22rem;
-      padding: 0;
-    }
-    &__ask{
-      &__button{
-        padding: 6px 19px;
-        span{
-          font-size: 1rem;
+        &__hr2 {
+          padding-left: 1.2rem;
         }
       }
     }
+>>>>>>> 57753f5bb32be9589b8165bdd1707f14181ec9b8
   }
-}
-&__profile{
-  padding: 0;
-  &__btn{
-    margin-top: 6px;
-    button{
-      padding: 6px 18px;
-      span{
-        font-size: 0.75rem;
-      }
-    }
-  }
-  &__name{
-    font-size: 1.25rem;
-    padding-top: 4px;
-    padding-left: 8px;
-    span{
-      font-size: 1rem;
-    }
-  }
-  &__pic{
-    img{
-      max-width: 65px;
-      height: 65px;
-    }
-  }
-}
-}
-&__rt {
-padding: 0.5rem 1.05rem;
-width: 100%;
-&__sell {
-padding: 0 0;
-width: 100%;
-&__buttons {
-  display: flex;
-  flex-direction: flex-start;
-  width: 100%;
-  &__buy {
-  }
-  &__nego {
-    padding: 0;
-  }
-}
-&__reserved {
-  padding-bottom: 0.8rem;
-  width: 100%;
-}
-}
-&__desc {
-&__desctext {
-  width: 100%;
-  padding-right: 0;
-}
-}
-&__overview {
-padding-top: 0.8rem;
-&__cond {
-  position: relative;
-  &__state {
-    position: absolute;
-    left: 8rem;
-  }
-}
-}
-&__desc {
-padding-top: 0.8rem;
-}
-&__hr1 {
-padding-top: 1.5rem;
-}
-
-}
-}
 }
