@@ -13,13 +13,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-
-
 export default class PostFull extends Component {
-  state={
-    imageArray:[DummyProduct1,DummyProduct2,DummyProduct3,DummyProduct4],
-    selected:0,
-  }
+  state = {
+    imageArray: [DummyProduct1, DummyProduct2, DummyProduct3, DummyProduct4],
+    selected: 0,
+  };
   render() {
     const settings = {
       dots: true,
@@ -31,7 +29,7 @@ export default class PostFull extends Component {
       slidesToScroll: 1,
       className: "slides",
     };
-    const {imageArray,selected} = this.state;
+    const { imageArray, selected } = this.state;
     return (
       <>
         <Breakpoint large up>
@@ -43,28 +41,49 @@ export default class PostFull extends Component {
             <Grid item xs={6} className="product__lt">
               <div className="product__lt__Box">
                 <div className="product__lt__Box__imageWrapper">
-                  {imageArray.map((item,index)=>(
-                        <div className="product__lt__Box__imageWrapper__pic" style={{paddingBottom:selected==imageArray.length? "0" : "1.4rem"}}>
-                        <a herf="#pic1">
-                          <img src={item} onClick={()=>this.setState({selected:index})} style={{opacity:index==selected?"1":"0.4"}} />
-                        </a>
-                      </div>
+                  {imageArray.map((item, index) => (
+                    <div
+                      className="product__lt__Box__imageWrapper__pic"
+                      style={{
+                        paddingBottom:
+                          selected == imageArray.length ? "0" : "1.4rem",
+                      }}
+                    >
+                      <a herf="#pic1">
+                        <img
+                          src={item}
+                          onClick={() => this.setState({ selected: index })}
+                          style={{ opacity: index == selected ? "1" : "0.4" }}
+                        />
+                      </a>
+                    </div>
                   ))}
-                
                 </div>
                 <div className="product__lt__Box__outer">
                   <img src={imageArray[selected]} />
                   <div className="product__Box__outer__icons">
-                    {selected>0 &&<div className="product__lt__Box__outer__icons__icon1">
-                      <IconButton onClick={()=>this.setState({selected:selected-1})}>
-                        <ArrowBackIosIcon />
-                      </IconButton>
-                    </div>}
-                   {selected<imageArray.length-1 && <div className="product__lt__Box__outer__icons__icon2">
-                      <IconButton onClick={()=>this.setState({selected:selected+1})}>
-                        <ArrowForwardIosIcon />
-                      </IconButton>
-                    </div>}
+                    {selected > 0 && (
+                      <div className="product__lt__Box__outer__icons__icon1">
+                        <IconButton
+                          onClick={() =>
+                            this.setState({ selected: selected - 1 })
+                          }
+                        >
+                          <ArrowBackIosIcon />
+                        </IconButton>
+                      </div>
+                    )}
+                    {selected < imageArray.length - 1 && (
+                      <div className="product__lt__Box__outer__icons__icon2">
+                        <IconButton
+                          onClick={() =>
+                            this.setState({ selected: selected + 1 })
+                          }
+                        >
+                          <ArrowForwardIosIcon />
+                        </IconButton>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -99,7 +118,7 @@ export default class PostFull extends Component {
                 </div>
 
                 <div className="product__lt__ques__q1">
-                  <div className="product__lt__ques1__q1__qa1">
+                  <div className="product__lt__ques__q1__qa1">
                     <h3>Q. This is a Question?</h3>
                     <h3 style={{ color: "#6e6e6e" }}>A. This is a Answer.</h3>
                   </div>
@@ -218,30 +237,51 @@ export default class PostFull extends Component {
           <div classN ame="product">
             <div className="product__lt">
               <div className="product__lt__Box">
-              <div className="product__lt__Box__outer">
+                <div className="product__lt__Box__outer">
                   <img src={imageArray[selected]} />
                   <div className="product__Box__outer__icons">
-                    {selected>0 &&<div className="product__lt__Box__outer__icons__icon1">
-                      <IconButton onClick={()=>this.setState({selected:selected-1})}>
-                        <ArrowBackIosIcon />
-                      </IconButton>
-                    </div>}
-                   {selected<imageArray.length-1 && <div className="product__lt__Box__outer__icons__icon2">
-                      <IconButton onClick={()=>this.setState({selected:selected+1})}>
-                        <ArrowForwardIosIcon />
-                      </IconButton>
-                    </div>}
+                    {selected > 0 && (
+                      <div className="product__lt__Box__outer__icons__icon1">
+                        <IconButton
+                          onClick={() =>
+                            this.setState({ selected: selected - 1 })
+                          }
+                        >
+                          <ArrowBackIosIcon />
+                        </IconButton>
+                      </div>
+                    )}
+                    {selected < imageArray.length - 1 && (
+                      <div className="product__lt__Box__outer__icons__icon2">
+                        <IconButton
+                          onClick={() =>
+                            this.setState({ selected: selected + 1 })
+                          }
+                        >
+                          <ArrowForwardIosIcon />
+                        </IconButton>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="product__lt__Box__imageWrapper">
-                  {imageArray.map((item,index)=>(
-                        <div className="product__lt__Box__imageWrapper__pic" style={{paddingBottom:selected==imageArray.length? "0" : "1.4rem"}}>
-                        <a herf="#pic1">
-                          <img src={item} onClick={()=>this.setState({selected:index})} style={{opacity:index==selected?"1":"0.4"}} />
-                        </a>
-                      </div>
+                  {imageArray.map((item, index) => (
+                    <div
+                      className="product__lt__Box__imageWrapper__pic"
+                      style={{
+                        paddingBottom:
+                          selected == imageArray.length ? "0" : "1.4rem",
+                      }}
+                    >
+                      <a herf="#pic1">
+                        <img
+                          src={item}
+                          onClick={() => this.setState({ selected: index })}
+                          style={{ opacity: index == selected ? "1" : "0.4" }}
+                        />
+                      </a>
+                    </div>
                   ))}
-                
                 </div>
               </div>
 
@@ -365,7 +405,7 @@ export default class PostFull extends Component {
                 </div>
 
                 <div className="product__lt__ques__q1">
-                  <div className="product__lt__ques1__q1__qa1">
+                  <div className="product__lt__ques__q1__qa1">
                     <h3>Q. This is a Question?</h3>
                     <h3 style={{ color: "#6e6e6e" }}>A. This is a Answer.</h3>
                   </div>
