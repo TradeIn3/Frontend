@@ -4,6 +4,7 @@ import { Button, Grid } from '@material-ui/core'
 import PostCard from '../Card/PostCard'
 import { getCategories } from '../../utils/Utils'
 import PostFull from '../PostFull/PostFull';
+import QuestionModal from '../PostFull/QuestionModal';
 export default class Home extends Component{
     render(){
         const categories = getCategories();
@@ -12,7 +13,10 @@ export default class Home extends Component{
             Object.keys(categories).map((item)=>{
                return <div>{item}</div>
             })
-               }</div>
+               }
+        <QuestionModal/>
+
+               </div>
         );
     }
 }
