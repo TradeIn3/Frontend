@@ -10,11 +10,16 @@ import MainLoader from "../Loaders/MainLoader";
 import { Breakpoint } from "react-socks";
 import { Grid } from "@material-ui/core";
 import Sidebar from "./Sidebar";
+import { withRouter } from "react-router";
 class Layout extends Component {
   async componentDidMount() {
    if(this.props.isLoggedIn) 
     await this.props.myDetailsDispatch();
+    if(this.props.isLoggedIn){
+      this.props.history.push(this.props.location.pathname)
+    }
   }
+
   render() {
     const {isLoggedIn} = this.props;
     if (isLoggedIn && !this.props.myDetails) return <MainLoader />;
@@ -41,6 +46,7 @@ class Layout extends Component {
 }
 const mapStateToProps = (state) => {
   return {
+    isLoggedIn: state.token.isLoggedIn,
     myDetails: state.myDetails.myDetails,
   };
 };
@@ -51,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Layout));

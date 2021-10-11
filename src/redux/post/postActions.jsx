@@ -11,13 +11,13 @@ export const addPostDetails = (post) => {
   };
 };
 
-export const retrievePost = (category, sortby, donation) => {
+export const retrievePost = (postId) => {
   return async (dispatch, getState) => {
     await dispatch(getToken());
     const token = await getState().token.access;
     const res = await Request(
       "GET",
-      `${RetrievePost}?category=${category}&sortby=${sortby}&donation=${donation}`,
+      `${RetrievePost}?id=${postId}`,
       token
     );
     if (res && res.status === 200) {

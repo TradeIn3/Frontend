@@ -111,7 +111,12 @@ class Login extends Component {
     const { showPassword, formErrors, formValid, username, password } =
       this.state;
     const { loading, success, isLoggedIn } = this.props;
-    if(isLoggedIn || !new URLSearchParams(this.props.location.search).get("login")) return null
+    if(isLoggedIn && new URLSearchParams(this.props.location.search).get("login")){ 
+     this.props.history.push(this.props.location.pathname);
+    }
+    if(isLoggedIn || !new URLSearchParams(this.props.location.search).get("login")){ 
+      return null;
+    }
     return (
       <React.Fragment>
         <Breakpoint large up>

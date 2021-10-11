@@ -1,7 +1,7 @@
 import { ADD_POST_DATA } from "./postTypes";
 
 const initialState = {
-  posts: [],
+  posts: {},
   loading:true,
 };
 const reducer = (state = initialState, action) => {
@@ -9,7 +9,10 @@ const reducer = (state = initialState, action) => {
     case ADD_POST_DATA:
       return {
         loading:false,
-        posts: [...state.posts,...action.post],
+        posts:{
+          ...state.posts,
+          [action.post.id]:action.post
+        },
       };
     default:
       return state;

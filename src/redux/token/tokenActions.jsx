@@ -35,10 +35,9 @@ export const setTokenSuccess = (token) => {
   };
 };
 
-export const getTokenSuccess = (data) => {
+export const getTokenSuccess = () => {
   return {
     type: GET_TOKEN_SUCCESS,
-    data: data,
   };
 };
 
@@ -87,8 +86,6 @@ export const getToken = () => {
     await dispatch(getTokenRequest());
     const refresh = await getState().token.refresh;
     if (!isTokenValid(refresh)) {
-      console.log("refresh invalid")
-      console.log(refresh)
       await dispatch(removeTokenRequest());
     } else {
       const access = await getState().token.access;
@@ -108,8 +105,7 @@ export const getToken = () => {
           await dispatch(openSnackbar("Network Error"));
         }
       } else {
-        const tokens = await getState().token;
-        // dispatch(getTokenSuccess(tokens));
+        dispatch(getTokenSuccess());
       }
     }
   };

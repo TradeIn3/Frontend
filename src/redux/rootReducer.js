@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   token:tokenReducer,
   snackbar:snackbarReducer,
   myDetails:myDetailsReducer,
-  posts:postReducer
+  post:postReducer
 });
 
 export default rootReducer;

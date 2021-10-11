@@ -23,7 +23,7 @@ import Buy from "./Components/Auth/Buy";
 import Donate from "./Components/Auth/Donate";
 import Sidebar from "./Components/Layout/Sidebar";
 import { Breakpoint } from "react-socks";
-import { Grid } from "@material-ui/core";
+import { Grid, Popper } from "@material-ui/core";
 import PostFull from "./Components/PostFull/PostFull";
 function Root(props) {
   useEffect(() => {
