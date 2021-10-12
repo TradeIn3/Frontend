@@ -25,6 +25,7 @@ import Sidebar from "./Components/Layout/Sidebar";
 import { Breakpoint } from "react-socks";
 import { Grid, Popper } from "@material-ui/core";
 import PostFull from "./Components/PostFull/PostFull";
+import QuestionModal from "./Components/PostFull/QuestionModal";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
@@ -95,7 +96,7 @@ function Root(props) {
             </Layout>
           )}
         </Route>
-        <Route path={AUTH_BUY_FULL_PATH} exact>
+        <Route path={AUTH_BUY_FULL_PATH}>
         {(props) => (
             <Layout {...props}>
               <PostFull {...props} />

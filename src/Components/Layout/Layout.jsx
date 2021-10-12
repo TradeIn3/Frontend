@@ -13,7 +13,6 @@ import Sidebar from "./Sidebar";
 import { withRouter } from "react-router";
 class Layout extends Component {
   async componentDidMount() {
-   if(this.props.isLoggedIn) 
     await this.props.myDetailsDispatch();
     if(this.props.isLoggedIn){
       this.props.history.push(this.props.location.pathname)

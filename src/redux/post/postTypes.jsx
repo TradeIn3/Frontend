@@ -1,1 +1,4 @@
 export const ADD_POST_DATA = "ADD_POST_DATA";
+export const ADD_QUESION_DATA = "ADD_QUESION_DATA";
+export const DELETE_QUESION_DATA = "DELETE_QUESION_DATA";
+export const ADD_SAVED_DATA = "ADD_SAVED_DATA";
