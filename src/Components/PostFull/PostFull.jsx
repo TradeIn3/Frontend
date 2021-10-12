@@ -685,22 +685,95 @@ class PostFull extends Component {
               <div className="product__lt__ques">
                 <div className="product__lt__ques__heading">
                   <h2>Questions and Answers</h2>
-                  <div className="product__lt__ques__heading__ask">
-                    <Link>Ask Question</Link>
-                  </div>
+                  {!post.is_owner && (
+                    <div className="product__lt__ques__heading__ask">
+                      <Link to={`/buy/${this.props.match.params.id}/ask`}>
+                        Ask Question
+                      </Link>
+                    </div>
+                  )}
                 </div>
 
-                <div className="product__lt__ques__q1">
-                  <div className="product__lt__ques__q1__qa1">
-                    <h3>Q. This is a Question?</h3>
-                    <h3 style={{ color: "#6e6e6e" }}>A. This is a Answer.</h3>
-                  </div>
+                {post.questions.map((obj) => (
+                  <div className="product__lt__ques__q1">
+                    <div className="product__lt__ques__q1__qa1">
+                      <h3>Q. {obj.question}</h3>
+                      {!post.is_owner && (
+                        <h3 style={{ color: "#6e6e6e" }}>
+                          {obj.is_answered ? (
+                            `A. ${obj.answer}`
+                          ) : (
+                            <>
+                              <div
+                                style={{
+                                  color: "#9e9e9e",
+                                  fontSize: "0.85rem",
+                                }}
+                              >
+                                Not Answered yet
+                              </div>
+                            </>
+                          )}
+                        </h3>
+                      )}
 
-                  <div className="product__lt__ques__q1__icon1">
-                    <EditIcon className="product__lt__ques__q1__icon1__edit" />
-                    <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                      {post.is_owner && (
+                        <div className="product__lt__ques__q1__ans">
+                          {!obj.is_answered ? (
+                            <>
+                              <TextField
+                                type="text"
+                                required
+                                value={answer}
+                                placeholder="write your answer here"
+                                onChange={this.onHandleChange}
+                                className="login__right__myForm__formData__username"
+                                variant="outlined"
+                                name="answer"
+                                multiline
+                                row={4}
+                                // style={{ padding: "8px" }}
+                              ></TextField>
+                              <Button
+                                onClick={() => this.handleAnswer(obj.id, "add")}
+                              >
+                                Answer
+                              </Button>
+                            </>
+                          ) : (
+                            <div className="product__lt__ques__q1__ansdone">
+                              <h3 style={{ color: "#6e6e6e" }}>
+                                A. {obj.answer}
+                              </h3>{" "}
+                              <IconButton
+                                style={{ padding: "0" }}
+                                onClick={() =>
+                                  this.handleAnswer(obj.id, "delete")
+                                }
+                              >
+                                <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                              </IconButton>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {!post.is_owner && (
+                      <div className="product__lt__ques__q1__icon1">
+                        {/* <IconButton style={{padding:"0"}} >
+                        <EditIcon className="product__lt__ques__q1__icon1__edit" />
+                      </IconButton> */}
+                        <IconButton
+                          style={{ padding: "0" }}
+                          onClick={() => this.handleDelete(obj.id)}
+                        >
+                          <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                        </IconButton>
+                      </div>
+                    )}
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
