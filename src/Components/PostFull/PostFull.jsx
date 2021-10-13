@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Button, Grid, IconButton, TextField } from "@material-ui/core";
+import {
+  Button,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  IconButton,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@material-ui/core";
 import { Breakpoint } from "react-socks";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DummyPic from "../../assets/DummyPic.svg";
@@ -83,7 +92,8 @@ class PostFull extends Component {
     this.state = {
       imageArray: [DummyProduct1, DummyProduct2, DummyProduct3, DummyProduct4],
       selected: 0,
-      answer: "",
+      sort: "all",
+      answer: {},
     };
   }
 
@@ -95,25 +105,29 @@ class PostFull extends Component {
     await this.props.deleteQuestionDispatch(id, this.props.match.params.id);
   };
 
-  handleSave =async(isSaved) => {
-    if(this.props.isLoggedIn)
-      await this.props.postSavedDispatch(this.props.match.params.id,this.props.myDetails.username,isSaved?"unsave":"save")
-  }
-  handleAnswer = async (id, action) => {
+  handleSave = async (isSaved) => {
+    if (this.props.isLoggedIn)
+      await this.props.postSavedDispatch(
+        this.props.match.params.id,
+        this.props.myDetails.username,
+        isSaved ? "unsave" : "save"
+      );
+  };
+  handleAnswer = async (id, action, index) => {
     await this.props.answerQuestionDispatch(
-      this.state.answer,
+      index in this.state.answer ? this.state.answer[index] : "",
       this.props.match.params.id,
       id,
       action
     );
-    this.setState({ answer: "" });
+    this.setState({ answer: { ...this.state.answer, [index]: "" } });
   };
 
-  onHandleChange = (e) => {
-    e.preventDefault();
+  onHandleChange = (e, index) => {
+    // e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: { ...this.state.name, [index]: value } });
   };
 
   loadScript = () => {
@@ -251,8 +265,9 @@ class PostFull extends Component {
   };
 
   render() {
-    const { imageArray, selected, answer } = this.state;
+    const { imageArray, selected, answer, sort } = this.state;
     const { post, loading } = this.props;
+    console.log(answer);
     if (loading) return <CardSkeleton />;
     return (
       <>
@@ -317,8 +332,18 @@ class PostFull extends Component {
                 </h3>
 
                 <div className="product__lt__moreopt__like">
-                <Link to={this.props.isLoggedIn?`${this.props.location.pathname}`:`${this.props.location.pathname}?login=true`}>
-                  <Button onClick={()=>this.handleSave(post.is_saved)}>{post.is_saved ?"Remove from wishlist" :"Add to wishlist"}</Button>
+                  <Link
+                    to={
+                      this.props.isLoggedIn
+                        ? `${this.props.location.pathname}`
+                        : `${this.props.location.pathname}?login=true`
+                    }
+                  >
+                    <Button onClick={() => this.handleSave(post.is_saved)}>
+                      {post.is_saved
+                        ? "Remove from wishlist"
+                        : "Add to wishlist"}
+                    </Button>
                   </Link>
                 </div>
               </div>
@@ -342,93 +367,163 @@ class PostFull extends Component {
                   <h2>Questions and Answers</h2>
                   {!post.is_owner && (
                     <div className="product__lt__ques__heading__ask">
-                      <Link to={`/buy/${this.props.match.params.id}/ask`}>
+                      <Link
+                        to={
+                          this.props.isLoggedIn
+                            ? `/buy/${this.props.match.params.id}/ask`
+                            : `${this.props.pathname}?login==true`
+                        }
+                      >
                         Ask Question
                       </Link>
                     </div>
                   )}
                 </div>
-
-                {post.questions.map((obj) => (
-                  <div className="product__lt__ques__q1">
-                    <div className="product__lt__ques__q1__qa1">
-                      <h3>Q. {obj.question}</h3>
-                      {!post.is_owner && (
-                        <h3 style={{ color: "#6e6e6e" }}>
-                          {obj.is_answered ? (
-                            `A. ${obj.answer}`
-                          ) : (
-                            <>
-                              <div
-                                style={{
-                                  color: "#9e9e9e",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                Not Answered yet
-                              </div>
-                            </>
+                {!post.is_owner ? (
+                  <div className="product__lt__ques__sort">
+                    <FormLabel
+                      component="legend"
+                      className="product__lt__ques__sort__lbl"
+                    >
+                      Sort:
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-label="sort"
+                      name="sort"
+                      value={sort}
+                      onChange={(e) => this.setState({ sort: e.target.value })}
+                    >
+                      <FormControlLabel
+                        value="all"
+                        control={<Radio />}
+                        label="All Questions"
+                      />
+                      <FormControlLabel
+                        value="my"
+                        control={<Radio />}
+                        label="My Questions"
+                      />
+                    </RadioGroup>
+                  </div>
+                ): <div className="product__lt__ques__sort">
+                <FormLabel
+                  component="legend"
+                  className="product__lt__ques__sort__lbl"
+                >
+                  Sort:
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="sort"
+                  name="sort"
+                  value={sort}
+                  onChange={(e) => this.setState({ sort: e.target.value })}
+                >
+                  <FormControlLabel
+                    value="all"
+                    control={<Radio />}
+                    label="All Questions"
+                  />
+                  <FormControlLabel
+                    value="my"
+                    control={<Radio />}
+                    label="Not Answered"
+                  />
+                </RadioGroup>
+              </div>}
+                {post.questions.map((obj, index) => {
+                  if (
+                    sort == "all" ||
+                    (sort == "my" && obj.user == this.props.myDetails.username && !post.is_owner) ||
+                    (sort == "my" && !obj.is_answered && post.is_owner)
+                  )
+                    return (
+                      <div className="product__lt__ques__q1">
+                        <div className="product__lt__ques__q1__qa1">
+                          <h3>Q. {obj.question}</h3>
+                          {!post.is_owner && (
+                            <h3 style={{ color: "#6e6e6e" }}>
+                              {obj.is_answered ? (
+                                `A. ${obj.answer}`
+                              ) : (
+                                <>
+                                  <div
+                                    style={{
+                                      color: "#9e9e9e",
+                                      fontSize: "0.85rem",
+                                    }}
+                                  >
+                                    Not Answered yet
+                                  </div>
+                                </>
+                              )}
+                            </h3>
                           )}
-                        </h3>
-                      )}
 
-                      {post.is_owner && (
-                        <div className="product__lt__ques__q1__ans">
-                          {!obj.is_answered ? (
-                            <>
-                              <TextField
-                                type="text"
-                                required
-                                value={answer}
-                                placeholder="write your answer here"
-                                onChange={this.onHandleChange}
-                                className="login__right__myForm__formData__username"
-                                variant="outlined"
-                                name="answer"
-                                multiline
-                                row={4}
-                                // style={{ padding: "8px" }}
-                              ></TextField>
-                              <Button
-                                onClick={() => this.handleAnswer(obj.id, "add")}
-                              >
-                                Answer
-                              </Button>
-                            </>
-                          ) : (
-                            <div className="product__lt__ques__q1__ansdone">
-                              <h3 style={{ color: "#6e6e6e" }}>
-                                A. {obj.answer}
-                              </h3>{" "}
+                          {post.is_owner && (
+                            <div className="product__lt__ques__q1__ans">
+                              {!obj.is_answered ? (
+                                <>
+                                  <TextField
+                                    type="text"
+                                    required
+                                    value={index in answer ? answer[index] : ""}
+                                    placeholder="write your answer here"
+                                    onChange={(e) =>
+                                      this.onHandleChange(e, index)
+                                    }
+                                    className="login__right__myForm__formData__username"
+                                    variant="outlined"
+                                    name="answer"
+                                    multiline
+                                    row={4}
+                                  ></TextField>
+                                  <Button
+                                    onClick={() =>
+                                      this.handleAnswer(obj.id, "add", index)
+                                    }
+                                  >
+                                    Answer
+                                  </Button>
+                                </>
+                              ) : (
+                                <div className="product__lt__ques__q1__ansdone">
+                                  <h3 style={{ color: "#6e6e6e" }}>
+                                    A. {obj.answer}
+                                  </h3>{" "}
+                                  <Link>
+                                    <IconButton
+                                      style={{ padding: "0" }}
+                                      onClick={() =>
+                                        this.handleAnswer(obj.id, "delete")
+                                      }
+                                    >
+                                      <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                                    </IconButton>
+                                  </Link>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        {!post.is_owner &&
+                          obj.user == this.props.myDetails.username && (
+                            <div className="product__lt__ques__q1__icon1">
+                              {/* <IconButton style={{padding:"0"}} >
+                        <EditIcon className="product__lt__ques__q1__icon1__edit" />
+                      </IconButton> */}
                               <IconButton
                                 style={{ padding: "0" }}
-                                onClick={() =>
-                                  this.handleAnswer(obj.id, "delete")
-                                }
+                                onClick={() => this.handleDelete(obj.id)}
                               >
                                 <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
                               </IconButton>
                             </div>
                           )}
-                        </div>
-                      )}
-                    </div>
-
-                    {!post.is_owner && (
-                      <div className="product__lt__ques__q1__icon1">
-                        {/* <IconButton style={{padding:"0"}} >
-                        <EditIcon className="product__lt__ques__q1__icon1__edit" />
-                      </IconButton> */}
-                        <IconButton
-                          style={{ padding: "0" }}
-                          onClick={() => this.handleDelete(obj.id)}
-                        >
-                          <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
-                        </IconButton>
                       </div>
-                    )}
-                  </div>
-                ))}
+                    );
+                })}
               </div>
             </Grid>
 
@@ -446,35 +541,67 @@ class PostFull extends Component {
                   + &#8377;15 delivery charges
                 </div>
 
-                <div className="product__rt__sell__buttons">
-                  <div
-                    className="product__rt__sell__buttons__buy"
-                    style={{ width: "100%" }}
-                  >
-                    <Button
-                      className="product__rt__sell__buttons__buy__buybtn"
-                      onClick={this.showProductRazorpay}
+                {!post.is_owner ? (
+                  <div className="product__rt__sell__buttons">
+                    <div
+                      className="product__rt__sell__buttons__buy"
+                      style={{ width: "100%" }}
                     >
-                      Buy Now
-                    </Button>
+                      <Button
+                        className="product__rt__sell__buttons__buy__buybtn"
+                        onClick={this.showProductRazorpay}
+                      >
+                        Buy Now
+                      </Button>
+                    </div>
+                    <div
+                      className="product__rt__sell__buttons__nego"
+                      style={{ width: "100%" }}
+                    >
+                      <Button className="product__rt__sell__buttons__nego__negobtn">
+                        Negotiate
+                      </Button>
+                    </div>
                   </div>
+                ) : (
                   <div
-                    className="product__rt__sell__buttons__nego"
-                    style={{ width: "100%" }}
+                    className="product__rt__sell__buttons"
+                    style={{
+                      borderBottom: "2px solid #f4f4f4",
+                      paddingBottom: "24px",
+                    }}
                   >
-                    <Button className="product__rt__sell__buttons__nego__negobtn">
-                      Negotiate
+                    <div
+                      className="product__rt__sell__buttons__edit"
+                      style={{ width: "100%" }}
+                    >
+                      <Button
+                        className="product__rt__sell__buttons__edit__editbtn"
+                        onClick={this.showProductRazorpay}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div
+                      className="product__rt__sell__buttons__del"
+                      style={{ width: "100%" }}
+                    >
+                      <Button className="product__rt__sell__buttons__del__delbtn">
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                {!post.is_owner && (
+                  <div className="product__rt__sell__reserved">
+                    <Button
+                      className="product__rt__sell__reserved__reservedbtn"
+                      onClick={this.showReserveRazorpay}
+                    >
+                      RESERVED
                     </Button>
                   </div>
-                </div>
-                <div className="product__rt__sell__reserved">
-                  <Button
-                    className="product__rt__sell__reserved__reservedbtn"
-                    onClick={this.showReserveRazorpay}
-                  >
-                    RESERVED
-                  </Button>
-                </div>
+                )}
               </div>
 
               <div className="product__rt__overview">
@@ -582,8 +709,18 @@ class PostFull extends Component {
                   Have a similar item?<a href="#">Sell yours</a>
                 </h3>
                 <div className="product__lt__moreopt__like">
-                  <Link to={this.props.isLoggedIn?`${this.props.location.pathname}`:`${this.props.location.pathname}?login=true`}>
-                  <Button onClick={()=>this.handleSave(post.is_saved)}>{post.is_saved ?"Remove from wishlist" :"Add to wishlist"}</Button>
+                  <Link
+                    to={
+                      this.props.isLoggedIn
+                        ? `${this.props.location.pathname}`
+                        : `${this.props.location.pathname}?login=true`
+                    }
+                  >
+                    <Button onClick={() => this.handleSave(post.is_saved)}>
+                      {post.is_saved
+                        ? "Remove from wishlist"
+                        : "Add to wishlist"}
+                    </Button>
                   </Link>
                 </div>
               </div>
@@ -598,29 +735,67 @@ class PostFull extends Component {
                   + &#8377;15 delivery charges
                 </div>
 
-                <div className="product__rt__sell__buttons">
-                  <div className="product__rt__sell__buttons__buy">
-                    <Button
-                      className="product__rt__sell__buttons__buy__buybtn"
-                      onClick={this.showProductRazorpay}
+                {!post.is_owner ? (
+                  <div className="product__rt__sell__buttons">
+                    <div
+                      className="product__rt__sell__buttons__buy"
+                      style={{ width: "100%" }}
                     >
-                      Buy Now
-                    </Button>
+                      <Button
+                        className="product__rt__sell__buttons__buy__buybtn"
+                        onClick={this.showProductRazorpay}
+                      >
+                        Buy Now
+                      </Button>
+                    </div>
+                    <div
+                      className="product__rt__sell__buttons__nego"
+                      style={{ width: "100%" }}
+                    >
+                      <Button className="product__rt__sell__buttons__nego__negobtn">
+                        Negotiate
+                      </Button>
+                    </div>
                   </div>
-                  <div className="product__rt__sell__buttons__nego">
-                    <Button className="product__rt__sell__buttons__negobtn">
-                      Negotiate
-                    </Button>
-                  </div>
-                </div>
-                <div className="product__rt__sell__reserved">
-                  <Button
-                    className="product__rt__sell__reservedbtn"
-                    onClick={this.showReserveRazorpay}
+                ) : (
+                  <div
+                    className="product__rt__sell__buttons"
+                    style={{
+                      borderBottom: "2px solid #f4f4f4",
+                      paddingBottom: "24px",
+                    }}
                   >
-                    Reserved
-                  </Button>
-                </div>
+                    <div
+                      className="product__rt__sell__buttons__edit"
+                      style={{ width: "100%" }}
+                    >
+                      <Button
+                        className="product__rt__sell__buttons__edit__editbtn"
+                        onClick={this.showProductRazorpay}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div
+                      className="product__rt__sell__buttons__del"
+                      style={{ width: "100%" }}
+                    >
+                      <Button className="product__rt__sell__buttons__del__delbtn">
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                {!post.is_owner && (
+                  <div className="product__rt__sell__reserved">
+                    <Button
+                      className="product__rt__sell__reserved__reservedbtn"
+                      onClick={this.showReserveRazorpay}
+                    >
+                      RESERVED
+                    </Button>
+                  </div>
+                )}
               </div>
 
               <div className="product__rt__overview">
@@ -687,98 +862,142 @@ class PostFull extends Component {
                   <h2>Questions and Answers</h2>
                   {!post.is_owner && (
                     <div className="product__lt__ques__heading__ask">
-                      <Link to={`/buy/${this.props.match.params.id}/ask`}>
+                      <Link
+                        to={
+                          this.props.isLoggedIn
+                            ? `/buy/${this.props.match.params.id}/ask`
+                            : `${this.props.pathname}?login==true`
+                        }
+                      >
                         Ask Question
                       </Link>
                     </div>
                   )}
                 </div>
-
-                {post.questions.map((obj) => (
-                  <div className="product__lt__ques__q1">
-                    <div className="product__lt__ques__q1__qa1">
-                      <h3>Q. {obj.question}</h3>
-                      {!post.is_owner && (
-                        <h3 style={{ color: "#6e6e6e" }}>
-                          {obj.is_answered ? (
-                            `A. ${obj.answer}`
-                          ) : (
-                            <>
-                              <div
-                                style={{
-                                  color: "#9e9e9e",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                Not Answered yet
-                              </div>
-                            </>
+                {!post.is_owner && (
+                  <div className="product__lt__ques__sort">
+                    <FormLabel
+                      component="legend"
+                      className="product__lt__ques__sort__lbl"
+                    >
+                      Sort:
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-label="sort"
+                      name="sort"
+                      value={sort}
+                      onChange={(e) => this.setState({ sort: e.target.value })}
+                    >
+                      <FormControlLabel
+                        value="all"
+                        control={<Radio />}
+                        label="All Questions"
+                      />
+                      <FormControlLabel
+                        value="my"
+                        control={<Radio />}
+                        label="My Questions"
+                      />
+                    </RadioGroup>
+                  </div>
+                )}
+                {post.questions.map((obj, index) => {
+                  if (
+                    sort == "all" ||
+                    (sort == "my" && obj.user == this.props.myDetails.username)
+                  )
+                    return (
+                      <div className="product__lt__ques__q1">
+                        <div className="product__lt__ques__q1__qa1">
+                          <h3>Q. {obj.question}</h3>
+                          {!post.is_owner && (
+                            <h3 style={{ color: "#6e6e6e" }}>
+                              {obj.is_answered ? (
+                                `A. ${obj.answer}`
+                              ) : (
+                                <>
+                                  <div
+                                    style={{
+                                      color: "#9e9e9e",
+                                      fontSize: "0.85rem",
+                                    }}
+                                  >
+                                    Not Answered yet
+                                  </div>
+                                </>
+                              )}
+                            </h3>
                           )}
-                        </h3>
-                      )}
 
-                      {post.is_owner && (
-                        <div className="product__lt__ques__q1__ans">
-                          {!obj.is_answered ? (
-                            <>
-                              <TextField
-                                type="text"
-                                required
-                                value={answer}
-                                placeholder="write your answer here"
-                                onChange={this.onHandleChange}
-                                className="login__right__myForm__formData__username"
-                                variant="outlined"
-                                name="answer"
-                                multiline
-                                row={4}
-                                // style={{ padding: "8px" }}
-                              ></TextField>
-                              <Button
-                                onClick={() => this.handleAnswer(obj.id, "add")}
-                              >
-                                Answer
-                              </Button>
-                            </>
-                          ) : (
-                            <div className="product__lt__ques__q1__ansdone">
-                              <h3 style={{ color: "#6e6e6e" }}>
-                                A. {obj.answer}
-                              </h3>{" "}
+                          {post.is_owner && (
+                            <div className="product__lt__ques__q1__ans">
+                              {!obj.is_answered ? (
+                                <>
+                                  <TextField
+                                    type="text"
+                                    required
+                                    value={index in answer ? answer[index] : ""}
+                                    placeholder="write your answer here"
+                                    onChange={(e) =>
+                                      this.onHandleChange(e, index)
+                                    }
+                                    className="login__right__myForm__formData__username"
+                                    variant="outlined"
+                                    name="answer"
+                                    multiline
+                                    row={4}
+                                  ></TextField>
+                                  <Button
+                                    onClick={() =>
+                                      this.handleAnswer(obj.id, "add", index)
+                                    }
+                                  >
+                                    Answer
+                                  </Button>
+                                </>
+                              ) : (
+                                <div className="product__lt__ques__q1__ansdone">
+                                  <h3 style={{ color: "#6e6e6e" }}>
+                                    A. {obj.answer}
+                                  </h3>{" "}
+                                  <Link>
+                                    <IconButton
+                                      style={{ padding: "0" }}
+                                      onClick={() =>
+                                        this.handleAnswer(obj.id, "delete")
+                                      }
+                                    >
+                                      <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                                    </IconButton>
+                                  </Link>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        {!post.is_owner &&
+                          obj.user == this.props.myDetails.username && (
+                            <div className="product__lt__ques__q1__icon1">
+                              {/* <IconButton style={{padding:"0"}} >
+                        <EditIcon className="product__lt__ques__q1__icon1__edit" />
+                      </IconButton> */}
                               <IconButton
                                 style={{ padding: "0" }}
-                                onClick={() =>
-                                  this.handleAnswer(obj.id, "delete")
-                                }
+                                onClick={() => this.handleDelete(obj.id)}
                               >
                                 <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
                               </IconButton>
                             </div>
                           )}
-                        </div>
-                      )}
-                    </div>
-
-                    {!post.is_owner && (
-                      <div className="product__lt__ques__q1__icon1">
-                        {/* <IconButton style={{padding:"0"}} >
-                        <EditIcon className="product__lt__ques__q1__icon1__edit" />
-                      </IconButton> */}
-                        <IconButton
-                          style={{ padding: "0" }}
-                          onClick={() => this.handleDelete(obj.id)}
-                        >
-                          <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
-                        </IconButton>
                       </div>
-                    )}
-                  </div>
-                ))}
+                    );
+                })}
               </div>
             </div>
           </div>
         </Breakpoint>
-        {!post.is_owner && (
+        {!post.is_owner && this.props.isLoggedIn && (
           <Switch>
             <Route path={AUTH_BUY_FULL_QUESTION_PATH} exact>
               {(props) => <QuestionModal {...props} />}
@@ -811,7 +1030,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteQuestion(questionId, postId)),
     answerQuestionDispatch: (answer, postId, questionId, action) =>
       dispatch(answerQuestion(answer, postId, questionId, action)),
-    postSavedDispatch:(postId,userId,verb)=>dispatch(PostSave(postId,userId,verb))  
+    postSavedDispatch: (postId, userId, verb) =>
+      dispatch(PostSave(postId, userId, verb)),
   };
 };
 

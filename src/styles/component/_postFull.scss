@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+.MuiRadio-colorSecondary.Mui-checked{
+  color:$theme-a !important;
+}
 
 .product {
   display: flex;
@@ -207,14 +210,24 @@
       padding-left: 0.8rem;
       padding-right: 0.8rem;
       height: 32rem;
-      overflow: scroll;
-
+      overflow: scroll; 
+      &__sort{
+        display: flex;
+        align-items: center;
+        padding-bottom: 16px;
+        &__lbl{
+          font-size: 1.125rem !important;
+          padding-right: 12px !important;
+        }
+      }
       &__heading {
         display: flex;
         padding: 16px 0;
+        padding-bottom: 8px;
         justify-content: space-between;
 
         &__ask {
+          margin-top: 5px;
           a {
             border: 1px solid $theme-a;
             color: $theme-a;
@@ -250,6 +263,7 @@
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
+          // margin-top: 5px;
           button{
            
             border: 1px solid $theme-a;
@@ -365,6 +379,60 @@
 
             &:hover {
               background-color: $theme-a !important;
+              filter: brightness(0.8);
+            }
+          }
+        }
+
+        &__edit{
+          width: 100%;
+          margin-right: 12px;
+
+          button {
+            background: #949494;
+            color: white !important;
+            font-weight: 500 !important;
+            padding: 8px 0 !important;
+            width: 100% !important;
+            border-radius: 4px;
+
+            span {
+              font-family: Oswald, sans-serif;
+              font-size: 1.2rem !important;
+              letter-spacing: 0.03em;
+            }
+
+            margin-right: 25px;
+
+            &:hover {
+              background-color: #949494 !important;
+              filter: brightness(0.8);
+            }
+          }
+        }
+
+        &__del {
+          width: 100%;
+          margin-right: 12px;
+
+          button {
+            background: red;
+            color: white !important;
+            font-weight: 500 !important;
+            padding: 8px 0 !important;
+            width: 100% !important;
+            border-radius: 4px;
+
+            span {
+              font-family: Oswald, sans-serif;
+              font-size: 1.2rem !important;
+              letter-spacing: 0.03em;
+            }
+
+            margin-right: 25px;
+
+            &:hover {
+              background-color: red !important;
               filter: brightness(0.8);
             }
           }

@@ -28,7 +28,8 @@ class QuestionModal extends Component {
 
   onHandleClick = async (e) => {
     e.preventDefault();
-    await this.props.askQuestionDispatch(this.state.question,this.props.match.params.id)
+    console.log(this.props.myDetails)
+    await this.props.askQuestionDispatch(this.state.question,this.props.match.params.id,this.props.myDetails.username)
     this.handleClose()
   }
 
@@ -133,8 +134,8 @@ class QuestionModal extends Component {
 
 const mapStateToProps = (state,ownProps) => {
   return {
-    // access: state.token.access,
-    // myDetails: state.myDetails.myDetails,
+    // isLogged: state.token.access,
+    myDetails: state.myDetails.myDetails,
     // loading: state.post.loading,
     // post: ownProps.match.params.id ? state.post.posts[ownProps.match.params.id] :{}
   };
@@ -142,7 +143,7 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    askQuestionDispatch:(question,postId) => dispatch(askQuestion(question,postId)),
+    askQuestionDispatch:(question,postId,user) => dispatch(askQuestion(question,postId,user)),
   };
 };
 

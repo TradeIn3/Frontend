@@ -48,14 +48,16 @@ export const addQuestion = (question, postId) => {
   };
 };
 
-export const askQuestion = (question, postId) => {
+export const askQuestion = (question, postId, user) => {
   return async (dispatch, getState) => {
     await dispatch(getToken());
     const token = await getState().token.access;
     const data = {
       question: question,
       post: postId,
+      user:user,
     };
+    console.log(data)
     const res = await Request("POST", `${PostQuestion}`, token, data);
     if (res && res.status === 201) {
       await dispatch(addQuestion(res.data, postId));
