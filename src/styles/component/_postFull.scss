@@ -208,13 +208,14 @@
       margin-top: 2rem;
       margin-bottom: 2rem;
       padding-left: 0.8rem;
-      padding-right: 0.8rem;
+      // padding-right: 0.8rem;
       height: 32rem;
-      overflow: scroll; 
+      // overflow: scroll; 
       &__sort{
         display: flex;
         align-items: center;
         padding-bottom: 16px;
+        width: 97%;
         &__lbl{
           font-size: 1.125rem !important;
           padding-right: 12px !important;
@@ -225,7 +226,7 @@
         padding: 16px 0;
         padding-bottom: 8px;
         justify-content: space-between;
-
+        width: 97%;
         &__ask {
           margin-top: 5px;
           a {
@@ -250,6 +251,7 @@
         justify-content: space-between;
         border: 2px solid $border-color;
         margin-bottom: 16px;
+        width: 97%;
         &__ansdone{
           display: flex;
           align-items: flex-start;
