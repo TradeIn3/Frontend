@@ -1,0 +1,92 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+.MuiSelect-select {
+    // min-width: 150px !important;
+    border:none !important;
+    background:$background !important;
+  
+}
+.MuiGrid-spacing-xs-4 > .MuiGrid-item {
+    // padding: 0 !important;
+}
+
+.outer1{
+    background: $background;
+    padding:3rem;
+    padding-top:0.65rem;
+    h1 {
+        font-family: Roboto, sans-serif;
+        font-size: 2.1rem;
+        padding-top:0.65rem;
+        padding-bottom: 15px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: $black;
+        margin-bottom: 0;
+        // padding:16px 0 16px 20px;
+      }
+    &__sell{
+        // margin:3rem 2rem 2rem 2rem !important;
+        // padding:3rem 2rem 2rem 2rem !important;        
+        border:1px solid $light-grey;
+        background: white;
+       
+        &__lt{
+            padding:20px;
+           
+              &__outer{
+                //   display: flex;
+                //   position: relative;
+                //   justify-content: space-between;
+                &__categ{
+                    // margin-right: 4rem;
+                    // position: absolute ;
+                    // left:4rem;
+                }
+                &__subcate{
+                    // position: absolute;
+                    // left:4rem;
+                    &__tf{
+                        padding-top: 10px !important;
+                    }
+    
+                }
+              }
+              &__btn{
+                // position: relative;
+                button{
+                    // position: absolute;
+                    // right:0px;
+                    background: $theme-a !important;
+                    padding: 8px 50px !important;
+                    margin-top:10px;
+                    border-radius: 4px !important;
+                    span {
+                      color: white;
+                      font-family: Oswald !important;
+                      letter-spacing: 0.04em !important;
+                      font-weight: 500 !important;
+                      font-size: 1.125rem;
+                      border-radius: 4px !important;
+                    }
+                    }
+                    &:hover {
+                      filter: brightness(0.8);
+                    }
+                
+              }
+             
+        }
+        &__rt{
+            &__box{
+                background: green;
+                // width:100%;
+                height:50vh;
+            }
+        }
+    }
+
+}
