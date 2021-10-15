@@ -24,6 +24,7 @@ import WebsiteLogo from "../../assets/WebsiteLogo.svg";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { getToken } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
+import { Scrollbars } from 'react-custom-scrollbars';
 import {
   ProductPayment,
   ProductPaymentSuccess,
@@ -361,8 +362,9 @@ class PostFull extends Component {
                   <Button>View Profile</Button>
                 </div>
               </div>
-
+             
               <div className="product__lt__ques">
+              <Scrollbars style={{ width: "100%", height: "100%" }}>
                 <div className="product__lt__ques__heading">
                   <h2>Questions and Answers</h2>
                   {!post.is_owner && (
@@ -432,6 +434,7 @@ class PostFull extends Component {
                   />
                 </RadioGroup>
               </div>}
+             
                 {post.questions.map((obj, index) => {
                   if (
                     sort == "all" ||
@@ -524,6 +527,7 @@ class PostFull extends Component {
                       </div>
                     );
                 })}
+               </Scrollbars>
               </div>
             </Grid>
 
@@ -1014,7 +1018,7 @@ const mapStateToProps = (state, ownProps) => {
     myDetails: state.myDetails.myDetails,
     loading: state.post.loading,
     isLoggedIn: state.token.isLoggedIn,
-    post: ownProps.match.params.id
+    post: ownProps.match.params.id &&  ownProps.match.params.id in state.post.posts
       ? state.post.posts[ownProps.match.params.id]
       : {},
   };

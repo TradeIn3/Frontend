@@ -3,16 +3,41 @@ import {
   PostQuestion,
   RetrievePost,
   PostSaved,
+  RetrieveAllPost,
 } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
 import {
+  ADD_ALL_POST_DATA,
   ADD_POST_DATA,
   ADD_QUESION_DATA,
   ADD_SAVED_DATA,
   DELETE_QUESION_DATA,
 } from "./postTypes";
+
+export const addAllPostDetails = (post) => {
+  return {
+    type: ADD_ALL_POST_DATA,
+    post: post,
+  };
+};
+
+export const retrieveAllPost = (category,subcategory,brand,color,min,max,status,condition,barter,exchange,sort) => {
+  return async (dispatch, getState) => {
+      const res = await Request("GET", `${RetrieveAllPost}?category=${category}&subcategory=${subcategory}&brand=${brand}&color=${color}&min=${min}&max=${max}&state=${status}&condition=${condition}&barter=${barter}&exchange=${exchange}&sort=${sort}`, null,null);
+      if (res && res.status === 200) {
+        await dispatch(addAllPostDetails(res.data));
+      } else if (res && res.status == 204) {
+        await dispatch(openSnackbar("No results found"));
+      } else if (res && res.status != 200) {
+        await dispatch(openSnackbar("Something went wrong"));
+      } else {
+        await dispatch(openSnackbar("Network error"));
+      }
+    }
+};
+
 
 export const addPostDetails = (post) => {
   return {
@@ -57,7 +82,6 @@ export const askQuestion = (question, postId, user) => {
       post: postId,
       user:user,
     };
-    console.log(data)
     const res = await Request("POST", `${PostQuestion}`, token, data);
     if (res && res.status === 201) {
       await dispatch(addQuestion(res.data, postId));

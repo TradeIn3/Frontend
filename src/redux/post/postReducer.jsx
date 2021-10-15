@@ -3,24 +3,34 @@ import {
   ADD_QUESION_DATA,
   ADD_SAVED_DATA,
   DELETE_QUESION_DATA,
+  ADD_ALL_POST_DATA,
 } from "./postTypes";
 
 const initialState = {
   posts: {},
   loading: true,
+  allPost :[],
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_DATA:
       return {
-        loading: false,
+        ...state,
         posts: {
           ...state.posts,
           [action.post.id]: action.post,
         },
+        loading: false,
       };
+      case ADD_ALL_POST_DATA:
+      return {
+        ...state,
+        loading: false,
+        allPost: action.post,
+      }; 
     case ADD_QUESION_DATA:
       return {
+        ...state,
         loading: false,
         posts: {
           ...state.posts,
@@ -35,6 +45,7 @@ const reducer = (state = initialState, action) => {
       };
     case DELETE_QUESION_DATA:
       return {
+        ...state,
         loading: false,
         posts: {
           ...state.posts,
@@ -46,6 +57,7 @@ const reducer = (state = initialState, action) => {
       };
     case ADD_SAVED_DATA:
       return {
+        state,
         loading: false,
         posts: {
           ...state.posts,

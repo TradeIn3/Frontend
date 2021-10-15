@@ -146,3 +146,6 @@ export const getCategories = () =>{
     "Others":["Stationary Products","Arts & Handicrafts","Beauty"]
   } 
 }
+export const getColors = () =>{
+  return ['Black','Blue','Grey','White','Red','Green','Brown','Beige','Orange','Yellow','Purple','Pink','Gold','Silver']
+}

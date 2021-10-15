@@ -7,8 +7,14 @@
 svg .MuiSvgIcon-root {
   font-size: 1rem;
 }
-.MuiRadio-root {
-  color: rgba(0, 0, 0, 0.54) !important;
+// .MuiRadio-root {
+//   color: rgba(0, 0, 0, 0.54) !important;
+// }
+.MuiRadio-colorSecondary{
+  padding: 7px !important;
+}
+.Mui-checked{
+  color: $theme-a !important;
 }
 .sidebar {
   // background: #f5f5f5;
@@ -39,16 +45,54 @@ svg .MuiSvgIcon-root {
           padding-top: 12px;
           padding-left: 12px;
           display: none;
-          &__label {
+          &__label1 {
             margin: 0 !important;
             padding-bottom: 8px;
-            .MuiCheckbox-colorSecondary.Mui-checked {
-              color: rgba(0, 0, 0, 0.54) !important;
-            }
+            // .MuiCheckbox-colorSecondary.Mui-checked {
+            //   color: $theme-a
+            // }
             .MuiCheckbox-colorSecondary {
               padding: 0 !important;
               padding-right: 4px !important;
             }
+            
+
+            &__custom {
+              display: flex;
+              justify-content: space-between;
+              .MuiOutlinedInput-input {
+                padding: 16.5px 10px !important;
+                height: 11px !important;
+              }
+              .MuiFormControl-root {
+                margin-right: 7px !important;
+              }
+              &__tf {
+                width: 80px;
+              }
+              &__icon {
+                margin-right: 5px;
+              }
+              &__btn {
+                color: $theme-a;
+                cursor: pointer;
+                padding-left: 3px;
+                padding-top: 6px;
+                font-size: 0.9rem;
+              }
+            }
+          }
+          &__label {
+            margin: 0 !important;
+            // padding-bottom: 8px;
+            // .MuiCheckbox-colorSecondary.Mui-checked {
+            //   color: $theme-a
+            // }
+            .MuiCheckbox-colorSecondary {
+              padding: 0 !important;
+              padding-right: 4px !important;
+            }
+            
 
             &__custom {
               display: flex;
@@ -77,10 +121,13 @@ svg .MuiSvgIcon-root {
           }
         }
         &__icon {
-          .MuiSvgIcon-root {
+          svg{
             font-size: 1.1rem !important;
-            margin-right: 10px;
+            margin-right: 5px;
           }
+            display: flex;
+            align-items: center;
+          
         }
       }
       &__items {
