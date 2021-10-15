@@ -109,7 +109,7 @@ function Root(props) {
               <Breakpoint large up>
                 <Grid container>
                   <Grid item xs={2} style={{ position: "relative" }}>
-                    <Sidebar />
+                    <Sidebar {...props}/>
                   </Grid>
                   <Grid item xs={10}>
                     {" "}

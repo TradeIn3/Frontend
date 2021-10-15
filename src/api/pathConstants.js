@@ -10,6 +10,7 @@ export const GetUserDetails = "user/mydetails/"
 
 // post
 export const RetrievePost = "post/single/retrieve/";
+export const RetrieveAllPost = "post/all/retrieve/";
 export const PostSaved = "post/save/";
 
 // payment

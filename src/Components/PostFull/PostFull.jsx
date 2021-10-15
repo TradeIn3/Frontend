@@ -1018,7 +1018,7 @@ const mapStateToProps = (state, ownProps) => {
     myDetails: state.myDetails.myDetails,
     loading: state.post.loading,
     isLoggedIn: state.token.isLoggedIn,
-    post: ownProps.match.params.id
+    post: ownProps.match.params.id &&  ownProps.match.params.id in state.post.posts
       ? state.post.posts[ownProps.match.params.id]
       : {},
   };
