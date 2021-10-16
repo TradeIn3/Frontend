@@ -1,92 +1,214 @@
-*{
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 .MuiSelect-select {
-    // min-width: 150px !important;
-    border:none !important;
-    background:$background !important;
-  
-}
-.MuiGrid-spacing-xs-4 > .MuiGrid-item {
-    // padding: 0 !important;
+  border: none !important;
+  background: $background !important;
 }
 
-.outer1{
-    background: $background;
-    padding:3rem;
-    padding-top:0.65rem;
+.MuiSelect-outlined.MuiSelect-outlined {
+  padding-right: 185px !important;
+}
+.MuiOutlinedInput-input {
+  padding: 9.5px 21px !important;
+}
+
+.outer1 {
+  background: $background;
+  padding: 3rem;
+  padding-top: 0.5rem;
+  &__headings {
+    display: flex;
+    justify-content: space-between;
+
     h1 {
+      font-family: Roboto, sans-serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: $black;
+      margin-bottom: 0;
+      padding-top: 0.65rem;
+      padding-bottom: 15px;
+    }
+    h3 {
+      letter-spacing: 0.03em;
+      font-family: Roboto, sans-serif;
+      padding-top: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: $black;
+      span {
+        color: $theme-a;
+        letter-spacing: 0.03em;
         font-family: Roboto, sans-serif;
-        font-size: 2.1rem;
-        padding-top:0.65rem;
-        padding-bottom: 15px;
+      }
+    }
+  }
+
+  &__sell {
+    border: 1px solid $light-grey;
+    background: white;
+
+    &__lt {
+      padding: 16px;
+      &__heading1 {
+        display: flex;
+      }
+      form {
+        border-right: 1px solid #d2d2d2;
+      }
+
+      &__outer {
+        display: flex;
+        justify-content: space-between;
+        &__categ {
+        }
+        &__subcate {
+          &__tf {
+            padding-top: 10px !important;
+          }
+        }
+        &__brand {
+          padding: 0 5px;
+          width: 18vw;
+        }
+      }
+      &__btn {
+        button {
+          background: $theme-a !important;
+          padding: 8px 50px !important;
+          margin-top: 10px;
+          border-radius: 4px !important;
+          span {
+            color: white;
+            font-family: Oswald !important;
+            letter-spacing: 0.04em !important;
+            font-weight: 500 !important;
+            font-size: 1.125rem;
+            border-radius: 4px !important;
+          }
+        }
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+      &__img {
+        p {
+          letter-spacing: 0.03em;
+          font-size: 0.85rem;
+          font-weight: 500;
+          padding-bottom: 1.2rem;
+          font-family: Roboto, sans-serif;
+          color: $light-grey;
+        }
+        &__sel {
+          display: flex;
+          justify-content: space-between;
+          &__bdr {
+            border: 1px dashed black;
+            padding: 38px;
+
+            &__crc {
+              .MuiButton-root {
+                width: 48px;
+                height: 57px;
+                background: $background;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__rt {
+      padding: 16px;
+      &__box {
+        background: $background;
+        margin-top: 5px;
+        &__coin {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-top: 12px;
+          h1 {
+            font-family: Roboto, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: $black;
+            margin-bottom: 0;
+            padding-bottom: 12px;
+            padding-left: 10px;
+          }
+          &__icon {
+            .MuiSvgIcon-root {
+              font-size: 2.5rem !important;
+              color: goldenrod !important;
+            }
+          }
+        }
+        h2 {
+          text-align: center;
+          padding-bottom: 8px;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+          color: $black;
+          margin-bottom: 0;
+          font-family: Roboto, sans-serif;
+        }
+      }
+      h3 {
         font-weight: 600;
         letter-spacing: 0.01em;
         color: $black;
-        margin-bottom: 0;
-        // padding:16px 0 16px 20px;
+        padding-top: 1.2rem;
+        font-size: 1.5rem;
+        font-family: Roboto, sans-serif;
       }
-    &__sell{
-        // margin:3rem 2rem 2rem 2rem !important;
-        // padding:3rem 2rem 2rem 2rem !important;        
-        border:1px solid $light-grey;
-        background: white;
-       
-        &__lt{
-            padding:20px;
-           
-              &__outer{
-                //   display: flex;
-                //   position: relative;
-                //   justify-content: space-between;
-                &__categ{
-                    // margin-right: 4rem;
-                    // position: absolute ;
-                    // left:4rem;
-                }
-                &__subcate{
-                    // position: absolute;
-                    // left:4rem;
-                    &__tf{
-                        padding-top: 10px !important;
-                    }
-    
-                }
-              }
-              &__btn{
-                // position: relative;
-                button{
-                    // position: absolute;
-                    // right:0px;
-                    background: $theme-a !important;
-                    padding: 8px 50px !important;
-                    margin-top:10px;
-                    border-radius: 4px !important;
-                    span {
-                      color: white;
-                      font-family: Oswald !important;
-                      letter-spacing: 0.04em !important;
-                      font-weight: 500 !important;
-                      font-size: 1.125rem;
-                      border-radius: 4px !important;
-                    }
-                    }
-                    &:hover {
-                      filter: brightness(0.8);
-                    }
-                
-              }
-             
-        }
-        &__rt{
-            &__box{
-                background: green;
-                // width:100%;
-                height:50vh;
+      &__radio {
+        display: flex;
+        padding-bottom: 1.1rem;
+        padding-top: 1rem;
+        &__lt1 {
+          &__hr {
+            hr {
+              color: #d2d2d2 !important;
+              width: 34vw;
             }
+          }
         }
-    }
+        &__rt1 {
+          &__con {
+            display: flex;
+            &__heading3 {
+              h4 {
+                font-weight: 500;
+                letter-spacing: 0.01em;
+                color: $black;
+                font-size: 1.11rem;
+                padding-left: 10px;
+                font-family: Roboto, sans-serif;
+              }
+            }
+          }
+        }
+      }
 
+      &__more {
+        p {
+          color: #9e9e9e;
+          letter-spacing: 0.03em;
+          font-size: 0.85rem;
+          font-weight: 500;
+          padding-left: 2.4rem;
+          padding-bottom: 2rem;
+          font-family: Roboto, sans-serif;
+          border-bottom: 1px solid #d2d2d2;
+        }
+      }
+    }
+  }
 }
