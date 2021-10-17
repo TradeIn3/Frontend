@@ -9,6 +9,7 @@ import {
 const initialState = {
   posts: {},
   loading: true,
+  postLoading:true,
   allPost :[],
 };
 const reducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ const reducer = (state = initialState, action) => {
           ...state.posts,
           [action.post.id]: action.post,
         },
-        loading: false,
+        postLoading: false,
       };
       case ADD_ALL_POST_DATA:
       return {
@@ -57,7 +58,7 @@ const reducer = (state = initialState, action) => {
       };
     case ADD_SAVED_DATA:
       return {
-        state,
+        ...state,
         loading: false,
         posts: {
           ...state.posts,

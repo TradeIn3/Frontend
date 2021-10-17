@@ -43,6 +43,7 @@ import CardSkeleton from "../Skeleton/CardSkeleton";
 import { Route, Link, Switch } from "react-router-dom";
 import { AUTH_BUY_FULL_QUESTION_PATH } from "../../constants/routeConstants";
 import QuestionModal from "./QuestionModal";
+import PostLoader from "../Loaders/PostLoader";
 const handleReservePaymentSuccess = async (
   response,
   detail,
@@ -268,8 +269,7 @@ class PostFull extends Component {
   render() {
     const { imageArray, selected, answer, sort } = this.state;
     const { post, loading } = this.props;
-    console.log(answer);
-    if (loading) return <CardSkeleton />;
+    if (loading) return <PostLoader />;
     return (
       <>
         <Breakpoint large up>
@@ -1016,7 +1016,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     access: state.token.access,
     myDetails: state.myDetails.myDetails,
-    loading: state.post.loading,
+    loading: state.post.postLoading,
     isLoggedIn: state.token.isLoggedIn,
     post: ownProps.match.params.id &&  ownProps.match.params.id in state.post.posts
       ? state.post.posts[ownProps.match.params.id]

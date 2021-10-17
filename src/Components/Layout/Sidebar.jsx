@@ -30,13 +30,13 @@ import { retrieveAllPost } from "../../redux/post/postActions";
 
 class SideBar extends Component {
   state = {
-    categoryVisible: false,
-    brandVisible: false,
-    conditionVisible: false,
-    statusVisible: false,
-    priceVisible: false,
-    colorVisible: false,
-    subcategVisible: false,
+    categoryVisible: true,
+    brandVisible: true,
+    conditionVisible: true,
+    statusVisible: true,
+    priceVisible: true,
+    colorVisible: true,
+    subcategVisible: true,
 
     status: "Any",
     condition: [],
