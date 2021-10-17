@@ -26,6 +26,7 @@ import { Breakpoint } from "react-socks";
 import { Grid, Popper } from "@material-ui/core";
 import PostFull from "./Components/PostFull/PostFull";
 import QuestionModal from "./Components/PostFull/QuestionModal";
+import Sell from "./Components/AddPost/Sell";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
