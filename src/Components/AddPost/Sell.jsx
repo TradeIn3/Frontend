@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 import { Breakpoint } from "react-socks";
 import Divider from "@material-ui/core/Divider";
 import AddIcon from "@material-ui/icons/Add";
+import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import {
   FormLabel,
   FormControl,
@@ -18,41 +19,38 @@ import {
 } from "@material-ui/core";
 
 export default function Sell() {
-  const [category, setCategory] = React.useState("");
-  const [subcategory, setsubCateg] = React.useState("");
-  const [color, setcolor] = React.useState("");
-  const [condn, setcondn] = React.useState("");
-  const [title, settitle] = React.useState("");
-  const [desc, setDesc] = React.useState("");
-  const [brand, setBrand] = React.useState("");
+  const [state, setState] = React.useState({"category":"","subcategory":"","color":"","condn":"","title":"","desc":"","brand":"","premium":"false","price":""});
+  const  [img1,setImg1]= React.useState(null)
+  const  [img2,setImg2]= React.useState(null)
+  const  [img3,setImg3]= React.useState(null)
+  const  [img4,setImg4]= React.useState(null)
+
 
   const onHandleChange = (event) => {
     event.preventDefault();
+    const name = event.target.name;
+    const value = event.target.value;
+    setState({...state,[name]:value});
+  };
 
-    setcolor(event.target.value);
-    setDesc(event.target.value);
-    setBrand(event.target.value);
-  };
-  const updateCategory = (event) => {
-    event.preventDefault();
-    setCategory(event.target.value);
-  };
-  const updateSubCateg = (event) => {
-    event.preventDefault();
-    setsubCateg(event.target.value);
-  };
-  const updateColor = (event) => {
-    event.preventDefault();
-    setcolor(event.target.value);
-  };
-  const updateCondn = (event) => {
-    event.preventDefault();
-    setcondn(event.target.value);
-  };
+  
+  const onImageChange = (e) => {
+    const name=e.target.name;
+    if(name=="img1")
+      setImg1(URL.createObjectURL(e.target.files[0]))
+    else if(name=="img2")
+      setImg2(URL.createObjectURL(e.target.files[0]))  
+    else if(name=="img3")
+      setImg3(URL.createObjectURL(e.target.files[0]))  
+    else if(name=="img4")
+      setImg4(URL.createObjectURL(e.target.files[0]))  
+  }
+  
+
 
   return (
     <React.Fragment>
-      <Breakpoint large up>
+      
         <div className="outer1">
           <div className="outer1__headings">
             <h1>Sell your Product</h1>
@@ -62,7 +60,7 @@ export default function Sell() {
           </div>
 
           <Grid container className="outer1__sell">
-            <Grid item xs={7} className="outer1__sell__lt">
+            <Grid item lg={7} md={7} sm={12} xs={12} className="outer1__sell__lt">
               <div className="outer1__sell__lt__heading1">
                 <div style={{ color: "goldenrod", padding: "6px 8px" }}>
                   <OfflineBoltIcon />
@@ -70,22 +68,23 @@ export default function Sell() {
                 <h3>Post ad to earn 50 Trade-coin in your account</h3>
               </div>
               <form className="outer1__sell__lt">
-                <div className="outer1__sell__lt__outer">
-                  <div className="outer__sell__lt__outer__categ">
+                <Grid container className="outer1__sell__lt__outer">
+                  <Grid lg={6} md={6} sm={12} xs={12} style={{paddingRight:"4px"}} className="outer__sell__lt__outer__categ">
                     <div className="login__right__myForm__formData">
                       <label htmlFor="name">Category</label>
                       <br />
                       <Box
-                        sx={{ minWidth: 120 }}
                         style={{ paddingTop: "10px" }}
                       >
                         <Select
                           id="demo-simple-select"
-                          value={category}
+                          value={state["category"]}
                           displayEmpty
+                          name="category"
+                          className="login__right__myForm__formData__select"
                           variant="outlined"
-                          label="Category"
-                          onChange={updateCategory}
+                          // label="Category"
+                          onChange={onHandleChange}
                         >
                           <MenuItem value="" disabled>
                             Select
@@ -98,8 +97,8 @@ export default function Sell() {
                         </Select>
                       </Box>
                     </div>
-                  </div>
-                  <div className="outer1__sell_lt__outer__subcate">
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={12} xs={12} style={{paddingLeft:"4px"}} className="outer1__sell_lt__outer__subcate">
                     <div className="login__right__myForm__formData">
                       <label htmlFor="name">Sub-Category</label>
                       <br />
@@ -109,11 +108,12 @@ export default function Sell() {
                       >
                         <Select
                           id="demo-simple-select"
-                          value={subcategory}
+                          value={state["subcategory"]}
                           displayEmpty
                           variant="outlined"
-                          label="Sub-Category"
-                          onChange={updateSubCateg}
+                          name="subcategory"
+                          className="login__right__myForm__formData__select"
+                          onChange={onHandleChange}
                         >
                           <MenuItem value="" disabled>
                             Select
@@ -126,11 +126,11 @@ export default function Sell() {
                         </Select>
                       </Box>
                     </div>
-                  </div>
-                </div>
+                  </Grid>
+                </Grid>
 
-                <div className="outer1__sell__lt__outer">
-                  <div className="outer1__sell__lt__outer__categ">
+                <Grid container className="outer1__sell__lt__outer">
+                  <Grid lg={6} md={6} sm={12} xs={12} style={{paddingRight:"4px"}} className="outer1__sell__lt__outer__categ">
                     <div className="login__right__myForm__formData">
                       <label htmlFor="name">Color</label>
                       <br />
@@ -140,11 +140,13 @@ export default function Sell() {
                       >
                         <Select
                           id="demo-simple-select"
-                          value={color}
+                          value={state["color"]}
                           displayEmpty
                           variant="outlined"
-                          label="Color"
-                          onChange={updateCondn}
+                          name="color"
+                          className="login__right__myForm__formData__select"
+                          style={{backgroundColor:"white"}}
+                          onChange={onHandleChange}
                         >
                           <MenuItem value="" disabled>
                             Select
@@ -157,40 +159,44 @@ export default function Sell() {
                         </Select>
                       </Box>
                     </div>
-                  </div>
-                  <div className="outer1__sell_lt__outer__subcate">
-                    <div className="outer1__sell__lt__outer__brand">
-                      <div className="login__right__myForm__formData">
+                  </Grid>
+                  <Grid lg={6} md={6} sm={12} xs={12} className="outer1__sell_lt__outer__subcate">
+                    <div className="outer1__sell__lt__outer__brand" style={{width:"100%"}}>
+                      <div className="login__right__myForm__formData" >
                         <label htmlFor="name">Brand</label>
                         <br />
                         <TextField
                           onChange={onHandleChange}
                           required
+                          style={{paddingTop:"10px",width:"100%"}}
                           className="login__right__myForm__formData__username"
                           name="brand"
+                          value={state['value']}
+                          placeholder="Brand"
                           variant="outlined"
+                          className="login__right__myForm__formData__select"
                         ></TextField>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </Grid>
+                </Grid>
 
-                <div className="outer1__sell__lt__outer">
-                  <div className="outer1__sell__lt__outer__categ">
+                <Grid container className="outer1__sell__lt__outer">
+                  <Grid lg={6} md={6} sm={12} xs={12} className="outer1__sell__lt__outer__categ" style={{width:"100%",paddingRight:"4px"}}>
                     <div className="login__right__myForm__formData">
                       <label htmlFor="name">Condition</label>
                       <br />
                       <Box
-                        sx={{ minWidth: 120 }}
                         style={{ paddingTop: "10px" }}
                       >
                         <Select
                           id="demo-simple-select"
-                          value={condn}
+                          value={state["condn"]}
+                          name="condition"
                           displayEmpty
                           variant="outlined"
-                          label="Condition"
-                          onChange={updateCondn}
+                          className="login__right__myForm__formData__select"
+                          onChange={onHandleChange}
                         >
                           <MenuItem value="" disabled>
                             Select
@@ -201,9 +207,9 @@ export default function Sell() {
                         </Select>
                       </Box>
                     </div>
-                  </div>
-                  <div className="outer1__sell__lt__outer__subcate">
-                    <div className="login__right__myForm__formData">
+                  </Grid>
+                  <Grid lg={6} md={6} sm={12} xs={12} style={{paddingLeft:"4px"}} className="outer1__sell__lt__outer__subcate" >
+                    <div className="login__right__myForm__formData" style={{width:"100%"}}>
                       <label htmlFor="name">Price</label>
                       <br />
                       <TextField
@@ -211,14 +217,18 @@ export default function Sell() {
                         id="filled-number"
                         placeholder="Range"
                         type="number"
+                        name="price"
+                        onChange={onHandleChange}
+                        value={state['price']}
+                        style={{width:"100%"}}
                         InputLabelProps={{
                           shrink: true,
                         }}
                         variant="outlined"
                       />
                     </div>
-                  </div>
-                </div>
+                  </Grid>
+                </Grid>
 
                 <div className="login__right__myForm__formData">
                   <label htmlFor="name">Title</label>
@@ -228,6 +238,7 @@ export default function Sell() {
                     required
                     className="login__right__myForm__formData__username"
                     name="title"
+                    value={state['title']}
                     variant="outlined"
                   ></TextField>
                 </div>
@@ -238,6 +249,9 @@ export default function Sell() {
                     onChange={onHandleChange}
                     required
                     name="desc"
+                    multiline
+                    value={state['desc']}
+                    row={8}
                     className="login__right__myForm__formData__username"
                     variant="outlined"
                   ></TextField>
@@ -255,61 +269,65 @@ export default function Sell() {
                   <div className="outer1__sell__lt__img__sel">
                     <div className="outer1__sell__lt__img__sel__bdr">
                       <div className="outer1__sell__lt__img__sel__bdr__crc">
-                        <Button variant="contained" component="label">
+                        {!img1 ?<Button variant="contained" component="label">
                           <AddIcon />
                           <input
                             type="file"
                             hidden
-                            name="avatar"
+                            onChange={onImageChange}
+                            name="img1"
                             accept="image/png, image/jpeg"
                           />
-                        </Button>
+                        </Button>:<><img src={img1}/><CancelRoundedIcon className="outer1__sell__lt__img__sel__bdr__crc__close" onClick={()=>setImg1(null)}/></>}
                       </div>
                     </div>
                     <div className="outer1__sell__lt__img__sel__bdr">
                       <div className="outer1__sell__lt__img__sel__bdr__crc">
-                        <Button variant="contained" component="label">
+                      {!img2 ?<Button variant="contained" component="label">
                           <AddIcon />
                           <input
                             type="file"
                             hidden
-                            name="avatar"
+                            onChange={onImageChange}
+                            name="img2"
                             accept="image/png, image/jpeg"
                           />
-                        </Button>
+                        </Button>:<><img src={img2}/><CancelRoundedIcon className="outer1__sell__lt__img__sel__bdr__crc__close" onClick={()=>setImg2(null)}/></>}
                       </div>
                     </div>
                     <div className="outer1__sell__lt__img__sel__bdr">
                       <div className="outer1__sell__lt__img__sel__bdr__crc">
-                        <Button variant="contained" component="label">
+                      {!img3 ?<Button variant="contained" component="label">
                           <AddIcon />
                           <input
                             type="file"
                             hidden
-                            name="avatar"
+                            onChange={onImageChange}
+                            name="img3"
                             accept="image/png, image/jpeg"
                           />
-                        </Button>
+                        </Button>:<><img src={img3}/><CancelRoundedIcon className="outer1__sell__lt__img__sel__bdr__crc__close" onClick={()=>setImg3(null)}/></>}
                       </div>
                     </div>
                     <div className="outer1__sell__lt__img__sel__bdr">
                       <div className="outer1__sell__lt__img__sel__bdr__crc">
-                        <Button variant="contained" component="label">
+                      {!img4 ?<Button variant="contained" component="label">
                           <AddIcon />
                           <input
                             type="file"
                             hidden
-                            name="avatar"
+                            onChange={onImageChange}
+                            name="img4"
                             accept="image/png, image/jpeg"
                           />
-                        </Button>
+                        </Button>:<><img src={img4}/><CancelRoundedIcon className="outer1__sell__lt__img__sel__bdr__crc__close" onClick={()=>setImg4(null)}/></>}
                       </div>
                     </div>
                   </div>
                 </div>
               </form>
             </Grid>
-            <Grid item xs={5} className="outer1__sell__rt">
+            <Grid item lg={5} md={5} sm={12} xs={12} className="outer1__sell__rt">
               <div className="outer1__sell__rt__box">
                 <div className="outer1__sell__rt__box__coin">
                   <div className="outer1__sell__rt__box__coin__icon">
@@ -323,26 +341,26 @@ export default function Sell() {
               <Grid container className="outer1__sell__rt__radio">
                 <Grid item xs={8} className="outer1__sell__rt__radio__lt1">
                   <FormControl component="fieldset">
-                    <RadioGroup name="radio-buttons-group">
+                    <RadioGroup name="premium" value={state['premium']} onChange={onHandleChange}>
                       <FormControlLabel
                         style={{ paddingBottom: "1.4rem" }}
-                        value="freeAd"
                         control={<Radio />}
                         label="Free Ad"
+                        value="false"
                       />
                       <div className="outer1__sell__rt__radio__lt1__hr">
                         <hr />
                       </div>
                       <FormControlLabel
                         style={{ paddingTop: "1rem" }}
-                        value="premiumAd"
                         control={<Radio />}
                         label="Premium Ad"
+                        value="true"  
                       />
                     </RadioGroup>
                   </FormControl>
                 </Grid>
-                <Grid item xs={4} className="outer1__sell__rt__radio__rt1">
+                <Grid item xs={4}  className="outer1__sell__rt__radio__rt1">
                   <div
                     className="outer1__sell__rt__radio__rt1__con"
                     style={{ color: "goldenrod", paddingBottom: "1.2rem" }}
@@ -391,9 +409,7 @@ export default function Sell() {
             </Grid>
           </Grid>
         </div>
-      </Breakpoint>
-
-      <Breakpoint medium down></Breakpoint>
+    
     </React.Fragment>
   );
 }
