@@ -4,12 +4,15 @@ import {
   ADD_SAVED_DATA,
   DELETE_QUESION_DATA,
   ADD_ALL_POST_DATA,
+  CREATE_POST_SUCCESS,
 } from "./postTypes";
 
 const initialState = {
   posts: {},
   loading: true,
   postLoading:true,
+  success:false,
+  postId:null,
   allPost :[],
 };
 const reducer = (state = initialState, action) => {
@@ -28,7 +31,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         allPost: action.post,
-      }; 
+      };
+      case CREATE_POST_SUCCESS:
+      return {
+        ...state,
+        success: action.value,
+        postId:action.id,
+      };  
     case ADD_QUESION_DATA:
       return {
         ...state,

@@ -9,6 +9,7 @@ import { Breakpoint } from "react-socks";
 import Divider from "@material-ui/core/Divider";
 import AddIcon from "@material-ui/icons/Add";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
+import {Request, RequestImg} from "../../api/Request";
 import {
   FormLabel,
   FormControl,
@@ -17,8 +18,13 @@ import {
   FormGroup,
   RadioGroup,
 } from "@material-ui/core";
+import { CreateNewPost } from "../../redux/post/postActions";
+import { connect } from "react-redux";
+import { getCategories, getColors } from "../../utils/Utils";
+import { plugToRequest } from "react-cookies";
+import { withRouter } from "react-router-dom";
 
-export default function Sell() {
+function Sell(props) {
   const [state, setState] = React.useState({
     category: "",
     subcategory: "",
@@ -28,12 +34,13 @@ export default function Sell() {
     desc: "",
     brand: "",
     premium: "false",
+    loading:"false",
     price: "",
   });
-  const [img1, setImg1] = React.useState(null);
-  const [img2, setImg2] = React.useState(null);
-  const [img3, setImg3] = React.useState(null);
-  const [img4, setImg4] = React.useState(null);
+  const [img1, setImg1] = React.useState({image:null,file:null});
+  const [img2, setImg2] = React.useState({});
+  const [img3, setImg3] = React.useState({});
+  const [img4, setImg4] = React.useState({});
 
   const onHandleChange = (event) => {
     event.preventDefault();
@@ -44,19 +51,46 @@ export default function Sell() {
 
   const onImageChange = (e) => {
     const name = e.target.name;
-    if (name == "img1") setImg1(URL.createObjectURL(e.target.files[0]));
-    else if (name == "img2") setImg2(URL.createObjectURL(e.target.files[0]));
-    else if (name == "img3") setImg3(URL.createObjectURL(e.target.files[0]));
-    else if (name == "img4") setImg4(URL.createObjectURL(e.target.files[0]));
+    if (name == "img1") setImg1({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
+    else if (name == "img2") setImg2({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
+    else if (name == "img3") setImg3({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
+    else if (name == "img4") setImg4({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
   };
 
+  const onHandleSubmit = async() =>{
+    setState({ ...state, ["loading"]: true });
+    const data = new FormData();
+    data.append("img1",img1.file)
+    data.append("img2",img2.file)
+    data.append("img3",img3.file)
+    data.append("img4",img4.file)   
+    data.append("category",state.category)
+    data.append("subcategory",state.subcategory)
+    data.append("color",state.color)
+    data.append("condition",state.condn)
+    data.append("title",state.title)
+    data.append("description",state.desc)
+    data.append("brand",state.brand)
+    data.append("premium",state.premium)
+    data.append("price",state.price)
+    data.append("is_barter",false)
+    data.append("is_donate",false)
+    await props.createPost(data);
+    if(props.success){
+      props.history.push(`buy/${props.postId}`)
+    }
+    setState({ ...state, ["loading"]: false });
+  }
+
+  const categories = getCategories();
+  const colors = getColors();
   return (
     <React.Fragment>
       <div className="outer1">
         <div className="outer1__headings">
           <h1>Sell your Product</h1>
           <h3>
-            Hi, <span>Rohit@0301</span> | Sign out
+            Hi, <span>{props.myDetails.username}</span>
           </h3>
         </div>
 
@@ -95,11 +129,9 @@ export default function Sell() {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                        <MenuItem value={1}>Electronics</MenuItem>
-                        <MenuItem value={2}>Mobiles</MenuItem>
-                        <MenuItem value={3}>Appliances</MenuItem>
-                        <MenuItem value={4}>Home</MenuItem>
-                        <MenuItem value={5}>Vehicles</MenuItem>
+                        {
+                          Object.keys(categories).map((item)=><MenuItem value={item}>{item}</MenuItem>)
+                        }
                       </Select>
                     </Box>
                   </div>
@@ -122,6 +154,7 @@ export default function Sell() {
                         value={state["subcategory"]}
                         displayEmpty
                         variant="outlined"
+                        disabled={state['category']==""}
                         name="subcategory"
                         className="login__right__myForm__formData__select"
                         onChange={onHandleChange}
@@ -129,11 +162,9 @@ export default function Sell() {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                        <MenuItem value={1}>SamSung</MenuItem>
-                        <MenuItem value={2}>Realme</MenuItem>
-                        <MenuItem value={3}>Oppp</MenuItem>
-                        <MenuItem value={4}>Vivo</MenuItem>
-                        <MenuItem value={5}>Apple</MenuItem>
+                        {state.category !="" &&
+                          categories[state.category].map((item)=><MenuItem value={item}>{item}</MenuItem>)
+                        }
                       </Select>
                     </Box>
                   </div>
@@ -166,11 +197,7 @@ export default function Sell() {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                        <MenuItem value={1}>Blue</MenuItem>
-                        <MenuItem value={2}>Red</MenuItem>
-                        <MenuItem value={3}>Yellow</MenuItem>
-                        <MenuItem value={4}>Orange</MenuItem>
-                        <MenuItem value={5}>Green</MenuItem>
+                       {colors.map((item)=><MenuItem value={item}>{item}</MenuItem>)}
                       </Select>
                     </Box>
                   </div>
@@ -221,7 +248,7 @@ export default function Sell() {
                       <Select
                         id="demo-simple-select"
                         value={state["condn"]}
-                        name="condition"
+                        name="condn"
                         displayEmpty
                         variant="outlined"
                         className="login__right__myForm__formData__select"
@@ -230,9 +257,11 @@ export default function Sell() {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                        <MenuItem value={1}>Good</MenuItem>
-                        <MenuItem value={2}>Fair</MenuItem>
-                        <MenuItem value={3}>Excellent</MenuItem>
+                        <MenuItem value="Good">Good</MenuItem>
+                        <MenuItem value="New">New</MenuItem>
+                        <MenuItem value="Like new">Like new</MenuItem>
+                        <MenuItem value="Fair">Fair</MenuItem>
+                        <MenuItem value="Poor">Poor</MenuItem>
                       </Select>
                     </Box>
                   </div>
@@ -308,7 +337,7 @@ export default function Sell() {
                 <div className="outer1__sell__lt__img__sel">
                   <div className="outer1__sell__lt__img__sel__bdr">
                     <div className="outer1__sell__lt__img__sel__bdr__crc">
-                      {!img1 ? (
+                      {!img1.image ? (
                         <Button variant="contained" component="label">
                           <AddIcon />
                           <input
@@ -321,10 +350,10 @@ export default function Sell() {
                         </Button>
                       ) : (
                         <>
-                          <img src={img1} />
+                          <img src={img1.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg1(null)}
+                            onClick={() => setImg1({image:null,file:null})}
                           />
                         </>
                       )}
@@ -332,7 +361,7 @@ export default function Sell() {
                   </div>
                   <div className="outer1__sell__lt__img__sel__bdr">
                     <div className="outer1__sell__lt__img__sel__bdr__crc">
-                      {!img2 ? (
+                      {!img2.image ? (
                         <Button variant="contained" component="label">
                           <AddIcon />
                           <input
@@ -345,10 +374,10 @@ export default function Sell() {
                         </Button>
                       ) : (
                         <>
-                          <img src={img2} />
+                          <img src={img2.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg2(null)}
+                            onClick={() => setImg2({image:null,file:null})}
                           />
                         </>
                       )}
@@ -356,7 +385,7 @@ export default function Sell() {
                   </div>
                   <div className="outer1__sell__lt__img__sel__bdr">
                     <div className="outer1__sell__lt__img__sel__bdr__crc">
-                      {!img3 ? (
+                      {!img3.image ? (
                         <Button variant="contained" component="label">
                           <AddIcon />
                           <input
@@ -369,10 +398,10 @@ export default function Sell() {
                         </Button>
                       ) : (
                         <>
-                          <img src={img3} />
+                          <img src={img3.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg3(null)}
+                            onClick={() => setImg3({image:null,file:null})}
                           />
                         </>
                       )}
@@ -380,7 +409,7 @@ export default function Sell() {
                   </div>
                   <div className="outer1__sell__lt__img__sel__bdr">
                     <div className="outer1__sell__lt__img__sel__bdr__crc">
-                      {!img4 ? (
+                      {!img4.image ? (
                         <Button variant="contained" component="label">
                           <AddIcon />
                           <input
@@ -393,10 +422,10 @@ export default function Sell() {
                         </Button>
                       ) : (
                         <>
-                          <img src={img4} />
+                          <img src={img4.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg4(null)}
+                            onClick={() => setImg4({image:null,file:null})}
                           />
                         </>
                       )}
@@ -483,7 +512,7 @@ export default function Sell() {
             </div>
 
             <Button
-              // onClick={this.onHandleSubmit}
+              onClick={onHandleSubmit}
               className="login__right__myForm__loginButton"
               type="submit"
             >
@@ -495,3 +524,19 @@ export default function Sell() {
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    myDetails: state.myDetails.myDetails,
+    success: state.post.success,
+    postId: state.post.postId,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createPost :(data)=>dispatch(CreateNewPost(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Sell));

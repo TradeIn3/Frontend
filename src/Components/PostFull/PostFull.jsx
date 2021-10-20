@@ -26,6 +26,7 @@ import { getToken } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
 import { Scrollbars } from 'react-custom-scrollbars';
 import {
+  PostImageUrl,
   ProductPayment,
   ProductPaymentSuccess,
   ReservePayment,
@@ -92,7 +93,6 @@ class PostFull extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageArray: [DummyProduct1, DummyProduct2, DummyProduct3, DummyProduct4],
       selected: 0,
       sort: "all",
       answer: {},
@@ -267,7 +267,7 @@ class PostFull extends Component {
   };
 
   render() {
-    const { imageArray, selected, answer, sort } = this.state;
+    const {  selected, answer, sort } = this.state;
     const { post, loading } = this.props;
     if (loading) return <PostLoader />;
     return (
@@ -281,17 +281,17 @@ class PostFull extends Component {
             <Grid item xs={6} className="product__lt">
               <div className="product__lt__Box">
                 <div className="product__lt__Box__imageWrapper">
-                  {imageArray.map((item, index) => (
+                  {post.images.map((item, index) => (
                     <div
                       className="product__lt__Box__imageWrapper__pic"
                       style={{
                         paddingBottom:
-                          selected == imageArray.length ? "0" : "1.4rem",
+                          selected == post.images.length ? "0" : "1.4rem",
                       }}
                     >
                       <a herf="#pic1">
                         <img
-                          src={item}
+                          src={PostImageUrl+""+item}
                           onClick={() => this.setState({ selected: index })}
                           style={{ opacity: index == selected ? "1" : "0.4" }}
                         />
@@ -300,7 +300,7 @@ class PostFull extends Component {
                   ))}
                 </div>
                 <div className="product__lt__Box__outer">
-                  <img src={imageArray[selected]} />
+                  <img src={PostImageUrl+""+post.images[selected]} />
                   <div className="product__Box__outer__icons">
                     {selected > 0 && (
                       <div className="product__lt__Box__outer__icons__icon1">
@@ -313,7 +313,7 @@ class PostFull extends Component {
                         </IconButton>
                       </div>
                     )}
-                    {selected < imageArray.length - 1 && (
+                    {selected < post.images.length - 1 && (
                       <div className="product__lt__Box__outer__icons__icon2">
                         <IconButton
                           onClick={() =>
@@ -661,7 +661,7 @@ class PostFull extends Component {
             <div className="product__lt">
               <div className="product__lt__Box">
                 <div className="product__lt__Box__outer">
-                  <img src={imageArray[selected]} />
+                  <img src={PostImageUrl+""+post.images[selected]} />
                   <div className="product__Box__outer__icons">
                     {selected > 0 && (
                       <div className="product__lt__Box__outer__icons__icon1">
@@ -674,7 +674,7 @@ class PostFull extends Component {
                         </IconButton>
                       </div>
                     )}
-                    {selected < imageArray.length - 1 && (
+                    {selected < post.images.length - 1 && (
                       <div className="product__lt__Box__outer__icons__icon2">
                         <IconButton
                           onClick={() =>
@@ -688,17 +688,17 @@ class PostFull extends Component {
                   </div>
                 </div>
                 <div className="product__lt__Box__imageWrapper">
-                  {imageArray.map((item, index) => (
+                  {post.images.map((item, index) => (
                     <div
                       className="product__lt__Box__imageWrapper__pic"
                       style={{
                         paddingBottom:
-                          selected == imageArray.length ? "0" : "1.4rem",
+                          selected == post.images.length ? "0" : "1.4rem",
                       }}
                     >
                       <a herf="#pic1">
                         <img
-                          src={item}
+                          src={PostImageUrl+""+item}
                           onClick={() => this.setState({ selected: index })}
                           style={{ opacity: index == selected ? "1" : "0.4" }}
                         />

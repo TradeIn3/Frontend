@@ -4,6 +4,7 @@ import {
   RetrievePost,
   PostSaved,
   RetrieveAllPost,
+  CreatePost,
 } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
@@ -13,8 +14,43 @@ import {
   ADD_POST_DATA,
   ADD_QUESION_DATA,
   ADD_SAVED_DATA,
+  CREATE_POST_SUCCESS,
   DELETE_QUESION_DATA,
 } from "./postTypes";
+
+
+export const CreatePostSuccess = (value,id) => {
+  return {
+    type: CREATE_POST_SUCCESS,
+    value: value,
+    id:id
+  };
+};
+
+export const CreateNewPost = (data) =>{
+  return async (dispatch,getState) =>{
+    await dispatch(getToken());
+    const token = await getState().token.access;
+    const user = await getState().myDetails.myDetails.username;
+    if(token && user){
+      data.append("user",user);
+      const res = await Request("POST",CreatePost,token,data);
+      if(res && res.status==201){
+        await dispatch(CreatePostSuccess(true,res.data.id))
+        await dispatch(openSnackbar("Post Created successfully"));
+      }
+      else{
+        await dispatch(CreatePostSuccess(false,null))
+        await dispatch(openSnackbar("Something went wrong"));
+        }
+    }
+    else{
+      await dispatch(openSnackbar("Something went wrong"));
+    }
+
+  }
+}
+
 
 export const addAllPostDetails = (post) => {
   return {

@@ -1,3 +1,5 @@
+export const PostImageUrl = 'https://res.cloudinary.com/tradein/image/upload/v1634651417/'
+
 
 // login
 export const UserLogin = "user/login/";
@@ -12,6 +14,7 @@ export const GetUserDetails = "user/mydetails/"
 export const RetrievePost = "post/single/retrieve/";
 export const RetrieveAllPost = "post/all/retrieve/";
 export const PostSaved = "post/save/";
+export const CreatePost = "post/create/";
 
 // payment
 export const ReservePayment = "post/reservepay/";
@@ -22,3 +25,5 @@ export const ProductPaymentSuccess ="post/productpayment/success/";
 // Question
 export const PostQuestion = "post/question/";
 export const PostAnswer = "post/answer/";
+
+

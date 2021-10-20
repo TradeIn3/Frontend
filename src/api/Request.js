@@ -1,6 +1,6 @@
 import axios from "axios";
 const API_HOSTNAME = "https://tradein-api-backend.herokuapp.com/api/";
-// const API_LOCALHOSTNAME = "http://127.0.0.1:8000/api/";
+// const API_HOSTNAME = "http://127.0.0.1:8000/api/";
 
 
 
@@ -11,7 +11,7 @@ export const Request = async (method, endpoint, token, data) => {
     timeout: 20000,
     headers: token
       ? {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json,multipart/form-data",
           Authorization: `Bearer ${token}`,
           // "Access-Control-Allow-Origin": ALLOWED_ORIGIN
         }
@@ -22,3 +22,12 @@ export const Request = async (method, endpoint, token, data) => {
     data,
   }).catch((err) => err.response);
 };
+
+
+// export const RequestImg = async (method, endpoint, data) => {
+//   return await axios({
+//     method,
+//     url:  endpoint,
+//     data,
+//   }).catch((err) => err.response);
+// };

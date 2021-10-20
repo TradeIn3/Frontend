@@ -21,7 +21,6 @@ class Buy extends Component {
   }
   render() {
     const { loading, posts } = this.props;
-    console.log(loading,posts);
     const {sort} = this.state;
     return (
       <div>
@@ -77,7 +76,7 @@ class Buy extends Component {
                 xs={12}
                 style={{ marginBottom: "1rem" }}
               >
-                <Link to="/buy/1">
+                <Link to={`/buy/${item.id}`}>
                   <PostCard item={item} />
                 </Link>
                 </Grid>

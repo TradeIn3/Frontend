@@ -62,13 +62,13 @@ class Navbar extends Component {
             <ul className="nav__dropdown" style={{ display: this.state.style }}>
               <ArrowDropUpIcon className="nav__dropdown__up"/>
               <li className="nav__dropdown__list">
-                <a href="#"><LocalOfferIcon/>Sell</a>
+                <a href="/sell"><LocalOfferIcon/>Sell</a>
               </li>
               <li className="nav__dropdown__list">
-                <a href="#"><OfflineBoltIcon/>Donate</a>
+                <a href="/donate"><OfflineBoltIcon/>Donate</a>
               </li>
               <li className="nav__dropdown__list">
-                <a href="#"><LoopIcon/>Exchange</a>
+                <a href="/exchange"><LoopIcon/>Exchange</a>
               </li>
             </ul>
           </li>}

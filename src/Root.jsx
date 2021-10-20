@@ -5,6 +5,7 @@ import {
   AUTH_BUY_PATH,
   AUTH_DONATE_PATH,
   AUTH_HOME_PATH,
+  AUTH_SELL_PRODUCT,
   UNAUTH_HOME_PATH,
   UNAUTH_LOGIN_PATH,
 } from "./constants/routeConstants";
@@ -128,6 +129,13 @@ function Root(props) {
           {(props) => (
             <Layout {...props}>
               <Home {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_SELL_PRODUCT} exact>
+          {(props) => (
+            <Layout {...props}>
+              <Sell {...props} />
             </Layout>
           )}
         </AuthorizedRoute>
