@@ -5,12 +5,14 @@ import {
   DELETE_QUESION_DATA,
   ADD_ALL_POST_DATA,
   CREATE_POST_SUCCESS,
+  NO_CONTENT_AVAILABLE,
 } from "./postTypes";
 
 const initialState = {
   posts: {},
   loading: true,
   postLoading:true,
+  postSuccess:true,
   success:false,
   postId:null,
   allPost :[],
@@ -25,6 +27,13 @@ const reducer = (state = initialState, action) => {
           [action.post.id]: action.post,
         },
         postLoading: false,
+        postSuccess:true,
+      };
+      case NO_CONTENT_AVAILABLE:
+      return {
+        ...state,
+        postLoading: action.loading,
+        postSuccess:action.success,
       };
       case ADD_ALL_POST_DATA:
       return {

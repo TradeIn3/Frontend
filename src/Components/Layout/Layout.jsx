@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import WebsiteLogo from "../../assets/WebsiteLogo.svg";
-import DummyPic from "../../assets/DummyPic.svg";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Navbar from "./Navbar";
 import BottomBar from "./BottomBar";

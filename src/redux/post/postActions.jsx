@@ -5,6 +5,7 @@ import {
   PostSaved,
   RetrieveAllPost,
   CreatePost,
+  PostDelete,
 } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
@@ -15,7 +16,9 @@ import {
   ADD_QUESION_DATA,
   ADD_SAVED_DATA,
   CREATE_POST_SUCCESS,
+  DELETE_POST_DATA,
   DELETE_QUESION_DATA,
+  NO_CONTENT_AVAILABLE,
 } from "./postTypes";
 
 
@@ -82,6 +85,16 @@ export const addPostDetails = (post) => {
   };
 };
 
+
+export const noPostDetails = (loading,success) => {
+  return {
+    type: NO_CONTENT_AVAILABLE,
+    loading:loading,
+    success:success,
+  };
+};
+
+
 export const retrievePost = (postId) => {
   return async (dispatch, getState) => {
     if (postId in getState().post.posts == false) {
@@ -91,6 +104,7 @@ export const retrievePost = (postId) => {
       if (res && res.status === 200) {
         await dispatch(addPostDetails(res.data));
       } else if (res && res.status == 204) {
+        await dispatch(noPostDetails(false,false));
         await dispatch(openSnackbar("No results found"));
       } else if (res && res.status != 200) {
         await dispatch(openSnackbar("Something went wrong"));
@@ -98,8 +112,33 @@ export const retrievePost = (postId) => {
         await dispatch(openSnackbar("Network error"));
       }
     }
+    else{
+      await dispatch(noPostDetails(false,true))
+    }
   };
 };
+
+
+export const deletePost = (postId) => {
+  return async (dispatch, getState) => {
+      await dispatch(getToken());
+      const token = await getState().token.access;
+      const res = await Request("DELETE", `${PostDelete}?id=${postId}`, token);
+      if (res && res.status === 200) {
+        const data = await getState().post.posts;
+        await delete data[postId];
+        await dispatch(noPostDetails(false,false))
+      } else if (res && res.status == 204) {
+        await dispatch(openSnackbar("No results found"));
+      } else if (res && res.status != 200) {
+        await dispatch(openSnackbar("Something went wrong"));
+      } else {
+        await dispatch(openSnackbar("Network error"));
+      }
+  };
+};
+
+
 
 export const addQuestion = (question, postId) => {
   return {

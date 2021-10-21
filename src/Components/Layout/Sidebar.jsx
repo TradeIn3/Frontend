@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import WebsiteLogo from "../../assets/WebsiteLogo.svg";
-import DummyPic from "../../assets/DummyPic.svg";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import LoopIcon from "@material-ui/icons/Loop";

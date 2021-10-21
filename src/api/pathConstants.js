@@ -15,6 +15,7 @@ export const RetrievePost = "post/single/retrieve/";
 export const RetrieveAllPost = "post/all/retrieve/";
 export const PostSaved = "post/save/";
 export const CreatePost = "post/create/";
+export const PostDelete = "post/delete/";
 
 // payment
 export const ReservePayment = "post/reservepay/";

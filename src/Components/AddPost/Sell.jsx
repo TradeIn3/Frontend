@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useEffect } from "react";
 import { useState } from "react";
 import { Button, Grid, TextField } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
@@ -9,7 +9,7 @@ import { Breakpoint } from "react-socks";
 import Divider from "@material-ui/core/Divider";
 import AddIcon from "@material-ui/icons/Add";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
-import {Request, RequestImg} from "../../api/Request";
+import { Request, RequestImg } from "../../api/Request";
 import {
   FormLabel,
   FormControl,
@@ -18,13 +18,16 @@ import {
   FormGroup,
   RadioGroup,
 } from "@material-ui/core";
-import { CreateNewPost } from "../../redux/post/postActions";
+import { CreateNewPost, CreatePostSuccess } from "../../redux/post/postActions";
 import { connect } from "react-redux";
 import { getCategories, getColors } from "../../utils/Utils";
 import { plugToRequest } from "react-cookies";
 import { withRouter } from "react-router-dom";
 
 function Sell(props) {
+  useEffect(async () => {
+    await props.setInitialDispatch(false, null);
+  }, []);
   const [state, setState] = React.useState({
     category: "",
     subcategory: "",
@@ -34,13 +37,13 @@ function Sell(props) {
     desc: "",
     brand: "",
     premium: "false",
-    loading:"false",
+    loading: "false",
     price: "",
   });
-  const [img1, setImg1] = React.useState({image:null,file:null});
-  const [img2, setImg2] = React.useState({});
-  const [img3, setImg3] = React.useState({});
-  const [img4, setImg4] = React.useState({});
+  const [img1, setImg1] = React.useState({ image: null, file: null });
+  const [img2, setImg2] = React.useState({ image: null, file: null });
+  const [img3, setImg3] = React.useState({ image: null, file: null });
+  const [img4, setImg4] = React.useState({ image: null, file: null });
 
   const onHandleChange = (event) => {
     event.preventDefault();
@@ -51,39 +54,55 @@ function Sell(props) {
 
   const onImageChange = (e) => {
     const name = e.target.name;
-    if (name == "img1") setImg1({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
-    else if (name == "img2") setImg2({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
-    else if (name == "img3") setImg3({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
-    else if (name == "img4") setImg4({"image":URL.createObjectURL(e.target.files[0]),"file":e.target.files[0]});
+    if (name == "img1")
+      setImg1({
+        image: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+      });
+    else if (name == "img2")
+      setImg2({
+        image: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+      });
+    else if (name == "img3")
+      setImg3({
+        image: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+      });
+    else if (name == "img4")
+      setImg4({
+        image: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+      });
   };
 
-  const onHandleSubmit = async() =>{
+  const onHandleSubmit = async () => {
     setState({ ...state, ["loading"]: true });
     const data = new FormData();
-    data.append("img1",img1.file)
-    data.append("img2",img2.file)
-    data.append("img3",img3.file)
-    data.append("img4",img4.file)   
-    data.append("category",state.category)
-    data.append("subcategory",state.subcategory)
-    data.append("color",state.color)
-    data.append("condition",state.condn)
-    data.append("title",state.title)
-    data.append("description",state.desc)
-    data.append("brand",state.brand)
-    data.append("premium",state.premium)
-    data.append("price",state.price)
-    data.append("is_barter",false)
-    data.append("is_donate",false)
+    data.append("img1", img1.file);
+    data.append("img2", img2.file);
+    data.append("img3", img3.file);
+    data.append("img4", img4.file);
+    data.append("category", state.category);
+    data.append("subcategory", state.subcategory);
+    data.append("color", state.color);
+    data.append("condition", state.condn);
+    data.append("title", state.title);
+    data.append("description", state.desc);
+    data.append("brand", state.brand);
+    data.append("premium", state.premium);
+    data.append("price", state.price);
+    data.append("is_barter", false);
+    data.append("is_donate", false);
     await props.createPost(data);
-    if(props.success){
-      props.history.push(`buy/${props.postId}`)
-    }
     setState({ ...state, ["loading"]: false });
-  }
+  };
 
   const categories = getCategories();
   const colors = getColors();
+  if (props.success) {
+    props.history.push(`buy/${props.postId}`);
+  }
   return (
     <React.Fragment>
       <div className="outer1">
@@ -129,9 +148,9 @@ function Sell(props) {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                        {
-                          Object.keys(categories).map((item)=><MenuItem value={item}>{item}</MenuItem>)
-                        }
+                        {Object.keys(categories).map((item) => (
+                          <MenuItem value={item}>{item}</MenuItem>
+                        ))}
                       </Select>
                     </Box>
                   </div>
@@ -154,7 +173,7 @@ function Sell(props) {
                         value={state["subcategory"]}
                         displayEmpty
                         variant="outlined"
-                        disabled={state['category']==""}
+                        disabled={state["category"] == ""}
                         name="subcategory"
                         className="login__right__myForm__formData__select"
                         onChange={onHandleChange}
@@ -162,9 +181,10 @@ function Sell(props) {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                        {state.category !="" &&
-                          categories[state.category].map((item)=><MenuItem value={item}>{item}</MenuItem>)
-                        }
+                        {state.category != "" &&
+                          categories[state.category].map((item) => (
+                            <MenuItem value={item}>{item}</MenuItem>
+                          ))}
                       </Select>
                     </Box>
                   </div>
@@ -197,7 +217,9 @@ function Sell(props) {
                         <MenuItem value="" disabled>
                           Select
                         </MenuItem>
-                       {colors.map((item)=><MenuItem value={item}>{item}</MenuItem>)}
+                        {colors.map((item) => (
+                          <MenuItem value={item}>{item}</MenuItem>
+                        ))}
                       </Select>
                     </Box>
                   </div>
@@ -353,7 +375,7 @@ function Sell(props) {
                           <img src={img1.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg1({image:null,file:null})}
+                            onClick={() => setImg1({ image: null, file: null })}
                           />
                         </>
                       )}
@@ -377,7 +399,7 @@ function Sell(props) {
                           <img src={img2.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg2({image:null,file:null})}
+                            onClick={() => setImg2({ image: null, file: null })}
                           />
                         </>
                       )}
@@ -401,7 +423,7 @@ function Sell(props) {
                           <img src={img3.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg3({image:null,file:null})}
+                            onClick={() => setImg3({ image: null, file: null })}
                           />
                         </>
                       )}
@@ -425,7 +447,7 @@ function Sell(props) {
                           <img src={img4.image} />
                           <CancelRoundedIcon
                             className="outer1__sell__lt__img__sel__bdr__crc__close"
-                            onClick={() => setImg4({image:null,file:null})}
+                            onClick={() => setImg4({ image: null, file: null })}
                           />
                         </>
                       )}
@@ -535,7 +557,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createPost :(data)=>dispatch(CreateNewPost(data)),
+    createPost: (data) => dispatch(CreateNewPost(data)),
+    setInitialDispatch: (value, id) => dispatch(CreatePostSuccess(value, id)),
   };
 };
 

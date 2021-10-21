@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WebsiteLogo from "../../assets/WebsiteLogo.svg";
-import DummyPic from "../../assets/DummyPic.svg";
+import NoProfileImage from "../../assets/NoProfile.svg";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import LoopIcon from '@material-ui/icons/Loop';
@@ -76,11 +76,11 @@ class Navbar extends Component {
 
 
           {isLoggedIn &&  <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
-              <img src={DummyPic} className="nav__profile" />
+              <img src={NoProfileImage} className="nav__profile" />
               <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
               <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
               <div className="nav__dropdownprofile__head">
-              <img src={DummyPic} className="nav__profile" />
+              <img src={NoProfileImage} className="nav__profile" />
                 <div>
                 <h5>Rohit Jain</h5>
                 <h6>@rohit0301</h6>

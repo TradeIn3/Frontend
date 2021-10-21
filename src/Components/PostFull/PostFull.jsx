@@ -11,11 +11,8 @@ import {
 } from "@material-ui/core";
 import { Breakpoint } from "react-socks";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import DummyPic from "../../assets/DummyPic.svg";
-import DummyProduct1 from "../../assets/DummyProduct1.jpg";
-import DummyProduct2 from "../../assets/DummyProduct2.jpg";
-import DummyProduct3 from "../../assets/DummyProduct3.jpg";
-import DummyProduct4 from "../../assets/DummyProduct4.jpg";
+import NoProfileImage from "../../assets/NoProfile.svg";
+import NoQuestionImage from "../../assets/NoQuestions.svg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import EditIcon from "@material-ui/icons/Edit";
@@ -25,6 +22,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { getToken } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
 import { Scrollbars } from 'react-custom-scrollbars';
+import FourOFour from '../FourOFour/FourOFourError';
 import {
   PostImageUrl,
   ProductPayment,
@@ -36,6 +34,7 @@ import { Request } from "../../api/Request";
 import { openSnackbar } from "../../redux/snackbar/snackbarActions";
 import {
   answerQuestion,
+  deletePost,
   deleteQuestion,
   PostSave,
   retrievePost,
@@ -106,6 +105,10 @@ class PostFull extends Component {
   handleDelete = async (id) => {
     await this.props.deleteQuestionDispatch(id, this.props.match.params.id);
   };
+  handlePostDelete = async () =>{
+    this.props.deletePostDispatch(this.props.match.params.id);
+    this.props.history.push("/home");
+  }
 
   handleSave = async (isSaved) => {
     if (this.props.isLoggedIn)
@@ -268,8 +271,9 @@ class PostFull extends Component {
 
   render() {
     const {  selected, answer, sort } = this.state;
-    const { post, loading } = this.props;
+    const { post, loading,success } = this.props;
     if (loading) return <PostLoader />;
+    if (!success && !loading ) return <FourOFour/>
     return (
       <>
         <Breakpoint large up>
@@ -279,6 +283,7 @@ class PostFull extends Component {
             style={{ paddingLeft: "5rem", paddingTop: "2.5rem" }}
           >
             <Grid item xs={6} className="product__lt">
+              <h5 className="product__headline"><a>TradeIn</a> / <a>Buy</a> / {post.title}</h5>
               <div className="product__lt__Box">
                 <div className="product__lt__Box__imageWrapper">
                   {post.images.map((item, index) => (
@@ -329,7 +334,7 @@ class PostFull extends Component {
               </div>
               <div className="product__lt__moreopt">
                 <h3>
-                  Have a similar item? <a href="#">Sell yours</a>
+                  Have a similar item? <a href={this.props.isLoggedIn?"/sell":`${this.props.pathname}?login=true`}>Sell yours</a>
                 </h3>
 
                 <div className="product__lt__moreopt__like">
@@ -351,7 +356,7 @@ class PostFull extends Component {
 
               <div className="product__lt__profile">
                 <div className="product__lt__profile__pic">
-                  <img src={DummyPic} className="nav__profile" />
+                  <img src={NoProfileImage} className="nav__profile" />
                   <div className="product__lt__profile__name">
                     Sold by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
@@ -434,7 +439,7 @@ class PostFull extends Component {
                   />
                 </RadioGroup>
               </div>}
-             
+                {post.questions.length==0 && <div className="product__lt__ques__empty"><img src={NoQuestionImage}/><h3>Nothing to show!</h3></div>}
                 {post.questions.map((obj, index) => {
                   if (
                     sort == "all" ||
@@ -590,7 +595,7 @@ class PostFull extends Component {
                       className="product__rt__sell__buttons__del"
                       style={{ width: "100%" }}
                     >
-                      <Button className="product__rt__sell__buttons__del__delbtn">
+                      <Button className="product__rt__sell__buttons__del__delbtn" onClick={this.handlePostDelete}>
                         Delete
                       </Button>
                     </div>
@@ -657,7 +662,7 @@ class PostFull extends Component {
           </Grid>
         </Breakpoint>
         <Breakpoint medium down>
-          <div classN ame="product">
+          <div class Name="product">
             <div className="product__lt">
               <div className="product__lt__Box">
                 <div className="product__lt__Box__outer">
@@ -850,7 +855,7 @@ class PostFull extends Component {
 
               <div className="product__lt__profile">
                 <div className="product__lt__profile__pic">
-                  <img src={DummyPic} className="nav__profile" />
+                  <img src={NoProfileImage} className="nav__profile" />
                   <div className="product__lt__profile__name">
                     Sold by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
@@ -861,7 +866,9 @@ class PostFull extends Component {
                   <Button>View Profile</Button>
                 </div>
               </div>
+
               <div className="product__lt__ques">
+              <Scrollbars style={{ width: "100%", height: "100%" }}>
                 <div className="product__lt__ques__heading">
                   <h2>Questions and Answers</h2>
                   {!post.is_owner && (
@@ -878,7 +885,7 @@ class PostFull extends Component {
                     </div>
                   )}
                 </div>
-                {!post.is_owner && (
+                {!post.is_owner ? (
                   <div className="product__lt__ques__sort">
                     <FormLabel
                       component="legend"
@@ -905,11 +912,38 @@ class PostFull extends Component {
                       />
                     </RadioGroup>
                   </div>
-                )}
+                ): <div className="product__lt__ques__sort">
+                <FormLabel
+                  component="legend"
+                  className="product__lt__ques__sort__lbl"
+                >
+                  Sort:
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="sort"
+                  name="sort"
+                  value={sort}
+                  onChange={(e) => this.setState({ sort: e.target.value })}
+                >
+                  <FormControlLabel
+                    value="all"
+                    control={<Radio />}
+                    label="All Questions"
+                  />
+                  <FormControlLabel
+                    value="my"
+                    control={<Radio />}
+                    label="Not Answered"
+                  />
+                </RadioGroup>
+              </div>}
+              {post.questions.length==0 && <div className="product__lt__ques__empty"><img src={NoQuestionImage}/><h3>Nothing to show!</h3></div>}
                 {post.questions.map((obj, index) => {
                   if (
                     sort == "all" ||
-                    (sort == "my" && obj.user == this.props.myDetails.username)
+                    (sort == "my" && obj.user == this.props.myDetails.username && !post.is_owner) ||
+                    (sort == "my" && !obj.is_answered && post.is_owner)
                   )
                     return (
                       <div className="product__lt__ques__q1">
@@ -997,6 +1031,7 @@ class PostFull extends Component {
                       </div>
                     );
                 })}
+               </Scrollbars>
               </div>
             </div>
           </div>
@@ -1017,6 +1052,7 @@ const mapStateToProps = (state, ownProps) => {
     access: state.token.access,
     myDetails: state.myDetails.myDetails,
     loading: state.post.postLoading,
+    success: state.post.postSuccess,
     isLoggedIn: state.token.isLoggedIn,
     post: ownProps.match.params.id &&  ownProps.match.params.id in state.post.posts
       ? state.post.posts[ownProps.match.params.id]
@@ -1027,6 +1063,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     retrievePostDispatch: (postId) => dispatch(retrievePost(postId)),
+    deletePostDispatch: (postId) => dispatch(deletePost(postId)),
     getTokenDispatch: () => dispatch(getToken()),
     openSnackbarDispatch: (errorMessage) =>
       dispatch(openSnackbar(errorMessage)),
