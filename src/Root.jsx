@@ -4,6 +4,7 @@ import {
   AUTH_BUY_FULL_PATH,
   AUTH_BUY_PATH,
   AUTH_DONATE_PATH,
+  AUTH_EXCHANGE_PATH,
   AUTH_HOME_PATH,
   AUTH_SELL_PRODUCT,
   UNAUTH_HOME_PATH,
@@ -22,10 +23,13 @@ import MainLoader from "./Components/Loaders/MainLoader";
 import PostCard from "./Components/Card/PostCard";
 import Buy from "./Components/Auth/Buy";
 import Donate from "./Components/Auth/Donate";
+import Exchange from "./Components/Auth/Exchange";
 import Sidebar from "./Components/Layout/Sidebar";
 import { Breakpoint } from "react-socks";
 import { Grid, Popper } from "@material-ui/core";
 import PostFull from "./Components/PostFull/PostFull";
+import DonateFull from "./Components/PostFull/DonateFull";
+import ExchangeFull from "./Components/PostFull/ExchangeFull";
 import QuestionModal from "./Components/PostFull/QuestionModal";
 import Sell from "./Components/AddPost/Sell";
 function Root(props) {
@@ -94,6 +98,26 @@ function Root(props) {
               </Breakpoint>
               <Breakpoint medium down>
                 <Donate {...props} />
+              </Breakpoint>
+            </Layout>
+          )}
+        </Route>
+        <Route path={AUTH_EXCHANGE_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <Breakpoint large up>
+                <Grid container>
+                  <Grid item xs={2} style={{ position: "relative" }}>
+                    <Sidebar {...props}/>
+                  </Grid>
+                  <Grid item xs={10}>
+                    {" "}
+                    <Exchange {...props} />
+                  </Grid>
+                </Grid>
+              </Breakpoint>
+              <Breakpoint medium down>
+                <Exchange {...props} />
               </Breakpoint>
             </Layout>
           )}
