@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from "react";
 import Login from "./Components/UnAuth/Login";
 import {
+  AUTH_BUY_EDIT_PATH,
   AUTH_BUY_FULL_PATH,
   AUTH_BUY_PATH,
   AUTH_DONATE_PATH,
@@ -28,6 +29,7 @@ import { Grid, Popper } from "@material-ui/core";
 import PostFull from "./Components/PostFull/PostFull";
 import QuestionModal from "./Components/PostFull/QuestionModal";
 import Sell from "./Components/AddPost/Sell";
+import EditSell from "./Components/EditPost/EditSell";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
@@ -78,6 +80,13 @@ function Root(props) {
   return (
     <div className="config_css">
       <Switch>
+      <AuthorizedRoute path={AUTH_BUY_EDIT_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <EditSell {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
         <Route path={AUTH_DONATE_PATH} exact>
           {(props) => (
             <Layout {...props}>

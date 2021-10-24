@@ -6,6 +6,7 @@ import {
   RetrieveAllPost,
   CreatePost,
   PostDelete,
+  PostEdit,
 } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
@@ -54,6 +55,30 @@ export const CreateNewPost = (data) =>{
   }
 }
 
+export const editPost = (data) =>{
+  return async (dispatch,getState) =>{
+    await dispatch(getToken());
+    const token = await getState().token.access;
+    const user = await getState().myDetails.myDetails.username;
+    console.log(data)
+    if(token && user){
+      data["user"] =user;
+      const res = await Request("PUT",PostEdit,token,data);
+      if(res && res.status==200){
+        await dispatch(CreatePostSuccess(true,res.data.id))
+        await dispatch(openSnackbar("Post edited successfully"));
+      }
+      else{
+        await dispatch(CreatePostSuccess(false,null))
+        await dispatch(openSnackbar("Something went wrong"));
+        }
+    }
+    else{
+      await dispatch(openSnackbar("Something went wrong"));
+    }
+
+  }
+}
 
 export const addAllPostDetails = (post) => {
   return {

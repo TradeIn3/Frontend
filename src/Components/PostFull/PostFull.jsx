@@ -41,9 +41,10 @@ import {
 } from "../../redux/post/postActions";
 import CardSkeleton from "../Skeleton/CardSkeleton";
 import { Route, Link, Switch } from "react-router-dom";
-import { AUTH_BUY_FULL_QUESTION_PATH } from "../../constants/routeConstants";
+import { AUTH_BUY_EDIT_PATH, AUTH_BUY_FULL_QUESTION_PATH } from "../../constants/routeConstants";
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
+import EditSell from "../EditPost/EditSell";
 const handleReservePaymentSuccess = async (
   response,
   detail,
@@ -378,7 +379,7 @@ class PostFull extends Component {
                         to={
                           this.props.isLoggedIn
                             ? `/buy/${this.props.match.params.id}/ask`
-                            : `${this.props.pathname}?login==true`
+                            : `/buy/${this.props.match.params.id}?login==true`
                         }
                       >
                         Ask Question
@@ -586,7 +587,7 @@ class PostFull extends Component {
                     >
                       <Button
                         className="product__rt__sell__buttons__edit__editbtn"
-                        onClick={this.showProductRazorpay}
+                        onClick={()=>this.props.history.push(`/buy/${this.props.match.params.id}/edit`)}
                       >
                         Edit
                       </Button>
@@ -632,12 +633,28 @@ class PostFull extends Component {
                     <h3>{post.category}</h3>
                   </div>
                 </div>
+                <div className="product__rt__overview__categ">
+                  <div className="product__rt__overview__categ__categTy">
+                    <h3>Subcategory</h3>
+                  </div>
+                  <div className="product__rt__overview__categ__type" style={{marginLeft:"3rem"}}>
+                    <h3>{post.subcategory}</h3>
+                  </div>
+                </div>
                 <div className="product__rt__overview__brand">
                   <div className="product__rt__overview__brand__brandNa">
                     <h3>Brand</h3>
                   </div>
                   <div className="product__rt__overview__brand__name">
                     <h3>{post.brand}</h3>
+                  </div>
+                </div>
+                <div className="product__rt__overview__categ">
+                  <div className="product__rt__overview__categ__categTy">
+                    <h3>Color</h3>
+                  </div>
+                  <div className="product__rt__overview__categ__type" style={{marginLeft:"7.2rem"}}>
+                    <h3>{post.color}</h3>
                   </div>
                 </div>
               </div>
@@ -780,7 +797,7 @@ class PostFull extends Component {
                     >
                       <Button
                         className="product__rt__sell__buttons__edit__editbtn"
-                        onClick={this.showProductRazorpay}
+                        onClick={()=>this.props.history.push(`/buy/${this.props.match.params.id}/edit`)}
                       >
                         Edit
                       </Button>
@@ -828,10 +845,26 @@ class PostFull extends Component {
                 </div>
                 <div className="product__rt__overview__cond">
                   <div className="product__rt__overview__cond__condSt">
+                    <h3>Subcategory</h3>
+                  </div>
+                  <div className="product__rt__overview__cond__state">
+                    <h3>{post.subcategory}</h3>
+                  </div>
+                </div>
+                <div className="product__rt__overview__cond">
+                  <div className="product__rt__overview__cond__condSt">
                     <h3>Brand</h3>
                   </div>
                   <div className="product__rt__overview__cond__state">
                     <h3>{post.brand}</h3>
+                  </div>
+                </div>
+                <div className="product__rt__overview__cond">
+                  <div className="product__rt__overview__cond__condSt">
+                    <h3>Color</h3>
+                  </div>
+                  <div className="product__rt__overview__cond__state">
+                    <h3>{post.color}</h3>
                   </div>
                 </div>
               </div>
@@ -1043,6 +1076,7 @@ class PostFull extends Component {
             </Route>
           </Switch>
         )}
+
       </>
     );
   }

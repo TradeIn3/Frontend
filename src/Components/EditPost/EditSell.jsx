@@ -18,50 +18,62 @@ import {
   FormGroup,
   RadioGroup,
 } from "@material-ui/core";
-import { CreateNewPost, CreatePostSuccess } from "../../redux/post/postActions";
+import { CreateNewPost, CreatePostSuccess, editPost, retrievePost } from "../../redux/post/postActions";
 import { connect } from "react-redux";
 import { getCategories, getColors } from "../../utils/Utils";
 import { plugToRequest } from "react-cookies";
 import { withRouter } from "react-router-dom";
 
-class Sell extends Component {
+class EditSell extends Component {
   constructor(props){
     super(props);
   
   this.state={
-    category: "",
-    subcategory: "",
-    color: "",
-    condn: "",
-    title: "",
-    desc: "",
-    brand: "",
+    category: this.props.post.category || "",
+    subcategory: this.props.post.subcategory || "",
+    color: this.props.post.color || "",
+    condn: this.props.post.condition || "",
+    title: this.props.post.title || "",
+    desc: this.props.post.description || "",
+    brand: this.props.post.brand || "",
     premium: false,
     loading: false,
-    price: "",
-    formValid:false,
+    price: this.props.post.price || "",
+    formValid:true,
     categoryValid:false,
     fieldValid:{
-    category: false,
-    subcategory: false,
-    color: false,
-    condn: false,
-    title: false,
-    desc: false,
-    brand: false,
-    price: false,
+    category: true,
+    subcategory: true,
+    color: true,
+    condn: true,
+    title: true,
+    desc: true,
+    brand: true,
+    price: true,
     },
-    img1:{ image: null, file: null },
-    img2:{ image: null, file: null },
-    img3:{ image: null, file: null },
-    img4:{ image: null, file: null }
+  
   }
 }
 
   async componentDidMount(){
+    await this.props.retrievePostDispatch(this.props.match.params.id);
     await this.props.setInitialDispatch(false, null);
   }
-
+  static getDerivedStateFromProps(props,state){
+    if(props.post.category != state.category){
+      console.log(props.post)
+      return {
+        category: props.post.category  || "",
+        subcategory: props.post.subcategory || "",
+        color: props.post.color || "",
+        condn: props.post.condition || "",
+        title: props.post.title || "",
+        desc: props.post.description || "",
+        brand: props.post.brand || "",
+        price: props.post.price || "",
+      }
+    }
+  }
 
    onHandleChange = async(event) => {
     event.preventDefault();
@@ -127,8 +139,6 @@ class Sell extends Component {
   };
 
   validateForm = async () => {
-    console.log(this.state.fieldValid["category"] &&
-    this.state.fieldValid["subcategory"])
     await this.setState({
      formValid: this.state.fieldValid["category"] &&
       this.state.fieldValid["subcategory"] &&
@@ -137,81 +147,78 @@ class Sell extends Component {
       this.state.fieldValid["title"] &&
       this.state.fieldValid["desc"] &&
       this.state.fieldValid["condn"] &&
-      this.state.fieldValid["price"] &&
-      (this.state.img1.image || this.state.img2.image || this.state.img3.image || this.state.img4.image)
+      this.state.fieldValid["price"] 
     });
   };
 
-   onImageChange = async(e) => {
-    const name = e.target.name;
-    if (name == "img1")
-      await this.setState({img1:{
-        image: URL.createObjectURL(e.target.files[0]),
-        file: e.target.files[0],
-      }},this.validateForm);
-    else if (name == "img2")
-     await this.setState({img2:{
-      image: URL.createObjectURL(e.target.files[0]),
-      file: e.target.files[0],
-    }},this.validateForm);
-    else if (name == "img3")
-    await this.setState({img3:{
-      image: URL.createObjectURL(e.target.files[0]),
-      file: e.target.files[0],
-    }},this.validateForm);
-    else if (name == "img4")
-    await this.setState({img4:{
-      image: URL.createObjectURL(e.target.files[0]),
-      file: e.target.files[0],
-    }},this.validateForm);
+  //  onImageChange = async(e) => {
+  //   const name = e.target.name;
+  //   if (name == "img1")
+  //     await this.setState({img1:{
+  //       image: URL.createObjectURL(e.target.files[0]),
+  //       file: e.target.files[0],
+  //     }},this.validateForm);
+  //   else if (name == "img2")
+  //    await this.setState({img2:{
+  //     image: URL.createObjectURL(e.target.files[0]),
+  //     file: e.target.files[0],
+  //   }},this.validateForm);
+  //   else if (name == "img3")
+  //   await this.setState({img3:{
+  //     image: URL.createObjectURL(e.target.files[0]),
+  //     file: e.target.files[0],
+  //   }},this.validateForm);
+  //   else if (name == "img4")
+  //   await this.setState({img4:{
+  //     image: URL.createObjectURL(e.target.files[0]),
+  //     file: e.target.files[0],
+  //   }},this.validateForm);
     
-  };
+  // };
 
   onHandleSubmit = async () => {
-    const data = new FormData();
-    data.append("img1", this.state.img1.file);
-    data.append("img2", this.state.img2.file);
-    data.append("img3", this.state.img3.file);
-    data.append("img4", this.state.img4.file);
-    data.append("category", this.state.category);
-    data.append("subcategory", this.state.subcategory);
-    data.append("color", this.state.color);
-    data.append("condition", this.state.condn);
-    data.append("title", this.state.title);
-    data.append("description", this.state.desc);
-    data.append("brand", this.state.brand);
-    data.append("premium", this.state.premium);
-    data.append("price", this.state.price);
-    data.append("is_barter", false);
-    data.append("is_donate", false);
-    await this.props.createPost(data);
+   const  data ={"category": this.state.category,
+    "subcategory": this.state.subcategory,
+    "color": this.state.color,
+    "condition": this.state.condn,
+    "title": this.state.title,
+    "description": this.state.desc,
+    "brand": this.state.brand,
+    "premium": this.state.premium,
+    "price": this.state.price,
+    "is_barter": false,
+    "is_donate": false,
+    "id":this.props.computedMatch.params.id,
+  }
+    console.log(data)
+    await this.props.editPostDispatch(data);
   };
 
 render(){
   const categories = getCategories();
   const colors = getColors();
   if (this.props.success) {
-    this.props.history.push(`buy/${this.props.postId}`);
+    this.props.history.push(`/buy/${this.props.match.params.id}`);
     return;
   }
-  console.log(this.state);
-  return (
+
+    return (
     <React.Fragment>
       <div className="outer1">
         <div className="outer1__headings">
-          <h1>Sell your Product</h1>
+          <h1>Edit Post</h1>
           <h3>
             Hi, <span>{this.props.myDetails.username}</span>
           </h3>
         </div>
         <Grid container className="outer1__sell">
           <Grid item lg={7} md={7} sm={12} xs={12} className="outer1__sell__lt">
-            <div className="outer1__sell__lt__heading1">
+            {/* <div className="outer1__sell__lt__heading1">
               <div style={{ color: "goldenrod", padding: "6px 8px" }}>
                 <OfflineBoltIcon />
               </div>
               <h3>Post ad to earn 50 Trade-coin in your account</h3>
-            </div>
+            </div> */}
             <form className="outer1__sell__lt">
               <Grid container className="outer1__sell__lt__outer">
                 <Grid
@@ -228,7 +235,7 @@ render(){
                     <Box style={{ paddingTop: "10px" }}>
                       <Select
                         id="demo-simple-select"
-                        value={this.state["category"]}
+                        value={this.state.category}
                         displayEmpty
                         name="category"
                         className="login__right__myForm__formData__select"
@@ -261,10 +268,10 @@ render(){
                     <Box sx={{ minWidth: 120 }} style={{ paddingTop: "10px" }}>
                       <Select
                         id="demo-simple-select"
-                        value={this.state["subcategory"]}
+                        value={this.state.subcategory}
                         displayEmpty
                         variant="outlined"
-                        disabled={this.state["category"] == ""}
+                        disabled={this.state.category == ""}
                         name="subcategory"
                         className="login__right__myForm__formData__select"
                         onChange={this.onHandleChange}
@@ -297,7 +304,7 @@ render(){
                     <Box sx={{ minWidth: 200 }} style={{ paddingTop: "10px" }}>
                       <Select
                         id="demo-simple-select"
-                        value={this.state["color"]}
+                        value={this.state.color}
                         displayEmpty
                         variant="outlined"
                         name="color"
@@ -335,7 +342,7 @@ render(){
                         style={{ paddingTop: "10px", width: "100%" }}
                         className="login__right__myForm__formData__username"
                         name="brand"
-                        value={this.state["value"]}
+                        value={this.state.brand}
                         placeholder="Brand"
                         variant="outlined"
                         className="login__right__myForm__formData__select"
@@ -360,7 +367,7 @@ render(){
                     <Box style={{ paddingTop: "10px" }}>
                       <Select
                         id="demo-simple-select"
-                        value={this.state["condn"]}
+                        value={this.state.condn}
                         name="condn"
                         displayEmpty
                         variant="outlined"
@@ -438,7 +445,7 @@ render(){
                 ></TextField>
               </div>
 
-              <div className="outer1__sell__lt__img">
+              {/* <div className="outer1__sell__lt__img">
                 <label
                   className="login__right__myForm__formData"
                   htmlFor="image"
@@ -545,7 +552,7 @@ render(){
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </form>
           </Grid>
           <Grid item lg={5} md={5} sm={12} xs={12} className="outer1__sell__rt">
@@ -630,7 +637,7 @@ render(){
               type="submit"
               disabled={!this.state.formValid }
             >
-              Create Ad
+              Edit Post
             </Button>
           </Grid>
         </Grid>
@@ -640,19 +647,23 @@ render(){
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
   return {
     myDetails: state.myDetails.myDetails,
     success: state.post.success,
     postId: state.post.postId,
+    post: ownProps.computedMatch.params.id &&  ownProps.computedMatch.params.id in state.post.posts
+      ? state.post.posts[ownProps.computedMatch.params.id]
+      : {},
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createPost: (data) => dispatch(CreateNewPost(data)),
+    retrievePostDispatch: (postId) => dispatch(retrievePost(postId)),
+    editPostDispatch: (data) => dispatch(editPost(data)),
     setInitialDispatch: (value, id) => dispatch(CreatePostSuccess(value, id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Sell));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditSell));
