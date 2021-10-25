@@ -8,6 +8,7 @@ export const AUTH_HOME_PATH = "/home";
 export const AUTH_BUY_PATH = "/buy";
 export const AUTH_DONATE_PATH = "/donate";
 export const AUTH_EXCHANGE_PATH = "/exchange";
+export const AUTH_ACCOUNT_PATH = "/account";
 
 
 export const AUTH_BUY_FULL_PATH = "/buy/:id(\\d+)";

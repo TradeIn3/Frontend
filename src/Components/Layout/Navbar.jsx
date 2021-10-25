@@ -87,7 +87,8 @@ class Navbar extends Component {
                 </div>
               </div>
               <li className="nav__dropdownprofile__list">
-                <Link href="#"><AccountCircleOutlinedIcon/>Profile</Link>
+                {/* <Link href="/account"><AccountCircleOutlinedIcon/>Profile</Link> */}
+                <a href="/account"><AccountCircleOutlinedIcon/>Profile</a>
               </li>
               <li className="nav__dropdownprofile__list">
                 <Link href="#"><BookmarkBorderOutlinedIcon/>Saved</Link>

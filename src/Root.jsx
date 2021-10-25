@@ -8,6 +8,7 @@ import {
   AUTH_EXCHANGE_PATH,
   AUTH_HOME_PATH,
   AUTH_SELL_PRODUCT,
+  AUTH_ACCOUNT_PATH,
   UNAUTH_HOME_PATH,
   UNAUTH_LOGIN_PATH,
 } from "./constants/routeConstants";
@@ -19,6 +20,8 @@ import SnackBars from "./SnackBars";
 import SessionExpirePrompt from "./SessionExpirePrompt";
 import LandingPage from "./Components/UnAuth/LandingPage";
 import Home from "./Components/Auth/Home";
+import Account from "./Components/Account/Account";
+import AccountDetails from "./Components/Account/AccountDetails";
 import Layout from "./Components/Layout/Layout";
 import MainLoader from "./Components/Loaders/MainLoader";
 import PostCard from "./Components/Card/PostCard";
@@ -179,6 +182,13 @@ function Root(props) {
             </Layout>
           )}
         </UnAuthorizedRoute>
+        <AuthorizedRoute path={AUTH_ACCOUNT_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <Account {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
 
         <Route path="*">
           <Layout {...props}>
