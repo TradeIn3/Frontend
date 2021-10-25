@@ -36,6 +36,7 @@ import DonateFull from "./Components/PostFull/DonateFull";
 import ExchangeFull from "./Components/PostFull/ExchangeFull";
 import QuestionModal from "./Components/PostFull/QuestionModal";
 import Sell from "./Components/AddPost/Sell";
+import EmptyData from "./Components/Skeleton/EmptyData";
 import EditSell from "./Components/EditPost/EditSell";
 function Root(props) {
   useEffect(() => {
