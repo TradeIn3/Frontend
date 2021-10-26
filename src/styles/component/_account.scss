@@ -1,0 +1,150 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.authhome {
+  &__upper {
+    display: flex;
+    flex-direction: column;
+    background: $theme-a;
+    padding: 16px;
+    margin-bottom: 1.2rem;
+    &__profile {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      &__pic {
+        padding-left: 25px;
+        img {
+          height: 75px;
+          max-width: 75px;
+          border: 4px solid white;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      &__headings {
+        h3 {
+          font-family: Roboto, sans-serif;
+          font-weight: 600;
+          color: white;
+          letter-spacing: 0.03em;
+          font-size: 1.5rem;
+          text-align: center;
+        }
+        h5 {
+          font-family: Roboto, sans-serif;
+          font-weight: 500;
+          color: white;
+          letter-spacing: 0.03em;
+          font-size: 1rem;
+          text-align: center;
+        }
+      }
+    }
+    &__icon1 {
+      display: flex;
+
+      h3 {
+        font-family: Roboto, sans-serif;
+        font-weight: 500;
+        color: white;
+        letter-spacing: 0.03em;
+        font-size: 1.5rem;
+        padding-left: 10px;
+      }
+    }
+    &__icon2 {
+      color: white;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    padding: 16px;
+    padding-top: 2px;
+    cursor: pointer;
+    border-bottom: 1.5px solid #e6e6e6;
+    &__icons {
+      color: #6e6e6e !important;
+      font-size: 1.38rem;
+      font-weight: 500;
+      margin: 0 !important;
+      display: flex;
+      font-family: Roboto, sans-serif;
+      letter-spacing: 0.04em;
+      padding-top: 10px !important;
+      padding-left: 6px;
+      svg {
+        color: $dark-grey;
+        margin-right: 10px;
+        font-size: 1.6rem;
+      }
+      &__nxt {
+        svg {
+          position: absolute;
+          right: 0;
+          font-size: 2.4rem;
+          cursor: pointer;
+        }
+      }
+    }
+    &__in {
+      color: $light-grey !important;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 0 !important;
+      display: flex;
+      font-family: Roboto, sans-serif;
+      align-items: center;
+      letter-spacing: 0.04em;
+      padding-top: 6px;
+      padding-left: 2.3rem;
+    }
+  }
+  &__btn {
+    &__logout {
+      color: $theme-a !important;
+      background-color: white !important;
+      width: 100% !important;
+      margin: 14px 0px !important;
+      font-size: 1.3rem !important;
+      padding: 4px 0 !important;
+      border: 2px solid $theme-a !important;
+      border-radius: 2px !important;
+      margin-top: 2.2rem !important;
+      span {
+        font-family: Oswald !important;
+        letter-spacing: 0.05em !important;
+        font-weight: 500 !important;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .authhome {
+    &__upper {
+      &__profile {
+        margin-top: 1rem;
+        &__img {
+          height: 60px;
+          max-width: 60px;
+        }
+      }
+    }
+    &__menu {
+      &__icons {
+      }
+      &__in {
+        font-size: 0.95rem;
+        padding-top: 10px;
+        padding-left: 1.7rem;
+      }
+    }
+  }
+}

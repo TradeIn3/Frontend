@@ -10,6 +10,14 @@ export const AUTH_DONATE_PATH = "/donate";
 export const AUTH_EXCHANGE_PATH = "/exchange";
 
 
+export const AUTH_ACCOUNT_PATH = "/account/:id";
+export const AUTH_ACCOUNT_BUY_PATH = "/account/:id/buy";
+export const AUTH_ACCOUNT_DONATE_PATH = "/account/:id/donate";
+export const AUTH_ACCOUNT_EXCHANGE_PATH = "/account/:id/exchange";
+export const AUTH_ACCOUNT_ORDER_PATH = "/account/:id/order";
+export const AUTH_ACCOUNT_WISHLIST_PATH = "/account/:id/wishlist";
+
+
 export const AUTH_BUY_FULL_PATH = "/buy/:id(\\d+)";
 export const AUTH_BUY_FULL_QUESTION_PATH = "/buy/:id(\\d+)/ask";
 
