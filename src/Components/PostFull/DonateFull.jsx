@@ -41,7 +41,7 @@ import {
 } from "../../redux/post/postActions";
 import CardSkeleton from "../Skeleton/CardSkeleton";
 import { Route, Link, Switch } from "react-router-dom";
-import { AUTH_BUY_FULL_QUESTION_PATH } from "../../constants/routeConstants";
+import { AUTH_DONATE_FULL_QUESTION_PATH } from "../../constants/routeConstants";
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
 const handleReservePaymentSuccess = async (
@@ -172,7 +172,7 @@ class DonateFull extends Component {
     var options = {
       key: `${process.env.REACT_APP_RAZORPAY_KEY}`,
       key_secret: `${process.env.REACT_APP_RAZORPAY_SECRET_KEY}`,
-      amount: res.data.payment.amount,
+      amount: 0,
       currency: "INR",
       name: "TradeIn",
       username: this.props.myDetails.username,
@@ -283,7 +283,7 @@ class DonateFull extends Component {
             style={{ paddingLeft: "5rem", paddingTop: "2.5rem" }}
           >
             <Grid item xs={6} className="product__lt">
-              <h5 className="product__headline"><a>TradeIn</a> / <a>Buy</a> / {post.title}</h5>
+              <h5 className="product__headline"><a href="/home">TradeIn</a> / <a href="/donate">Donate</a> / {post.title}</h5>
               <div className="product__lt__Box">
                 <div className="product__lt__Box__imageWrapper">
                   {post.images.map((item, index) => (
@@ -358,7 +358,7 @@ class DonateFull extends Component {
                 <div className="product__lt__profile__pic">
                   <img src={NoProfileImage} className="nav__profile" />
                   <div className="product__lt__profile__name">
-                    Sold by {post.first_name + " " + post.last_name} <br />{" "}
+                    Donated by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
                   </div>
                 </div>
@@ -545,13 +545,13 @@ class DonateFull extends Component {
               <div className="product__rt__sell">
                 <h1>{post.title}</h1>
                 <h3>{post.brand}</h3>
-                <h2>&#8377;{post.price}</h2>
+                <h2>FREE</h2>
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
 
                 {!post.is_owner ? (
-                  <div className="product__rt__sell__buttons">
+                  <div className="product__rt__sell__buttons" style={{borderBottom:"2px solid #e6e6e6",paddingBottom:"2rem"}}>
                     <div
                       className="product__rt__sell__buttons__buy"
                       style={{ width: "100%" }}
@@ -563,14 +563,15 @@ class DonateFull extends Component {
                         Buy Now
                       </Button>
                     </div>
-                    <div
-                      className="product__rt__sell__buttons__nego"
-                      style={{ width: "100%" }}
+                    <div className="product__rt__sell__reserved" style={{width:"100%",padding:"0",border:"none"}}>
+                    <Button
+
+                      className="product__rt__sell__reserved__reservedbtn"
+                      onClick={this.showReserveRazorpay}
                     >
-                      <Button className="product__rt__sell__buttons__nego__negobtn">
-                        Negotiate
-                      </Button>
-                    </div>
+                      RESERVED
+                    </Button>
+                  </div>
                   </div>
                 ) : (
                   <div
@@ -601,7 +602,7 @@ class DonateFull extends Component {
                     </div>
                   </div>
                 )}
-                {!post.is_owner && (
+                {/* {!post.is_owner && (
                   <div className="product__rt__sell__reserved">
                     <Button
                       className="product__rt__sell__reserved__reservedbtn"
@@ -610,7 +611,7 @@ class DonateFull extends Component {
                       RESERVED
                     </Button>
                   </div>
-                )}
+                )} */}
               </div>
 
               <div className="product__rt__overview">
@@ -745,7 +746,7 @@ class DonateFull extends Component {
                 </div>
 
                 {!post.is_owner ? (
-                  <div className="product__rt__sell__buttons">
+                  <div className="product__rt__sell__buttons" style={{ borderBottom: "2px solid #e6e6e6",paddingBottom:"1.5rem" }}>
                     <div
                       className="product__rt__sell__buttons__buy"
                       style={{ width: "100%" }}
@@ -757,14 +758,15 @@ class DonateFull extends Component {
                         Buy Now
                       </Button>
                     </div>
-                    <div
-                      className="product__rt__sell__buttons__nego"
-                      style={{ width: "100%" }}
+                    <div className="product__rt__sell__reserved" style={{width:"100%",padding:"0",border:"none"}}>
+                    <Button
+
+                      className="product__rt__sell__reserved__reservedbtn"
+                      onClick={this.showReserveRazorpay}
                     >
-                      <Button className="product__rt__sell__buttons__nego__negobtn">
-                        Negotiate
-                      </Button>
-                    </div>
+                      RESERVED
+                    </Button>
+                  </div>
                   </div>
                 ) : (
                   <div
@@ -795,7 +797,7 @@ class DonateFull extends Component {
                     </div>
                   </div>
                 )}
-                {!post.is_owner && (
+                {/* {!post.is_owner && (
                   <div className="product__rt__sell__reserved">
                     <Button
                       className="product__rt__sell__reserved__reservedbtn"
@@ -804,7 +806,7 @@ class DonateFull extends Component {
                       RESERVED
                     </Button>
                   </div>
-                )}
+                )} */}
               </div>
 
               <div className="product__rt__overview">
@@ -1038,7 +1040,7 @@ class DonateFull extends Component {
         </Breakpoint>
         {!post.is_owner && this.props.isLoggedIn && (
           <Switch>
-            <Route path={AUTH_BUY_FULL_QUESTION_PATH} exact>
+            <Route path={AUTH_DONATE_FULL_QUESTION_PATH} exact>
               {(props) => <QuestionModal {...props} />}
             </Route>
           </Switch>

@@ -1,0 +1,5 @@
+export const ADD_USER_WISHLIST = "ADD_USER_WISHLIST";
+export const ADD_USER_BUY = "ADD_USER_BUY";
+export const ADD_USER_DONATE = "ADD_USER_DONATE";
+export const ADD_USER_EXCHANGE = "ADD_USER_EXCHANGE";
+export const ADD_USER_ORDERS = "ADD_USER_ORDERS";

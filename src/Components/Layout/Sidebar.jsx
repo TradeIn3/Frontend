@@ -169,8 +169,6 @@ class SideBar extends Component {
   render() {
     const categories = getCategories();
     const colors = getColors();
-    // console.log(this.props);
-    console.log(this.props.location.pathname);
 
     const {
       categoryVisible,
@@ -489,7 +487,7 @@ class SideBar extends Component {
                 </FormGroup>
               </div>
             </div>
-            <div
+           {this.props.location.pathname=="/buy" &&  <div
               className="sidebar__cont__section"
               style={{ borderTop: "none" }}
             >
@@ -586,7 +584,7 @@ class SideBar extends Component {
                   </div>
                 </FormGroup>
               </div>
-            </div>
+            </div>}
           </form>
         </div>
       </>

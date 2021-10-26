@@ -26,7 +26,7 @@ class Buy extends Component {
       <div>
         <div className="buy">
           <div className="buy__head">
-            Search results <span>(990+ results)</span>
+            Search results <span>({posts.length}{posts.length<=1 ? " result" : " results"})</span>
           </div>
           <div className="buy__filter">
             <div className="buy__filter__chips"></div>
@@ -89,9 +89,11 @@ class Buy extends Component {
   }
 }
 const mapStateToProps = (state) => {
+  const  posts= state.post.allPost;
+  const buyPost = posts.filter((obj)=> !obj.is_barter && !obj.is_donate)
   return {
     loading: state.post.loading,
-    posts: state.post.allPost,
+    posts: buyPost,
   };
 };
 

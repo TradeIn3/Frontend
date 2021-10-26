@@ -17,7 +17,7 @@ export default class PostCard extends Component {
        <div className="card__btm">
          <div className="card__btm__lft">
          <p className="card__ttl">{item.title}</p>
-           <div className="card__btm__lft__price">Rs{item.price}</div>
+           <div className="card__btm__lft__price">{!this.props.price ? <>Rs {item.price}</>:"FREE"}</div>
            <div className="card__btm__lft__ship">+ Rs15 delivery fee</div>
          </div>
          <div className="card__btm__rgt">

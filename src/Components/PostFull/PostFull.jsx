@@ -284,7 +284,7 @@ class PostFull extends Component {
             style={{ paddingLeft: "5rem", paddingTop: "2.5rem" }}
           >
             <Grid item xs={6} className="product__lt">
-              <h5 className="product__headline"><a>TradeIn</a> / <a>Buy</a> / {post.title}</h5>
+              <h5 className="product__headline"><a href="/home">TradeIn</a> / <a href="/buy">Buy</a> / {post.title}</h5>
               <div className="product__lt__Box">
                 <div className="product__lt__Box__imageWrapper">
                   {post.images.map((item, index) => (

@@ -4,8 +4,11 @@ import {
   AUTH_BUY_EDIT_PATH,
   AUTH_BUY_FULL_PATH,
   AUTH_BUY_PATH,
+  AUTH_DONATE_FULL_PATH,
   AUTH_DONATE_PATH,
+  AUTH_DONATE_PRODUCT,
   AUTH_EXCHANGE_PATH,
+  AUTH_EXCHANGE_PRODUCT,
   AUTH_HOME_PATH,
   AUTH_SELL_PRODUCT,
   UNAUTH_HOME_PATH,
@@ -33,6 +36,8 @@ import DonateFull from "./Components/PostFull/DonateFull";
 import ExchangeFull from "./Components/PostFull/ExchangeFull";
 import QuestionModal from "./Components/PostFull/QuestionModal";
 import Sell from "./Components/AddPost/Sell";
+import DonateProd from "./Components/AddPost/Donate";
+import ExchangeProd from "./Components/AddPost/Exchange";
 import EditSell from "./Components/EditPost/EditSell";
 function Root(props) {
   useEffect(() => {
@@ -138,6 +143,13 @@ function Root(props) {
             </Layout>
           )}
         </Route>
+        <Route path={AUTH_DONATE_FULL_PATH}>
+        {(props) => (
+            <Layout {...props}>
+              <DonateFull {...props} />
+            </Layout>
+          )}
+        </Route>
         <Route path={AUTH_BUY_PATH} exact>
           {(props) => (
             <Layout {...props}>
@@ -169,6 +181,20 @@ function Root(props) {
           {(props) => (
             <Layout {...props}>
               <Sell {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_DONATE_PRODUCT} exact>
+          {(props) => (
+            <Layout {...props}>
+              <DonateProd {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_EXCHANGE_PRODUCT} exact>
+          {(props) => (
+            <Layout {...props}>
+              <ExchangeProd {...props} />
             </Layout>
           )}
         </AuthorizedRoute>

@@ -28,4 +28,12 @@ export const ProductPaymentSuccess ="post/productpayment/success/";
 export const PostQuestion = "post/question/";
 export const PostAnswer = "post/answer/";
 
+// Account
+
+export const ProfileBuy = "user/buy/";
+export const ProfileDonate = "user/donate/";
+export const ProfileExchange = "user/exchange/";
+export const ProfileOrders = "user/orders/";
+export const ProfileWishlist = "user/wishlist/";
+
 

@@ -26,7 +26,7 @@ class Buy extends Component {
       <div>
         <div className="buy">
           <div className="buy__head">
-            Search results <span>(990+ results)</span>
+            Search results <span>({posts.length}{posts.length<=1 ? " result" : " results"})</span>
           </div>
           <div className="buy__filter">
             <div className="buy__filter__chips"></div>
@@ -53,7 +53,7 @@ class Buy extends Component {
                 >
                   Sort by newest first
                 </option>
-                <option
+                {/* <option
                   value={"low"}
                   onClick={() => this.props.history.push("/buy?sort=lowest")}
                 >
@@ -64,7 +64,7 @@ class Buy extends Component {
                   onClick={() => this.props.history.push("/buy?sort=highest")}
                 >
                   Sort by hightest price first
-                </option>
+                </option> */}
               </Select>
             </FormControl>
           </div>
@@ -95,7 +95,7 @@ class Buy extends Component {
                 xs={12}
                 style={{ marginBottom: "1rem" }}
               >
-                <Link to={`/buy/${item.id}`}>
+                <Link to={`/exchange/${item.id}`}>
                   <PostCard item={item} />
                 </Link>
               </Grid>
@@ -107,9 +107,11 @@ class Buy extends Component {
   }
 }
 const mapStateToProps = (state) => {
+  const  posts= state.post.allPost;
+  const exchangePost = posts.filter((obj)=> obj.is_barter && !obj.is_donate)
   return {
     loading: state.post.loading,
-    posts: state.post.allPost,
+    posts: exchangePost,
   };
 };
 
