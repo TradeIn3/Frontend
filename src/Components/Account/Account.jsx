@@ -14,6 +14,7 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
+import AccountDetails from "./AccountDetails";
 
 export default class Home extends Component {
   render() {
@@ -51,7 +52,7 @@ export default class Home extends Component {
                 Order
                 <div className="authhome__menu__icons__nxt">
                   {" "}
-                  <NavigateNextIcon />
+                <a href="/myorders">  <NavigateNextIcon /></a>
                 </div>
               </div>
               <div className="authhome__menu__in">Check your order status</div>

@@ -9,6 +9,7 @@ import {
   AUTH_HOME_PATH,
   AUTH_SELL_PRODUCT,
   AUTH_ACCOUNT_PATH,
+  AUTH_ORDERS_PATH,
   UNAUTH_HOME_PATH,
   UNAUTH_LOGIN_PATH,
 } from "./constants/routeConstants";
@@ -187,6 +188,13 @@ function Root(props) {
           {(props) => (
             <Layout {...props}>
               <Account {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_ORDERS_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <AccountDetails {...props} />
             </Layout>
           )}
         </AuthorizedRoute>

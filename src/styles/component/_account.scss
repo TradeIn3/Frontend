@@ -147,3 +147,16 @@
     }
   }
 }
+
+.ordertitle {
+  background: $theme-a;
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  .MuiTypography-h6 {
+    font-size: 1.55rem !important;
+  }
+  .MuiSvgIcon-root {
+    margin-right: 7px;
+  }
+}
