@@ -11,10 +11,10 @@ export const AUTH_EXCHANGE_PATH = "/exchange";
 
 
 export const AUTH_ACCOUNT_PATH = "/account/:id";
-export const AUTH_ACCOUNT_BUY_PATH = "/account/:id/buy";
+export const AUTH_ACCOUNT_SELL_PATH = "/account/:id/sell";
 export const AUTH_ACCOUNT_DONATE_PATH = "/account/:id/donate";
 export const AUTH_ACCOUNT_EXCHANGE_PATH = "/account/:id/exchange";
-export const AUTH_ACCOUNT_ORDER_PATH = "/account/:id/order";
+export const AUTH_ACCOUNT_ORDER_PATH = "/account/:id/orders";
 export const AUTH_ACCOUNT_WISHLIST_PATH = "/account/:id/wishlist";
 
 

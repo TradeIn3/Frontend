@@ -1,24 +1,67 @@
-import { ProfileBuy, ProfileDonate, ProfileExchange, ProfileOrders, ProfileWishlist } from "../../api/pathConstants";
+import { ProfileBuy, ProfileUser, ProfileDonate, ProfileExchange, ProfileOrders, ProfileWishlist } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
-import {  ADD_USER_BUY, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
+import { USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
 
-export const addUserBuyDetails = (value) => {
+
+export const addUserDetails = (value,id) => {
+  return {
+    type: USER_DETAILS,
+    value: value,
+    id:id,
+  };
+};
+
+
+export const getUserDetails = (id) => {
+  return async (dispatch, getState) => {
+    if (id in getState().profile.users == false) {
+      await dispatch(getToken());
+      const token = await getState().token.access;
+      const res = await Request("GET", `${ProfileUser}?user=${id}`, token);
+      if (res && res.status === 200) {
+        await dispatch(addUserDetails(res.data,id));
+      } else if (res && res.status == 204) {
+        await dispatch(openSnackbar("User Not found"));
+      } else {
+        await dispatch(openSnackbar("Something went wrong"));
+      }
+    }
+  };
+};
+
+
+export const addUserBuyDetails = (value,id) => {
   return {
     type: ADD_USER_BUY,
     value: value,
+    id:id,
   };
 };
 
-export const getUserBuy = () => {
+export const loading = (value) =>{
+  return{
+    type: PRODUCT_LOADING,
+    value:value
+  }
+}
+
+export const userLoading = (value) =>{
+  return{
+    type: USER_LOADING,
+    value:value
+  }
+}
+
+export const getUserBuy = (id) => {
   return async (dispatch, getState) => {
-    if (!getState().profile.buy) {
+    if (id in getState().profile.buy == false) {
       await dispatch(getToken());
       const token = await getState().token.access;
-      const res = await Request("GET", ProfileBuy, token);
+      const res = await Request("GET", `${ProfileBuy}?user=${id}`, token);
       if (res && res.status === 200) {
-        await dispatch(addUserBuyDetails(res.data));
+        await dispatch(addUserBuyDetails(res.data,id));
       } else if (res && res.status !== 200) {
         // await dispatch(removeTokenRequest());
       } else {
@@ -28,21 +71,22 @@ export const getUserBuy = () => {
   };
 };
 
-export const addUserDonateDetails = (value) => {
+export const addUserDonateDetails = (value,id) => {
   return {
     type: ADD_USER_DONATE,
     value: value,
+    id:id,
   };
 };
 
-export const getUserDonate = () => {
+export const getUserDonate = (id) => {
   return async (dispatch, getState) => {
-    if (!getState().profile.donate) {
+    if (id in getState().profile.donate == false) {
       await dispatch(getToken());
       const token = await getState().token.access;
-      const res = await Request("GET", ProfileDonate, token);
+      const res = await Request("GET",`${ProfileDonate}?user=${id}`, token);
       if (res && res.status === 200) {
-        await dispatch(addUserDonateDetails(res.data));
+        await dispatch(addUserDonateDetails(res.data,id));
       } else if (res && res.status !== 200) {
         // await dispatch(removeTokenRequest());
       } else {
@@ -52,21 +96,22 @@ export const getUserDonate = () => {
   };
 };
 
-export const addUserExchangeDetails = (value) => {
+export const addUserExchangeDetails = (value,id) => {
   return {
     type: ADD_USER_EXCHANGE,
     value: value,
+    id:id,
   };
 };
 
-export const getUserDonate = () => {
+export const getUserExchange = (id) => {
   return async (dispatch, getState) => {
-    if (!getState().profile.exchange) {
+    if (id in getState().profile.exchange == false) {
       await dispatch(getToken());
       const token = await getState().token.access;
-      const res = await Request("GET", ProfileExchange, token);
+      const res = await Request("GET", `${ProfileExchange}?user=${id}`, token);
       if (res && res.status === 200) {
-        await dispatch(addUserExchangeDetails(res.data));
+        await dispatch(addUserExchangeDetails(res.data,id));
       } else if (res && res.status !== 200) {
         // await dispatch(removeTokenRequest());
       } else {
@@ -77,21 +122,22 @@ export const getUserDonate = () => {
 };
 
 
-export const addUserWishlistDetails = (value) => {
+export const addUserWishlistDetails = (value,id) => {
   return {
     type: ADD_USER_WISHLIST,
     value: value,
+    id:id,
   };
 };
 
-export const getUserWishlist = () => {
+export const getUserWishlist = (id) => {
   return async (dispatch, getState) => {
-    if (!getState().profile.wishlist) {
+    if (id in getState().profile.wishlist == false) {
       await dispatch(getToken());
       const token = await getState().token.access;
-      const res = await Request("GET", ProfileWishlist, token);
+      const res = await Request("GET",`${ProfileWishlist}?user=${id}`, token);
       if (res && res.status === 200) {
-        await dispatch(addUserWishlistDetails(res.data));
+        await dispatch(addUserWishlistDetails(res.data,id));
       } else if (res && res.status !== 200) {
         // await dispatch(removeTokenRequest());
       } else {
@@ -101,21 +147,22 @@ export const getUserWishlist = () => {
   };
 };
 
-export const addUserOrdersDetails = (value) => {
+export const addUserOrdersDetails = (value,id) => {
   return {
     type: ADD_USER_ORDERS,
     value: value,
+    id:id,
   };
 };
 
-export const getUserWishlist = () => {
+export const getUserOrders = (id) => {
   return async (dispatch, getState) => {
-    if (!getState().profile.orders) {
+    if (id in getState().profile.orders == false) {
       await dispatch(getToken());
       const token = await getState().token.access;
-      const res = await Request("GET", ProfileOrders, token);
+      const res = await Request("GET", `${ProfileOrders}?user=${id}`, token);
       if (res && res.status === 200) {
-        await dispatch(addUserOrdersDetails(res.data));
+        await dispatch(addUserOrdersDetails(res.data,id));
       } else if (res && res.status !== 200) {
         // await dispatch(removeTokenRequest());
       } else {

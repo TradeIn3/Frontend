@@ -14,12 +14,22 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
-import { AUTH_ACCOUNT_BUY_PATH } from "../../constants/routeConstants"
+import { AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH } from "../../constants/routeConstants"
 import {connect} from "react-redux"
+import AccountDetails from "./AccountDetails";
+import {ProfileBuy} from "../../api/pathConstants"
+import {getUserDetails,userLoading} from "../../redux/profile/profileActions";
+import PostLoader from '../Loaders/PostLoader';
 
 class Account extends Component {
+  async componentDidMount(){
+    await this.props.userLoadingDispatch(true)
+    await this.props.getUserDispatch(this.props.computedMatch.params.id);
+  }
   render() {
-
+    const {user,myDetails,loading} = this.props
+    if(loading) return <PostLoader/>
+    if(!user) return <div>User not found</div>
     return (
       <>
         <Breakpoint large up></Breakpoint>
@@ -39,8 +49,8 @@ class Account extends Component {
                   </div>
                 </div>
                 <div className="authhome__upper__profile__headings">
-                  <h3>{this.props.myDetails.first_name+ " "+this.props.myDetails.last_name}</h3>
-                  <h5>{this.props.myDetails.username}</h5>
+                  <h3>{user.first_name+ " "+user.last_name}</h3>
+                  <h5>{user.username}</h5>
                 </div>
               </div>
               <div className="authhome__upper__icon2">
@@ -53,7 +63,7 @@ class Account extends Component {
                 Order
                 <div className="authhome__menu__icons__nxt">
                   {" "}
-                  <NavigateNextIcon />
+                <a href="/myorders">  <NavigateNextIcon /></a>
                 </div>
               </div>
               <div className="authhome__menu__in">Check your order status</div>
@@ -113,26 +123,42 @@ class Account extends Component {
           </div>
         </Breakpoint>
         <Switch>
-          {/* <Route path={AUTH_ACCOUNT_BUY_PATH}>
-            <AccountDetails/>
-          </Route> */}
+          <Route path={AUTH_ACCOUNT_SELL_PATH}>
+           {(props)=> <AccountDetails title="My Products(Sell)" product="sell" {...props}/>}
+          </Route>
+           <Route path={AUTH_ACCOUNT_DONATE_PATH}>
+             {(props)=>  <AccountDetails title="My Products(Donate)" product="donate" {...props}/>}
+          </Route>
+           <Route path={AUTH_ACCOUNT_EXCHANGE_PATH}>
+             {(props)=>  <AccountDetails title="My Products(Exchange)" product="exchange" {...props}/>}
+          </Route>
+           <Route path={AUTH_ACCOUNT_ORDER_PATH}>
+             {(props)=>  <AccountDetails title="My Orders" product="orders" {...props}/>}
+          </Route>
+           <Route path={AUTH_ACCOUNT_WISHLIST_PATH}>
+              {(props)=> <AccountDetails title="My Wishlist" product="wishlist" {...props}/>}
+          </Route>
+
         </Switch>
       </>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
   return {
     myDetails: state.myDetails.myDetails,
+    loading:state.profile.userLoading,
+    user:ownProps.computedMatch.params.id ? state.profile.users[ownProps.computedMatch.params.id]:null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+    userLoadingDispatch:(value)=>dispatch(userLoading(value)),
+    getUserDispatch:(id)=>dispatch(getUserDetails(id))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Account));
 

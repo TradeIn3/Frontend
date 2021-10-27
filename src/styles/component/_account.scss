@@ -108,6 +108,9 @@
     }
   }
   &__btn {
+    width: 92%;
+    margin: 0 auto;
+    margin-bottom:5rem;
     &__logout {
       color: $theme-a !important;
       background-color: white !important;
@@ -146,5 +149,24 @@
         padding-left: 1.7rem;
       }
     }
+  }
+}
+
+.ordertitle {
+  background: $theme-a;
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  display:flex;
+  align-items:center;
+  button{
+    color:white;
+    padding:0 !important;
+  }
+  .MuiTypography-h6 {
+    font-size: 1.3rem !important;
+  }
+  .MuiSvgIcon-root {
+    margin-right: 7px;
   }
 }
