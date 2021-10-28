@@ -15,8 +15,30 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
 import AccountDetails from "./AccountDetails";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      img1: { image: null, file: null },
+    };
+  }
+  onImageChange = async (e) => {
+    const name = e.target.name;
+    if (name == "img1")
+      await this.setState(
+        {
+          img1: {
+            image: URL.createObjectURL(e.target.files[0]),
+            file: e.target.files[0],
+          },
+        },
+        this.validateForm
+      );
+  };
+
   render() {
     const categories = getCategories();
     return (
@@ -35,6 +57,33 @@ export default class Home extends Component {
                   <div>
                     {" "}
                     <img src={NoProfileImage} />
+                    <div className="authhome__upper__profile__pic__cam">
+                      {!this.state.img1.image ? (
+                        <Button variant="contained" component="label">
+                          <CameraAltIcon style={{ color: "white" }} />
+                          <input
+                            type="file"
+                            hidden
+                            onChange={this.onImageChange}
+                            name="img1"
+                            accept="image/png, image/jpeg"
+                          />
+                        </Button>
+                      ) : (
+                        <>
+                          <img src={this.state.img1.image} />
+                          <CameraAltIcon
+                            style={{ color: "white" }}
+                            className="authhome__upper__profile__pic__cam__close"
+                            onClick={() =>
+                              this.setState({
+                                img1: { image: null, file: null },
+                              })
+                            }
+                          />
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="authhome__upper__profile__headings">
@@ -52,7 +101,10 @@ export default class Home extends Component {
                 Order
                 <div className="authhome__menu__icons__nxt">
                   {" "}
-                <a href="/myorders">  <NavigateNextIcon /></a>
+                  <a href="/myorders">
+                    {" "}
+                    <NavigateNextIcon />
+                  </a>
                 </div>
               </div>
               <div className="authhome__menu__in">Check your order status</div>
