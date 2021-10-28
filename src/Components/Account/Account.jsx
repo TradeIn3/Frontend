@@ -14,20 +14,27 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
-import { AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH } from "../../constants/routeConstants"
+import {AUTH_ACCOUNT_ADDRESS_EDIT_PATH, AUTH_ACCOUNT_ADDRESS_PATH,AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH } from "../../constants/routeConstants"
 import {connect} from "react-redux"
 import AccountDetails from "./AccountDetails";
 import {ProfileBuy} from "../../api/pathConstants"
 import {getUserDetails,userLoading} from "../../redux/profile/profileActions";
 import PostLoader from '../Loaders/PostLoader';
+import AddressDetails from './AddressDetails';
+import Address from './Address';
+import { removeTokenRequest } from "../../redux/token/tokenActions";
 
 class Account extends Component {
   async componentDidMount(){
     await this.props.userLoadingDispatch(true)
     await this.props.getUserDispatch(this.props.computedMatch.params.id);
   }
+   logout = async() =>{
+    await this.props.removeTokenDispatch();
+  }
   render() {
     const {user,myDetails,loading} = this.props
+    const is_mine = user.username === myDetails.username;
     if(loading) return <PostLoader/>
     if(!user) return <div>User not found</div>
     return (
@@ -57,7 +64,7 @@ class Account extends Component {
                 <EditIcon />
               </div>
             </div>
-            <Link to={`/account/${this.props.computedMatch.params.id}/orders`} className="authhome__menu">
+            {is_mine &&<Link to={`/account/${this.props.computedMatch.params.id}/orders`} className="authhome__menu">
               <div className="authhome__menu__icons">
                 <ShoppingCartIcon />
                 Order
@@ -67,8 +74,8 @@ class Account extends Component {
                 </div>
               </div>
               <div className="authhome__menu__in">Check your order status</div>
-            </Link>
-            <Link to={`/account/${this.props.computedMatch.params.id}/wishlist`} className="authhome__menu">
+            </Link>}
+           {is_mine && <Link to={`/account/${this.props.computedMatch.params.id}/wishlist`} className="authhome__menu">
               <div className="authhome__menu__icons">
                 <FavoriteIcon />
                 Wishlist
@@ -78,7 +85,7 @@ class Account extends Component {
                 </div>
               </div>
               <div className="authhome__menu__in">Your most loved product</div>
-            </Link>
+            </Link>}
             <Link to={`/account/${this.props.computedMatch.params.id}/sell`} className="authhome__menu">
               <div className="authhome__menu__icons">
                 <LocalOfferIcon />
@@ -112,10 +119,22 @@ class Account extends Component {
               </div>
               <div className="authhome__menu__in">Your Product</div>
             </Link>
+              <Link to={`/account/${this.props.computedMatch.params.id}/address`} className="authhome__menu">
+              <div className="authhome__menu__icons">
+                <OfflineBoltIcon />
+                Address 
+                <div className="authhome__menu__icons__nxt">
+                  {" "}
+                  <NavigateNextIcon />
+                </div>
+              </div>
+              <div className="authhome__menu__in">Edit your name and address</div>
+            </Link>
             <div className="authhome__btn">
               <Button
                 className="authhome__btn__logout"
                 style={{ marginTop: "1.2rem" }}
+                onClick = {this.logout}
               >
                 Log Out
               </Button>
@@ -132,13 +151,20 @@ class Account extends Component {
            <Route path={AUTH_ACCOUNT_EXCHANGE_PATH}>
              {(props)=>  <AccountDetails title="My Products(Exchange)" product="exchange" {...props}/>}
           </Route>
-           <Route path={AUTH_ACCOUNT_ORDER_PATH}>
+          {is_mine && <Route path={AUTH_ACCOUNT_ORDER_PATH}>
              {(props)=>  <AccountDetails title="My Orders" product="orders" {...props}/>}
-          </Route>
-           <Route path={AUTH_ACCOUNT_WISHLIST_PATH}>
+          </Route>}
+           {is_mine &&<Route path={AUTH_ACCOUNT_WISHLIST_PATH}>
               {(props)=> <AccountDetails title="My Wishlist" product="wishlist" {...props}/>}
-          </Route>
+          </Route>}
+            {is_mine &&<Route path={AUTH_ACCOUNT_ADDRESS_EDIT_PATH} exact>
+              {(props)=> <Address {...props}/>}
+          </Route>}
 
+             <Route path={AUTH_ACCOUNT_ADDRESS_PATH} exact>
+              {(props)=> <AddressDetails {...props}/>}
+          </Route>
+          
         </Switch>
       </>
     );
@@ -156,7 +182,8 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userLoadingDispatch:(value)=>dispatch(userLoading(value)),
-    getUserDispatch:(id)=>dispatch(getUserDetails(id))
+    getUserDispatch:(id)=>dispatch(getUserDetails(id)),
+    removeTokenDispatch: () => dispatch(removeTokenRequest()),
   };
 };
 

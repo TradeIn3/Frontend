@@ -24,8 +24,7 @@ class Navbar extends Component {
     await this.props.removeTokenDispatch();
   }
   render() {
-    const {isLoggedIn} = this.props;
-    console.log(isLoggedIn)
+    const {isLoggedIn,myDetails} = this.props;
     return (
       <>
       <Breakpoint large up>
@@ -82,13 +81,13 @@ class Navbar extends Component {
               <div className="nav__dropdownprofile__head">
               <img src={NoProfileImage} className="nav__profile" />
                 <div>
-                <h5>Rohit Jain</h5>
-                <h6>@rohit0301</h6>
+                <h5>{myDetails.first_name+" "+myDetails.last_name}</h5>
+                <h6>{myDetails.username}</h6>
                 </div>
               </div>
               <li className="nav__dropdownprofile__list">
                 {/* <Link href="/account"><AccountCircleOutlinedIcon/>Profile</Link> */}
-                <a href="/account"><AccountCircleOutlinedIcon/>Profile</a>
+                <a href={`/account/${myDetails.username}`}><AccountCircleOutlinedIcon/>Profile</a>
               </li>
               <li className="nav__dropdownprofile__list">
                 <Link href="#"><BookmarkBorderOutlinedIcon/>Saved</Link>

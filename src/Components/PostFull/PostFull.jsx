@@ -365,7 +365,7 @@ class PostFull extends Component {
                 </div>
 
                 <div className="product__lt__profile__btn">
-                  <Button>View Profile</Button>
+                  <Button onClick={()=>this.props.history.push(`/account/${post.user_id}/`)}>View Profile</Button>
                 </div>
               </div>
              
@@ -896,7 +896,7 @@ class PostFull extends Component {
                 </div>
 
                 <div className="product__lt__profile__btn">
-                  <Button>View Profile</Button>
+                  <Button onClick={()=>this.props.history.push(`/account/${post.user_id}/`)}>View Profile</Button>
                 </div>
               </div>
 

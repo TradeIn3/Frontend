@@ -1,8 +1,8 @@
-import { ProfileBuy, ProfileUser, ProfileDonate, ProfileExchange, ProfileOrders, ProfileWishlist } from "../../api/pathConstants";
+import { ProfileBuy, ProfileUser,AddressEdit, ProfileDonate, ProfileExchange, ProfileOrders, ProfileWishlist } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
-import { USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
+import { EDIT_ADDRESS,USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
 
 
 export const addUserDetails = (value,id) => {
@@ -28,9 +28,11 @@ export const getUserDetails = (id) => {
         await dispatch(openSnackbar("Something went wrong"));
       }
     }
+    else{
+      await dispatch(userLoading(false))
+    }
   };
 };
-
 
 export const addUserBuyDetails = (value,id) => {
   return {
@@ -171,3 +173,13 @@ export const getUserOrders = (id) => {
     }
   };
 };
+
+
+export const EditProfileAddress = (value,id) => {
+  return {
+    type: EDIT_ADDRESS,
+    value: value,
+    id:id,
+  };
+};
+

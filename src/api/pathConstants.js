@@ -35,4 +35,4 @@ export const ProfileExchange = "user/exchange/";
 export const ProfileOrders = "user/orders/";
 export const ProfileWishlist = "user/wishlist/";
 export const ProfileUser = "user/details/";
-
+export const AddressEdit = "user/account/update/"

@@ -7,6 +7,7 @@ import {
   USER_DETAILS,
   USER_LOADING,
   ADD_USER_ORDERS,
+  EDIT_ADDRESS,
 } from "./profileTypes";
 
 const initialState = {
@@ -21,6 +22,14 @@ const initialState = {
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+     case EDIT_ADDRESS:
+      return {
+        ...state,
+        users:{
+          ...state.users,
+          [action.id]:{...state.user.id,...action.value},
+        }
+      };  
     case USER_DETAILS:
       return {
         ...state,

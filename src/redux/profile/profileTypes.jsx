@@ -6,3 +6,4 @@ export const ADD_USER_ORDERS = "ADD_USER_ORDERS";
 export const PRODUCT_LOADING = "PRODUCT_LOADING";
 export const USER_DETAILS = "USER_DETAILS";
 export const USER_LOADING = "USER_LOADING";
+export const EDIT_ADDRESS = "EDIT_ADDRESS";
