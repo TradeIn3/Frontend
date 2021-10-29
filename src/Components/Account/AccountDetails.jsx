@@ -8,7 +8,10 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
+  Grid,
 } from "@material-ui/core";
+import OrderCard from "../Card/OrderCard";
+// import { PostImageUrl } from "../../api/pathConstants";
 
 export default class AccountDetails extends Component {
   render() {
@@ -30,7 +33,13 @@ export default class AccountDetails extends Component {
               Orders
             </DialogTitle>
             <Divider />
-            <DialogContent></DialogContent>
+            <DialogContent>
+              <Grid container>
+                <Grid item xs={6}>
+             <OrderCard/>
+             </Grid>
+                </Grid>
+            </DialogContent>
             <DialogActions></DialogActions>
           </Dialog>
         </Breakpoint>

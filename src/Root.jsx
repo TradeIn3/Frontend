@@ -10,6 +10,7 @@ import {
   AUTH_SELL_PRODUCT,
   AUTH_ACCOUNT_PATH,
   AUTH_ORDERS_PATH,
+  AUTH_ORDERSUMMARY_PATH,
   UNAUTH_HOME_PATH,
   UNAUTH_LOGIN_PATH,
 } from "./constants/routeConstants";
@@ -23,9 +24,11 @@ import LandingPage from "./Components/UnAuth/LandingPage";
 import Home from "./Components/Auth/Home";
 import Account from "./Components/Account/Account";
 import AccountDetails from "./Components/Account/AccountDetails";
+import OrderSummary from "./Components/Account/OrderSummary";
 import Layout from "./Components/Layout/Layout";
 import MainLoader from "./Components/Loaders/MainLoader";
 import PostCard from "./Components/Card/PostCard";
+import OrderCard from "./Components/Card/OrderCard";
 import Buy from "./Components/Auth/Buy";
 import Donate from "./Components/Auth/Donate";
 import Exchange from "./Components/Auth/Exchange";
@@ -195,6 +198,13 @@ function Root(props) {
           {(props) => (
             <Layout {...props}>
               <AccountDetails {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_ORDERSUMMARY_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <OrderSummary {...props} />
             </Layout>
           )}
         </AuthorizedRoute>
