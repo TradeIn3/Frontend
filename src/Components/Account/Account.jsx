@@ -17,14 +17,23 @@ import LoopIcon from "@material-ui/icons/Loop";
 import {AUTH_ACCOUNT_ADDRESS_EDIT_PATH, AUTH_ACCOUNT_ADDRESS_PATH,AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH } from "../../constants/routeConstants"
 import {connect} from "react-redux"
 import AccountDetails from "./AccountDetails";
-import {ProfileBuy} from "../../api/pathConstants"
+import {ProfileBuy, ProfileImageUrl} from "../../api/pathConstants"
 import {getUserDetails,userLoading} from "../../redux/profile/profileActions";
 import PostLoader from '../Loaders/PostLoader';
 import AddressDetails from './AddressDetails';
 import Address from './Address';
 import { removeTokenRequest } from "../../redux/token/tokenActions";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
+import {editImage} from "../../redux/mydetails/myDetailsActions";
 
 class Account extends Component {
+    constructor(props) {
+    super(props);
+
+    this.state = {
+      img1: { image: null, file: null },
+    };
+  }
   async componentDidMount(){
     await this.props.userLoadingDispatch(true)
     await this.props.getUserDispatch(this.props.computedMatch.params.id);
@@ -32,11 +41,31 @@ class Account extends Component {
    logout = async() =>{
     await this.props.removeTokenDispatch();
   }
+
+
+  onImageChange = async (e) => {
+    const name = e.target.name;
+    if (name == "img1")
+      await this.setState(
+        {
+          img1: {
+            image: URL.createObjectURL(e.target.files[0]),
+            file: e.target.files[0],
+          },
+        },
+        this.validateForm
+      );
+      
+      const data = new FormData();
+      data.append("image",e.target.files[0]);
+     this.props.editImageDispatch(data) 
+  };
   render() {
     const {user,myDetails,loading} = this.props
-    const is_mine = user.username === myDetails.username;
+   
     if(loading) return <PostLoader/>
     if(!user) return <div>User not found</div>
+    const is_mine = user.username === myDetails.username;
     return (
       <>
         <Breakpoint large up></Breakpoint>
@@ -52,7 +81,21 @@ class Account extends Component {
                 <div className="authhome__upper__profile__pic">
                   <div>
                     {" "}
-                    <img src={NoProfileImage} />
+                    <img src={user.image? ProfileImageUrl+""+user.image: NoProfileImage} />
+                    {is_mine && <div className="authhome__upper__profile__pic__cam">
+                     
+                        <Button variant="contained" component="label">
+                          <CameraAltIcon style={{ color: "white" }} />
+                          <input
+                            type="file"
+                            hidden
+                            onChange={this.onImageChange}
+                            name="img1"
+                            accept="image/png, image/jpeg"
+                          />
+                        </Button>
+                    
+                    </div>}
                   </div>
                 </div>
                 <div className="authhome__upper__profile__headings">
@@ -60,9 +103,7 @@ class Account extends Component {
                   <h5>{user.username}</h5>
                 </div>
               </div>
-              <div className="authhome__upper__icon2">
-                <EditIcon />
-              </div>
+            
             </div>
             {is_mine &&<Link to={`/account/${this.props.computedMatch.params.id}/orders`} className="authhome__menu">
               <div className="authhome__menu__icons">
@@ -70,7 +111,10 @@ class Account extends Component {
                 Order
                 <div className="authhome__menu__icons__nxt">
                   {" "}
-                <a href="/myorders">  <NavigateNextIcon /></a>
+                  <a href="/myorders">
+                    {" "}
+                    <NavigateNextIcon />
+                  </a>
                 </div>
               </div>
               <div className="authhome__menu__in">Check your order status</div>
@@ -184,6 +228,7 @@ const mapDispatchToProps = (dispatch) => {
     userLoadingDispatch:(value)=>dispatch(userLoading(value)),
     getUserDispatch:(id)=>dispatch(getUserDetails(id)),
     removeTokenDispatch: () => dispatch(removeTokenRequest()),
+    editImageDispatch:(data) => dispatch(editImage(data)),
   };
 };
 

@@ -27,6 +27,7 @@ import {
   PostImageUrl,
   ProductPayment,
   ProductPaymentSuccess,
+  ProfileImageUrl,
   ReservePayment,
   ReservePaymentSuccess,
 } from "../../api/pathConstants";
@@ -356,7 +357,7 @@ class DonateFull extends Component {
 
               <div className="product__lt__profile">
                 <div className="product__lt__profile__pic">
-                  <img src={NoProfileImage} className="nav__profile" />
+                <img src={post.user_image? ProfileImageUrl+""+post.user_image: NoProfileImage} className="nav__profile"/>
                   <div className="product__lt__profile__name">
                     Donated by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
@@ -857,9 +858,9 @@ class DonateFull extends Component {
 
               <div className="product__lt__profile">
                 <div className="product__lt__profile__pic">
-                  <img src={NoProfileImage} className="nav__profile" />
+                <img src={post.user_image? ProfileImageUrl+""+post.user_image: NoProfileImage} className="nav__profile"/>
                   <div className="product__lt__profile__name">
-                    Sold by {post.first_name + " " + post.last_name} <br />{" "}
+                    Donated by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
                   </div>
                 </div>

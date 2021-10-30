@@ -1,9 +1,9 @@
-import { GetUserDetails , AddressEdit } from "../../api/pathConstants";
+import { GetUserDetails , AddressEdit,EditImage } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
-import { ADD_MY_DETAILS ,EDIT_ADDRESS_SUCCESS} from "./myDetailsTypes";
-import {EditProfileAddress} from "../profile/profileActions"
+import { ADD_MY_DETAILS ,EDIT_ADDRESS_SUCCESS,EDIT_USER_IMAGE} from "./myDetailsTypes";
+import {EditProfileAddress,EditImageSuccess} from "../profile/profileActions"
 export const addMyDetails = (myDetails) => {
   return {
     type: ADD_MY_DETAILS,
@@ -49,6 +49,38 @@ export const editAddress = (data) =>{
         await dispatch(EditAddressSuccess(res.data,user))
         await dispatch(EditProfileAddress(res.data,user))
         await dispatch(openSnackbar("Post edited successfully"));
+      }
+      else{
+        await dispatch(openSnackbar("Something went wrong"));
+        }
+    }
+    else{
+      await dispatch(openSnackbar("Something went wrong"));
+    }
+
+  }
+}
+
+
+export const EditUserImage = (value) => {
+  return {
+    type: EDIT_USER_IMAGE,
+    value: value,
+  };
+};
+
+
+export const editImage = (data) =>{
+  return async (dispatch,getState) =>{
+    await dispatch(getToken());
+    const token = await getState().token.access;
+    const user = await getState().myDetails.myDetails.username;
+    if(token && user){
+      const res = await Request("PUT",EditImage,token,data);
+      if(res && res.status==200){
+        await dispatch(EditImageSuccess(res.data,user))
+        await dispatch(EditUserImage(res.data,user))
+        await dispatch(openSnackbar("Image edited successfully"));
       }
       else{
         await dispatch(openSnackbar("Something went wrong"));

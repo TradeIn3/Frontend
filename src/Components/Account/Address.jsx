@@ -39,13 +39,13 @@ class Address extends Component {
       phone:this.props.user.phone || "",
       firstname: this.props.user.first_name ||"",
       lastname: this.props.user.last_name ||"",
-      firstnameValid: "",
-      lastnameValid: "",
-      cityValid: "",
-      districtValid: "",
-      pincodeValid: "",
-      addressValid: "",
-      phoneValid: "",
+      firstnameValid: true,
+      lastnameValid: true,
+      cityValid: true,
+      districtValid: true,
+      pincodeValid: true,
+      addressValid: true,
+      phoneValid: true,
       formValid: true,
       formErrors: {
         address: "",
@@ -189,9 +189,9 @@ class Address extends Component {
      last_name : this.state.lastname,
      district : this.state.district,
      city : this.state.city,
-     pincode : this.state.pincode,
+     pincode : this.state.pincode+"",
      address : this.state.address,
-     phone : this.state.phone,
+     phone : this.state.phone+"",
     }
     if(formValid)
     await this.props.editAddressDispatch(data);

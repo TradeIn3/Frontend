@@ -14,6 +14,7 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import {Link} from 'react-router-dom';
 import { connect } from "react-redux";
 import { removeTokenRequest } from "../../redux/token/tokenActions";
+import { ProfileImageUrl } from "../../api/pathConstants";
 class Navbar extends Component {
   state = {
     style: "none",
@@ -75,11 +76,11 @@ class Navbar extends Component {
 
 
           {isLoggedIn &&  <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
-              <img src={NoProfileImage} className="nav__profile" />
+          <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
               <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
               <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
               <div className="nav__dropdownprofile__head">
-              <img src={NoProfileImage} className="nav__profile" />
+              <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
                 <div>
                 <h5>{myDetails.first_name+" "+myDetails.last_name}</h5>
                 <h6>{myDetails.username}</h6>

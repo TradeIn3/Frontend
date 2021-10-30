@@ -2,7 +2,7 @@ import { ProfileBuy, ProfileUser,AddressEdit, ProfileDonate, ProfileExchange, Pr
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
-import { EDIT_ADDRESS,USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
+import {EDIT_IMAGE_SUCCESS, EDIT_ADDRESS,USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
 
 
 export const addUserDetails = (value,id) => {
@@ -183,3 +183,10 @@ export const EditProfileAddress = (value,id) => {
   };
 };
 
+export const EditImageSuccess = (value,id) =>{
+  return{
+    type: EDIT_IMAGE_SUCCESS,
+    value: value,
+    id:id,
+  }
+}

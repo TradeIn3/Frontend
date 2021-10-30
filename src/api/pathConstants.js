@@ -1,5 +1,5 @@
 export const PostImageUrl = 'https://res.cloudinary.com/tradein/image/upload/v1634651417/'
-
+export const ProfileImageUrl  = 'http://res.cloudinary.com/tradein/image/upload/v1635581673/'
 
 // login
 export const UserLogin = "user/login/";
@@ -36,3 +36,4 @@ export const ProfileOrders = "user/orders/";
 export const ProfileWishlist = "user/wishlist/";
 export const ProfileUser = "user/details/";
 export const AddressEdit = "user/account/update/"
+export const EditImage = "user/image/"

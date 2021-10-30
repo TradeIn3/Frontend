@@ -127,8 +127,6 @@ class Sell extends Component {
   };
 
   validateForm = async () => {
-    console.log(this.state.fieldValid["category"] &&
-    this.state.fieldValid["subcategory"])
     await this.setState({
      formValid: this.state.fieldValid["category"] &&
       this.state.fieldValid["subcategory"] &&
