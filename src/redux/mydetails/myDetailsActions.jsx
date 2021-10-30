@@ -80,7 +80,7 @@ export const editImage = (data) =>{
       if(res && res.status==200){
         await dispatch(EditImageSuccess(res.data,user))
         await dispatch(EditUserImage(res.data,user))
-        await dispatch(openSnackbar("Image edited successfully"));
+        await dispatch(openSnackbar("Display picture edited successfully"));
       }
       else{
         await dispatch(openSnackbar("Something went wrong"));
