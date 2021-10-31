@@ -31,7 +31,7 @@
           border-radius: 50%;
           position: absolute;
           bottom: 5px;
-          right: 51px;
+          right: 60px;
           padding: 3px;
           svg{
             color:$dark-grey !important;
@@ -212,5 +212,70 @@
   }
   .MuiSvgIcon-root {
     margin-right: 7px;
+  }
+}
+
+.ordersum {
+  padding: 16px;
+  &__id {
+    color: $light-grey;
+    padding: 6px 0px;
+    font-size: 1rem;
+  }
+  &__card {
+    padding: 13px 0;
+    margin-top: 8px;
+  }
+  &__shipping {
+    padding: 8px;
+    padding-bottom: 1rem;
+    h3 {
+      font-family: Roboto, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: black;
+    }
+    h2 {
+      color: $dark-grey;
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    p {
+      color: $light-grey;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+  }
+  &__price {
+    padding: 8px;
+    padding-bottom: 1rem;
+    h3 {
+      font-family: Roboto, sans-serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: black;
+    }
+    &__det {
+      &__cat {
+        font-family: Roboto, sans-serif;
+        font-size: 0.92rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        color: black;
+        padding: 2px 0;
+      }
+      &__amt {
+        font-family: Roboto, sans-serif;
+        font-size: 0.92rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        color: black;
+        padding: 2px 0;
+      }
+    }
   }
 }

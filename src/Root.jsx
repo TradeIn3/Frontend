@@ -25,9 +25,11 @@ import LandingPage from "./Components/UnAuth/LandingPage";
 import Home from "./Components/Auth/Home";
 import Account from "./Components/Account/Account";
 import AccountDetails from "./Components/Account/AccountDetails";
+import OrderSummary from "./Components/Account/OrderSummary";
 import Layout from "./Components/Layout/Layout";
 import MainLoader from "./Components/Loaders/MainLoader";
 import PostCard from "./Components/Card/PostCard";
+import OrderCard from "./Components/Card/OrderCard";
 import Buy from "./Components/Auth/Buy";
 import Donate from "./Components/Auth/Donate";
 import Exchange from "./Components/Auth/Exchange";
@@ -215,7 +217,6 @@ function Root(props) {
             </Layout>
           )}
         </AuthorizedRoute>
-
         <Route path="*">
           <Layout {...props}>
             {" "}

@@ -1,10 +1,12 @@
 import { ListItem } from "@material-ui/core";
 import React, { Component } from "react";
 import { PostImageUrl } from "../../api/pathConstants";
+import OrderCard from "./OrderCard";
 
 export default class PostCard extends Component {
   render() {
-   const {item} = this.props;
+   const {item,type} = this.props;
+    if(type=="orders") return <OrderCard item={item} {...this.props}/>
     return (
       <div className="card">
        {/* <div className="card__top">

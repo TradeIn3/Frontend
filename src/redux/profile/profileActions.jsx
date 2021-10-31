@@ -23,6 +23,7 @@ export const getUserDetails = (id) => {
       if (res && res.status === 200) {
         await dispatch(addUserDetails(res.data,id));
       } else if (res && res.status == 204) {
+        await dispatch(userLoading(false))
         await dispatch(openSnackbar("User Not found"));
       } else {
         await dispatch(openSnackbar("Something went wrong"));
@@ -70,6 +71,9 @@ export const getUserBuy = (id) => {
         await dispatch(openSnackbar("Network error"));
       }
     }
+    else{
+      await dispatch(loading(false))
+    }
   };
 };
 
@@ -95,6 +99,9 @@ export const getUserDonate = (id) => {
         await dispatch(openSnackbar("Network error"));
       }
     }
+    else{
+      await dispatch(loading(false))
+    }
   };
 };
 
@@ -119,6 +126,9 @@ export const getUserExchange = (id) => {
       } else {
         await dispatch(openSnackbar("Network error"));
       }
+    }
+    else{
+      await dispatch(loading(false))
     }
   };
 };
@@ -146,6 +156,9 @@ export const getUserWishlist = (id) => {
         await dispatch(openSnackbar("Network error"));
       }
     }
+    else{
+      await dispatch(loading(false))
+    }
   };
 };
 
@@ -170,6 +183,9 @@ export const getUserOrders = (id) => {
       } else {
         await dispatch(openSnackbar("Network error"));
       }
+    }
+    else{
+      await dispatch(loading(false))
     }
   };
 };

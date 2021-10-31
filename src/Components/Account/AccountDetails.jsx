@@ -71,7 +71,6 @@ class AccountDetails extends Component {
   }
   render() {
     const { data, loading } = this.props;
-    console.log(this.props);
     if (!data) return null;
     return (
       <>
@@ -87,7 +86,7 @@ class AccountDetails extends Component {
             maxWidth="lg"
           >
             <DialogTitle className="ordertitle">
-              <IconButton onClick={() => this.props.history.goBack()}>
+              <IconButton onClick={() => this.props.history.push(`/account/${this.props.match.params.id}`)}>
                 <ArrowBackIcon />
               </IconButton>
               {this.props.title}
@@ -124,8 +123,8 @@ class AccountDetails extends Component {
                       xs={6}
                       style={{ marginBottom: "1rem" }}
                     >
-                      <Link to={`/buy/${item.id}`}>
-                        <PostCard item={item} />
+                      <Link to={this.props.product === "orders" ? `/account/${this.props.match.params.id}/orders/${item.id}` :`/buy/${item.id}`}>
+                        <PostCard item={item} type={this.props.product} {...this.props} />
                       </Link>
                     </Grid>
                   ))

@@ -219,7 +219,7 @@ class Address extends Component {
           <IconButton onClick={() => this.props.history.goBack()}>
             <ArrowBackIcon />
           </IconButton>
-          Address
+          Edit Address
         </DialogTitle>
         <Divider />
         <DialogContent style={{ padding: "8px" }}>

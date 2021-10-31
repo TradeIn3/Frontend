@@ -14,7 +14,7 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
-import {AUTH_ACCOUNT_ADDRESS_EDIT_PATH, AUTH_ACCOUNT_ADDRESS_PATH,AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH } from "../../constants/routeConstants"
+import {AUTH_ACCOUNT_ADDRESS_EDIT_PATH, AUTH_ACCOUNT_ADDRESS_PATH,AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH, AUTH_ORDERSUMMARY_PATH } from "../../constants/routeConstants"
 import {connect} from "react-redux"
 import AccountDetails from "./AccountDetails";
 import {ProfileBuy, ProfileImageUrl} from "../../api/pathConstants"
@@ -25,6 +25,7 @@ import Address from './Address';
 import { removeTokenRequest } from "../../redux/token/tokenActions";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import {editImage} from "../../redux/mydetails/myDetailsActions";
+import OrderSummary from "./OrderSummary";
 
 class Account extends Component {
     constructor(props) {
@@ -52,13 +53,9 @@ class Account extends Component {
             image: URL.createObjectURL(e.target.files[0]),
             file: e.target.files[0],
           },
-        },
-        this.validateForm
+        }
       );
-      
-      const data = new FormData();
-      data.append("image",e.target.files[0]);
-     this.props.editImageDispatch(data) 
+    
   };
   render() {
     const {user,myDetails,loading} = this.props
@@ -81,7 +78,7 @@ class Account extends Component {
                 <div className="authhome__upper__profile__pic">
                   <div>
                     {" "}
-                    <img src={user.image? ProfileImageUrl+""+user.image: NoProfileImage} />
+                    <img src={user.image ? ProfileImageUrl+""+user.image: NoProfileImage} />
                     {is_mine && <div className="authhome__upper__profile__pic__cam">
                      
                         <Button variant="contained" component="label">
@@ -195,9 +192,12 @@ class Account extends Component {
            <Route path={AUTH_ACCOUNT_EXCHANGE_PATH}>
              {(props)=>  <AccountDetails title="My Products(Exchange)" product="exchange" {...props}/>}
           </Route>
-          {is_mine && <Route path={AUTH_ACCOUNT_ORDER_PATH}>
+          {is_mine && <Route path={AUTH_ACCOUNT_ORDER_PATH} exact>
              {(props)=>  <AccountDetails title="My Orders" product="orders" {...props}/>}
           </Route>}
+          <Route path={AUTH_ORDERSUMMARY_PATH} exact>
+            {(props)=> <OrderSummary  {...props}/>}
+         </Route>
            {is_mine &&<Route path={AUTH_ACCOUNT_WISHLIST_PATH}>
               {(props)=> <AccountDetails title="My Wishlist" product="wishlist" {...props}/>}
           </Route>}
@@ -208,6 +208,7 @@ class Account extends Component {
              <Route path={AUTH_ACCOUNT_ADDRESS_PATH} exact>
               {(props)=> <AddressDetails {...props}/>}
           </Route>
+          
           
         </Switch>
       </>
