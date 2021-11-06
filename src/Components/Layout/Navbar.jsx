@@ -103,7 +103,101 @@ class Navbar extends Component {
       </div>
       </Breakpoint>
       <Breakpoint medium down>
+      <div className="nav">
+        <div className="nav__logo">
+          <a href="/">
+            <img src={WebsiteLogo} />
+            <h1>TradeIn</h1>
+          </a>
+          
+        </div>
+        {isLoggedIn &&  <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
+          <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
+              <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
+              <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
+              <div className="nav__dropdownprofile__head">
+              <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
+                <div>
+                <h5>{myDetails.first_name+" "+myDetails.last_name}</h5>
+                <h6>{myDetails.username}</h6>
+                </div>
+              </div>
+              <li className="nav__dropdownprofile__list">
+                {/* <Link href="/account"><AccountCircleOutlinedIcon/>Profile</Link> */}
+                <a href={`/account/${myDetails.username}`}><AccountCircleOutlinedIcon/>Profile</a>
+              </li>
+              <li className="nav__dropdownprofile__list">
+                <Link href="#"><BookmarkBorderOutlinedIcon/>Saved</Link>
+              </li>
+              <li className="nav__dropdownprofile__list" style={{border:"none"}}>
+                <Link onClick={this.logout} to={this.props.location?this.props.location.pathname:"/"}><ExitToAppIcon/>Logout</Link>
+              </li>
+            </ul>
+            </a>}
+        {/* <ul>
+          <li className="nav__tab">
+            <Link to="/home">HOME</Link>
+          </li>
+          <li className="nav__tab">
+            <Link to="/buy">BUY</Link>
+          </li>
+          <li className="nav__tab">
+            <Link to="/donate">DONATION</Link>
+          </li>
+          <li className="nav__tab">
+            <Link to="/exchange">EXCHANGE</Link>
+          </li>
+          {!isLoggedIn && <li className="nav__login">
+            <Link to="?login=true">Login</Link>
+          </li>}
+          {isLoggedIn &&
+          <li className="nav__tab1">
+            <a href="#"  onMouseEnter={() => this.setState({ style: "block" })} onMouseLeave={() => this.setState({ style: "none" }) }>
+              ADD POST <ExpandMoreIcon className="nav__expand"/>{" "}
+            </a>{" "}
+          
+            <ul className="nav__dropdown" style={{ display: this.state.style }}>
+              <ArrowDropUpIcon className="nav__dropdown__up"/>
+              <li className="nav__dropdown__list">
+                <a href="/sellproduct"><LocalOfferIcon/>Sell</a>
+              </li>
+              <li className="nav__dropdown__list">
+                <a href="/donateproduct"><OfflineBoltIcon/>Donate</a>
+              </li>
+              <li className="nav__dropdown__list">
+                <a href="/exchangeproduct"><LoopIcon/>Exchange</a>
+              </li>
+            </ul>
+          </li>}
 
+
+
+          {isLoggedIn &&  <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
+          <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
+              <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
+              <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
+              <div className="nav__dropdownprofile__head">
+              <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
+                <div>
+                <h5>{myDetails.first_name+" "+myDetails.last_name}</h5>
+                <h6>{myDetails.username}</h6>
+                </div>
+              </div>
+              <li className="nav__dropdownprofile__list">
+                {/* <Link href="/account"><AccountCircleOutlinedIcon/>Profile</Link> */}
+                {/* <a href={`/account/${myDetails.username}`}><AccountCircleOutlinedIcon/>Profile</a>
+              </li>
+              <li className="nav__dropdownprofile__list">
+                <Link href="#"><BookmarkBorderOutlinedIcon/>Saved</Link>
+              </li>
+              <li className="nav__dropdownprofile__list" style={{border:"none"}}>
+                <Link onClick={this.logout} to={this.props.location?this.props.location.pathname:"/"}><ExitToAppIcon/>Logout</Link>
+              </li>
+            </ul>
+            </a>}
+        
+        </ul> */}
+      </div> 
       </Breakpoint>
       </>
     );
