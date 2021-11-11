@@ -4,6 +4,7 @@ import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
 import { ADD_MY_DETAILS ,EDIT_ADDRESS_SUCCESS,EDIT_USER_IMAGE} from "./myDetailsTypes";
 import {EditProfileAddress,EditImageSuccess} from "../profile/profileActions"
+
 export const addMyDetails = (myDetails) => {
   return {
     type: ADD_MY_DETAILS,

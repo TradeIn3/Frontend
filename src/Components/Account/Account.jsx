@@ -14,7 +14,7 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
-import {AUTH_ACCOUNT_ADDRESS_EDIT_PATH, AUTH_ACCOUNT_ADDRESS_PATH,AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH, AUTH_ORDERSUMMARY_PATH } from "../../constants/routeConstants"
+import {AUTH_ACCOUNT_ADDRESS_EDIT_PATH, AUTH_ACCOUNT_ADDRESS_PATH,AUTH_ACCOUNT_SELL_PATH,AUTH_ACCOUNT_DONATE_PATH,AUTH_ACCOUNT_EXCHANGE_PATH,AUTH_ACCOUNT_ORDER_PATH,AUTH_ACCOUNT_WISHLIST_PATH, AUTH_ORDERSUMMARY_PATH, AUTH_ACCOUNT_RESERVE_PATH } from "../../constants/routeConstants"
 import {connect} from "react-redux"
 import AccountDetails from "./AccountDetails";
 import {ProfileBuy, ProfileImageUrl} from "../../api/pathConstants"
@@ -24,7 +24,7 @@ import AddressDetails from './AddressDetails';
 import Address from './Address';
 import { removeTokenRequest } from "../../redux/token/tokenActions";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
-import {editImage} from "../../redux/mydetails/myDetailsActions";
+import {addMyDetails, editImage} from "../../redux/mydetails/myDetailsActions";
 import OrderSummary from "./OrderSummary";
 
 class Account extends Component {
@@ -41,6 +41,7 @@ class Account extends Component {
   }
    logout = async() =>{
     await this.props.removeTokenDispatch();
+    await this.props.removeMyDetails(null);
   }
 
 
@@ -116,6 +117,22 @@ class Account extends Component {
               </div>
               <div className="authhome__menu__in">Check your order status</div>
             </Link>}
+
+            {is_mine &&<Link to={`/account/${this.props.computedMatch.params.id}/reserves`} className="authhome__menu">
+              <div className="authhome__menu__icons">
+                <ShoppingCartIcon />
+                Reserve
+                <div className="authhome__menu__icons__nxt">
+                  {" "}
+                  <a href="/myorders">
+                    {" "}
+                    <NavigateNextIcon />
+                  </a>
+                </div>
+              </div>
+              <div className="authhome__menu__in">Check your reserve status</div>
+            </Link>}
+
            {is_mine && <Link to={`/account/${this.props.computedMatch.params.id}/wishlist`} className="authhome__menu">
               <div className="authhome__menu__icons">
                 <FavoriteIcon />
@@ -195,7 +212,10 @@ class Account extends Component {
           {is_mine && <Route path={AUTH_ACCOUNT_ORDER_PATH} exact>
              {(props)=>  <AccountDetails title="My Orders" product="orders" {...props}/>}
           </Route>}
-          <Route path={AUTH_ORDERSUMMARY_PATH} exact>
+          {is_mine && <Route path={AUTH_ACCOUNT_RESERVE_PATH} exact>
+             {(props)=>  <AccountDetails title="My Reserve" product="reserves" {...props}/>}
+          </Route>}
+          <Route path={AUTH_ORDERSUMMARY_PATH} exact>  
             {(props)=> <OrderSummary  {...props}/>}
          </Route>
            {is_mine &&<Route path={AUTH_ACCOUNT_WISHLIST_PATH}>
@@ -230,6 +250,7 @@ const mapDispatchToProps = (dispatch) => {
     getUserDispatch:(id)=>dispatch(getUserDetails(id)),
     removeTokenDispatch: () => dispatch(removeTokenRequest()),
     editImageDispatch:(data) => dispatch(editImage(data)),
+    removeMyDetails : (value) => dispatch(addMyDetails(value))
   };
 };
 

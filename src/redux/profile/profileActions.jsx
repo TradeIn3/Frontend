@@ -1,8 +1,8 @@
-import { ProfileBuy, ProfileUser,AddressEdit, ProfileDonate, ProfileExchange, ProfileOrders, ProfileWishlist } from "../../api/pathConstants";
+import { ProfileBuy, ProfileUser,AddressEdit, ProfileDonate, ProfileExchange, ProfileOrders, ProfileWishlist, ProfileReserves } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
 import { getToken, removeTokenRequest } from "../token/tokenActions";
-import {EDIT_IMAGE_SUCCESS, EDIT_ADDRESS,USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST } from "./profileTypes";
+import {EDIT_IMAGE_SUCCESS, EDIT_ADDRESS,USER_DETAILS, USER_LOADING, ADD_USER_BUY,ADD_USER_DONATE,PRODUCT_LOADING, ADD_USER_EXCHANGE, ADD_USER_ORDERS, ADD_USER_WISHLIST, ADD_USER_RESERVES } from "./profileTypes";
 
 
 export const addUserDetails = (value,id) => {
@@ -178,6 +178,35 @@ export const getUserOrders = (id) => {
       const res = await Request("GET", `${ProfileOrders}?user=${id}`, token);
       if (res && res.status === 200) {
         await dispatch(addUserOrdersDetails(res.data,id));
+      } else if (res && res.status !== 200) {
+        // await dispatch(removeTokenRequest());
+      } else {
+        await dispatch(openSnackbar("Network error"));
+      }
+    }
+    else{
+      await dispatch(loading(false))
+    }
+  };
+};
+
+
+export const addUserReserveDetails = (value,id) => {
+  return {
+    type: ADD_USER_RESERVES,
+    value: value,
+    id:id,
+  };
+};
+
+export const getUserReserve = (id) => {
+  return async (dispatch, getState) => {
+    if (id in getState().profile.reserves == false) {
+      await dispatch(getToken());
+      const token = await getState().token.access;
+      const res = await Request("GET", `${ProfileReserves}?user=${id}`, token);
+      if (res && res.status === 200) {
+        await dispatch(addUserReserveDetails(res.data,id));
       } else if (res && res.status !== 200) {
         // await dispatch(removeTokenRequest());
       } else {

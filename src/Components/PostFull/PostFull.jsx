@@ -551,7 +551,7 @@ class PostFull extends Component {
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-
+                <h5 className="errormessage" style={{letterSpacing:"0.03em",marginTop:"12px"}}>{post.is_reserved?"this post is reserved upto "+post.reserved_expire_date+","+post.reserved_expire_time:null}</h5>
                 {!post.is_owner ? (
                   <div className="product__rt__sell__buttons">
                     <div
@@ -605,11 +605,13 @@ class PostFull extends Component {
                 )}
                 {!post.is_owner && (
                   <div className="product__rt__sell__reserved">
-                    <Button
+                   <Button
+                      disabled={post.is_reserved}
                       className="product__rt__sell__reserved__reservedbtn"
                       onClick={this.showReserveRazorpay}
                     >
-                      RESERVED
+                      {post.is_reserved ? "Already reserved" :"RESERVED"}
+                    
                     </Button>
                   </div>
                 )}
@@ -761,7 +763,7 @@ class PostFull extends Component {
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-
+                <h5 className="errormessage" style={{letterSpacing:"0.03em",marginTop:"12px"}}>{post.is_reserved?"this post is reserved upto "+post.reserved_expire_date+","+post.reserved_expire_time:null}</h5>
                 {!post.is_owner ? (
                   <div className="product__rt__sell__buttons">
                     <div
@@ -816,10 +818,12 @@ class PostFull extends Component {
                 {!post.is_owner && (
                   <div className="product__rt__sell__reserved">
                     <Button
+                      disabled={post.is_reserved}
                       className="product__rt__sell__reserved__reservedbtn"
                       onClick={this.showReserveRazorpay}
                     >
-                      RESERVED
+                      {post.is_reserved ? "Already reserved" :"RESERVED"}
+                    
                     </Button>
                   </div>
                 )}

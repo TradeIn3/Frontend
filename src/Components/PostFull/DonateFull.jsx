@@ -550,7 +550,7 @@ class DonateFull extends Component {
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-
+                <h5 className="errormessage" style={{letterSpacing:"0.03em",marginTop:"12px"}}>{post.is_reserved?"this post is reserved upto "+post.reserved_expire_date+","+post.reserved_expire_time:null}</h5>
                 {!post.is_owner ? (
                   <div className="product__rt__sell__buttons" style={{borderBottom:"2px solid #e6e6e6",paddingBottom:"2rem"}}>
                     <div
@@ -566,11 +566,12 @@ class DonateFull extends Component {
                     </div>
                     <div className="product__rt__sell__reserved" style={{width:"100%",padding:"0",border:"none"}}>
                     <Button
-
+                      disabled={post.is_reserved}
                       className="product__rt__sell__reserved__reservedbtn"
                       onClick={this.showReserveRazorpay}
                     >
-                      RESERVED
+                      {post.is_reserved ? "Already reserved" :"RESERVED"}
+                    
                     </Button>
                   </div>
                   </div>
@@ -745,9 +746,9 @@ class DonateFull extends Component {
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-
+                <h5 className="errormessage" style={{letterSpacing:"0.03em",marginTop:"12px"}}>{post.is_reserved?"this post is reserved upto "+post.reserved_expire_date+","+post.reserved_expire_time:null}</h5>
                 {!post.is_owner ? (
-                  <div className="product__rt__sell__buttons" style={{ borderBottom: "2px solid #e6e6e6",paddingBottom:"1.5rem" }}>
+                  <div className="product__rt__sell__buttons" style={{ borderBottom: "2px solid #e6e6e6",paddingBottom:"1.5rem",position:"relative" }}>
                     <div
                       className="product__rt__sell__buttons__buy"
                       style={{ width: "100%" }}
@@ -761,13 +762,16 @@ class DonateFull extends Component {
                     </div>
                     <div className="product__rt__sell__reserved" style={{width:"100%",padding:"0",border:"none"}}>
                     <Button
-
+                      disabled={post.is_reserved}
                       className="product__rt__sell__reserved__reservedbtn"
                       onClick={this.showReserveRazorpay}
                     >
-                      RESERVED
+                      {post.is_reserved ? "Already reserved" :"RESERVED"}
+                    
                     </Button>
                   </div>
+                
+                  
                   </div>
                 ) : (
                   <div
@@ -808,6 +812,7 @@ class DonateFull extends Component {
                     </Button>
                   </div>
                 )} */}
+                
               </div>
 
               <div className="product__rt__overview">

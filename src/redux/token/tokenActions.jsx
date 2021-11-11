@@ -16,7 +16,7 @@ import { UNAUTH_LOGIN_PATH } from "../../constants/routeConstants";
 export const getTokenRequest = () => {
   return {
     type: GET_TOKEN_REQUEST,
-  };
+  }; 
 };
 
 export const removeTokenRequest = () => {

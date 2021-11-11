@@ -15,6 +15,7 @@ export const AUTH_ACCOUNT_SELL_PATH = "/account/:id/sell";
 export const AUTH_ACCOUNT_DONATE_PATH = "/account/:id/donate";
 export const AUTH_ACCOUNT_EXCHANGE_PATH = "/account/:id/exchange";
 export const AUTH_ACCOUNT_ORDER_PATH = "/account/:id/orders";
+export const AUTH_ACCOUNT_RESERVE_PATH = "/account/:id/reserves";
 export const AUTH_ACCOUNT_WISHLIST_PATH = "/account/:id/wishlist";
 export const AUTH_ACCOUNT_ADDRESS_PATH = "/account/:id/address";
 export const AUTH_ACCOUNT_ADDRESS_EDIT_PATH = "/account/:id/address/edit";

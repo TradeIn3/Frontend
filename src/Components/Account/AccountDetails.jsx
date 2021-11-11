@@ -18,6 +18,7 @@ import {
   loading,
   getUserOrders,
   getUserWishlist,
+  getUserReserve,
 } from "../../redux/profile/profileActions";
 import { connect } from "react-redux";
 import PostCard from "../Card/PostCard";
@@ -46,6 +47,9 @@ class AccountDetails extends Component {
     if (this.props.product === "wishlist") {
       await this.props.wishlistDispatch(this.props.match.params.id);
     }
+    if(this.props.product === "reserves") {
+      await this.props.reservesDispatch(this.props.match.params.id);
+    }
   }
 
   async componentDidUpdate(props, state) {
@@ -63,6 +67,9 @@ class AccountDetails extends Component {
       }
       if (this.props.product === "orders") {
         await this.props.ordersDispatch();
+      }
+      if (this.props.product === "reserves") {
+        await this.props.reservesDispatch();
       }
       if (this.props.product === "wishlist") {
         await this.props.wishlistDispatch();
@@ -146,6 +153,8 @@ const mapStateToProps = (state, ownProps) => {
     data:
       ownProps.product == "sell" && ur in state.profile.buy == true
         ? state.profile.buy[ur]
+        : ownProps.product == "reserves" && ur in state.profile.reserves == true
+        ? state.profile.reserves[ur]
         : ownProps.product == "donate" && ur in state.profile.donate == true
         ? state.profile.donate[ur]
         : ownProps.product == "exchange" && ur in state.profile.exchange == true
@@ -164,6 +173,7 @@ const mapDispatchToProps = (dispatch) => {
     donateDispatch: (id) => dispatch(getUserDonate(id)),
     exchangeDispatch: (id) => dispatch(getUserExchange(id)),
     ordersDispatch: (id) => dispatch(getUserOrders(id)),
+    reservesDispatch: (id) => dispatch(getUserReserve(id)),
     wishlistDispatch: (id) => dispatch(getUserWishlist(id)),
     setLoading: (value) => dispatch(loading(value)),
   };

@@ -15,6 +15,7 @@ import {Link} from 'react-router-dom';
 import { connect } from "react-redux";
 import { removeTokenRequest } from "../../redux/token/tokenActions";
 import { ProfileImageUrl } from "../../api/pathConstants";
+import { addMyDetails } from "../../redux/mydetails/myDetailsActions";
 class Navbar extends Component {
   state = {
     style: "none",
@@ -23,9 +24,10 @@ class Navbar extends Component {
 
   logout = async() =>{
     await this.props.removeTokenDispatch();
+    await this.props.removeMyDetails(null);
   }
   render() {
-    const {isLoggedIn,myDetails} = this.props;
+    const {isLoggedIn,myDetails,firstName,lastName,image,username} = this.props;
     return (
       <>
       <Breakpoint large up>
@@ -76,14 +78,14 @@ class Navbar extends Component {
 
 
           {isLoggedIn &&  <a href="#" onMouseEnter={() => this.setState({ show: "block" })} onMouseLeave={() => this.setState({ show: "none" }) }>
-          <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
+          <img src={image? ProfileImageUrl+""+image: NoProfileImage} className="nav__profile"/>
               <ul className="nav__dropdownprofile" style={{ display: this.state.show }}>
               <ArrowDropUpIcon className="nav__dropdownprofile__up"/>
               <div className="nav__dropdownprofile__head">
-              <img src={myDetails.image? ProfileImageUrl+""+myDetails.image: NoProfileImage} className="nav__profile"/>
+              <img src={image? ProfileImageUrl+""+image: NoProfileImage} className="nav__profile"/>
                 <div>
-                <h5>{myDetails.first_name+" "+myDetails.last_name}</h5>
-                <h6>{myDetails.username}</h6>
+                <h5>{firstName+" "+lastName}</h5>
+                <h6>{username}</h6>
                 </div>
               </div>
               <li className="nav__dropdownprofile__list">
@@ -111,15 +113,21 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const mydetails = state.myDetails.myDetails
   return {
     isLoggedIn: state.token.isLoggedIn,
-    myDetails: state.myDetails.myDetails,
+    myDetails: mydetails,
+    firstName :mydetails ? state.myDetails.myDetails.first_name : null,
+    lastName : mydetails?state.myDetails.myDetails.last_name:null,
+    username : mydetails?state.myDetails.myDetails.username:null,
+    image : mydetails?state.myDetails.myDetails.image:null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     removeTokenDispatch: () => dispatch(removeTokenRequest()),
+    removeMyDetails :(value)=> dispatch(addMyDetails(value))
   };
 };
 

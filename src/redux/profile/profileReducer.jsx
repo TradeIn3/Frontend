@@ -7,6 +7,7 @@ import {
   USER_DETAILS,
   USER_LOADING,
   ADD_USER_ORDERS,
+  ADD_USER_RESERVES,
   EDIT_ADDRESS,
   EDIT_IMAGE_SUCCESS,
 } from "./profileTypes";
@@ -15,6 +16,7 @@ const initialState = {
   buy: {},
   donate: {},
   exchange: {},
+  reserves:{},
   wishlist: {},
   orders: {},
   users:{},
@@ -85,6 +87,12 @@ const reducer = (state = initialState, action) => {
         orders: {...state.orders,[action.id]:action.value},
         productLoading: false,
       };
+    case ADD_USER_RESERVES:
+        return {
+          ...state,
+          reserves: {...state.reserves,[action.id]:action.value},
+          productLoading: false,
+        };  
     default:
       return state;
   }

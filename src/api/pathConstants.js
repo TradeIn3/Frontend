@@ -37,3 +37,4 @@ export const ProfileWishlist = "user/wishlist/";
 export const ProfileUser = "user/details/";
 export const AddressEdit = "user/account/update/"
 export const EditImage = "user/image/"
+export const ProfileReserves = "user/reserves/"

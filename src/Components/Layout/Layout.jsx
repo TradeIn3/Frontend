@@ -18,6 +18,11 @@ class Layout extends Component {
     }
   }
 
+  async componentDidUpdate(props,state){
+    if(props.myDetails==null)
+      await this.props.myDetailsDispatch();
+  }
+
   render() {
     const {isLoggedIn} = this.props;
     if (isLoggedIn && !this.props.myDetails) return <MainLoader />;
