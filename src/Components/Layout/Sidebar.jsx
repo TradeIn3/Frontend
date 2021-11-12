@@ -23,38 +23,46 @@ import {
   FormGroup,
   RadioGroup,
   IconButton,
+  Drawer,
+  Button,
 } from "@material-ui/core";
 import { getCategories, getColors } from "../../utils/Utils";
-import { retrieveAllPost } from "../../redux/post/postActions";
+import { addPostFilters, retrieveAllPost } from "../../redux/post/postActions";
 
 class SideBar extends Component {
   state = {
-    categoryVisible: true,
-    brandVisible: true,
-    conditionVisible: true,
-    statusVisible: true,
-    priceVisible: true,
-    colorVisible: true,
-    subcategVisible: true,
-
-    status: "Any",
-    condition: [],
-    category: "Any",
-    subcategory: "Any",
-    brand: "Any",
-    price: "0",
-    color: {},
-    min: 0,
-    max: 0,
-    bool: false,
+    ...this.props.filters,
     sort: new URLSearchParams(this.props.location.search).get("sort"),
+    cond: ["Good", "New", "Like new", "Fair", "Poor"],
   };
 
   async componentDidMount() {
     let barter = false;
-    let exchange = false;
+    let donate = false;
     const { status, condition, category, subcategory, color, brand, min, max } =
       this.state;
+    
+    const data = {
+        categoryVisible: true,
+        brandVisible: true,
+        conditionVisible: true,
+        statusVisible: true,
+        priceVisible: true,
+        colorVisible: true,
+        subcategVisible: true,
+    
+        status: "Any",
+        condition: [],
+        category: "Any",
+        subcategory: "Any",
+        brand: "Any",
+        price: "0",
+        color: {},
+        min: 0,
+        max: 0,
+        bool: false,
+    }   
+    await this.props.addPostFiltersDispatch(data);
     await this.props.retrieveAllPostDispatch(
       category,
       subcategory,
@@ -65,7 +73,7 @@ class SideBar extends Component {
       status,
       [],
       barter,
-      exchange
+      donate
     );
   }
   async componentDidUpdate(props, state) {
@@ -76,6 +84,29 @@ class SideBar extends Component {
         new URLSearchParams(this.props.location.search).get("sort")
       );
       return;
+    }
+    if(this.props.location.pathname!=props.location.pathname){
+      const data = {
+        categoryVisible: true,
+        brandVisible: true,
+        conditionVisible: true,
+        statusVisible: true,
+        priceVisible: true,
+        colorVisible: true,
+        subcategVisible: true,
+    
+        status: "Any",
+        condition: [],
+        category: "Any",
+        subcategory: "Any",
+        brand: "Any",
+        price: "0",
+        color: {},
+        min: 0,
+        max: 0,
+        bool: false,
+    }   
+    await this.props.addPostFiltersDispatch(data);
     } else {
       return;
     }
@@ -114,6 +145,7 @@ class SideBar extends Component {
 
   handleFilter = async (sort) => {
     if (this.state.price == 4 && this.state.bool == false) return;
+    await this.props.addPostFiltersDispatch(this.state);
     let barter = false;
     let exchange = false;
     const {
@@ -135,7 +167,7 @@ class SideBar extends Component {
     await Object.keys(condition).map(
       async (item) => condition[item] && (await con.push(item))
     );
-
+    
     let minp = 0,
       maxp = 0;
     if (price == 1) {
@@ -150,6 +182,7 @@ class SideBar extends Component {
       minp = min;
       maxp = max;
     }
+    await this.props.addPostFiltersDispatch(this.state);
     await this.props.retrieveAllPostDispatch(
       category,
       subcategory,
@@ -169,7 +202,7 @@ class SideBar extends Component {
   render() {
     const categories = getCategories();
     const colors = getColors();
-
+    console.log(this.state);
     const {
       categoryVisible,
       brandVisible,
@@ -182,209 +215,219 @@ class SideBar extends Component {
       color,
       condition,
       category,
+      cond,
       price,
       subcategory,
     } = this.state;
 
     return (
       <>
-        <div className="sidebar">
-          <div className="sidebar__head">Filter By </div>
-          <form className="sidebar__cont">
-            <div className="sidebar__cont__section">
-              <div
-                className="sidebar__cont__section__item"
-                onClick={() =>
-                  this.setState({ categoryVisible: !categoryVisible })
-                }
-              >
-                Category <ExpandMoreIcon />
-              </div>
-              {category == "Any" && (
+        <Breakpoint large up>
+          <div className="sidebar">
+            <div className="sidebar__head">Filter By </div>
+            <form className="sidebar__cont">
+              <div className="sidebar__cont__section">
                 <div
-                  className="sidebar__cont__section__item__list"
-                  style={{ display: categoryVisible ? "block" : "none" }}
+                  className="sidebar__cont__section__item"
+                  onClick={() =>
+                    this.setState({ categoryVisible: !categoryVisible })
+                  }
                 >
-                  <FormGroup>
-                    <RadioGroup
-                      aria-label="category"
-                      name="category"
-                      value={category}
-                      onChange={async (e) =>
-                        await this.setState(
-                          { category: e.target.value },
-                          this.handleFilter
-                        )
-                      }
-                    >
-                      <FormControlLabel
-                        className="sidebar__cont__section__item__list__label"
-                        value="Any"
-                        control={<Radio />}
-                        label="Any"
-                      />
-                      {Object.keys(categories).map((item) => {
-                        return (
-                          <FormControlLabel
-                            className="sidebar__cont__section__item__list__label"
-                            value={item}
-                            control={<Radio />}
-                            label={item}
-                          />
-                        );
-                      })}
-                    </RadioGroup>
-                  </FormGroup>
+                  Category <ExpandMoreIcon />
                 </div>
-              )}
-
-              {category != "Any" && (
-                <>
+                {category == "Any" && (
                   <div
-                    className="sidebar__cont__section__item1"
-                    style={{
-                      paddingLeft: "1.6rem",
-                      paddingTop: "12px",
-                      justifyContent: "flex-start",
-                      display: categoryVisible ? "block" : "none",
-                      alignItems: "center",
-                    }}
+                    className="sidebar__cont__section__item__list"
+                    style={{ display: categoryVisible ? "block" : "none" }}
                   >
-                    <div className="sidebar__cont__section__item__icon">
-                      <IconButton
-                        style={{ padding: "0" }}
-                        onClick={() =>
-                          this.setState(
-                            { category: "Any", subcategory: "Any" },
+                    <FormGroup>
+                      <RadioGroup
+                        aria-label="category"
+                        name="category"
+                        value={category}
+                        onChange={async (e) =>
+                          await this.setState(
+                            { category: e.target.value },
                             this.handleFilter
                           )
                         }
                       >
-                        <ArrowBackIosIcon />
-                      </IconButton>
-                      <div> {category}</div>
-                    </div>
-                    <div
-                      className="sidebar__cont__section__item__list"
-                      style={{
-                        padding: "12px 0  0 0rem",
-                        display: categoryVisible ? "block" : "none",
-                      }}
-                    >
-                      <FormGroup>
-                        <RadioGroup
-                          aria-label="subcategory"
-                          name="subcategory"
-                          value={subcategory}
-                          onChange={(e) =>
-                            this.setState(
-                              { subcategory: e.target.value },
-                              this.handleFilter
-                            )
-                          }
-                        >
-                          <FormControlLabel
-                            className="sidebar__cont__section__item__list__label"
-                            value="Any"
-                            control={<Radio />}
-                            label="Any"
-                          />
-
-                          {categories[category].map((item) => (
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="Any"
+                          control={<Radio />}
+                          label="Any"
+                        />
+                        {Object.keys(categories).map((item) => {
+                          return (
                             <FormControlLabel
                               className="sidebar__cont__section__item__list__label"
                               value={item}
                               control={<Radio />}
                               label={item}
                             />
-                          ))}
-                        </RadioGroup>
-                      </FormGroup>
-                    </div>{" "}
+                          );
+                        })}
+                      </RadioGroup>
+                    </FormGroup>
                   </div>
-                </>
-              )}
-            </div>
+                )}
 
-            <div
-              className="sidebar__cont__section"
-              style={{ borderTop: "none" }}
-            >
+                {category != "Any" && (
+                  <>
+                    <div
+                      className="sidebar__cont__section__item1"
+                      style={{
+                        paddingLeft: "1.6rem",
+                        paddingTop: "12px",
+                        justifyContent: "flex-start",
+                        display: categoryVisible ? "block" : "none",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className="sidebar__cont__section__item__icon">
+                        <IconButton
+                          style={{ padding: "0" }}
+                          onClick={() =>
+                            this.setState(
+                              { category: "Any", subcategory: "Any" },
+                              this.handleFilter
+                            )
+                          }
+                        >
+                          <ArrowBackIosIcon />
+                        </IconButton>
+                        <div> {category}</div>
+                      </div>
+                      <div
+                        className="sidebar__cont__section__item__list"
+                        style={{
+                          padding: "12px 0  0 0rem",
+                          display: categoryVisible ? "block" : "none",
+                        }}
+                      >
+                        <FormGroup>
+                          <RadioGroup
+                            aria-label="subcategory"
+                            name="subcategory"
+                            value={subcategory}
+                            onChange={(e) =>
+                              this.setState(
+                                { subcategory: e.target.value },
+                                this.handleFilter
+                              )
+                            }
+                          >
+                            <FormControlLabel
+                              className="sidebar__cont__section__item__list__label"
+                              value="Any"
+                              control={<Radio />}
+                              label="Any"
+                            />
+
+                            {categories[category].map((item) => (
+                              <FormControlLabel
+                                className="sidebar__cont__section__item__list__label"
+                                value={item}
+                                control={<Radio />}
+                                label={item}
+                              />
+                            ))}
+                          </RadioGroup>
+                        </FormGroup>
+                      </div>{" "}
+                    </div>
+                  </>
+                )}
+              </div>
+
               <div
-                className="sidebar__cont__section__item"
-                onClick={() => this.setState({ brandVisible: !brandVisible })}
+                className="sidebar__cont__section"
+                style={{ borderTop: "none" }}
               >
-                Brand <ExpandMoreIcon />
+                <div
+                  className="sidebar__cont__section__item"
+                  onClick={() => this.setState({ brandVisible: !brandVisible })}
+                >
+                  Brand <ExpandMoreIcon />
+                </div>
+                <div
+                  className="sidebar__cont__section__item__list"
+                  style={{
+                    display: brandVisible ? "block" : "none",
+                    maxHeight: "272px",
+                    overflowY: "scroll",
+                  }}
+                >
+                  <FormGroup>
+                    <FormControlLabel
+                      className="sidebar__cont__section__item__list__label1"
+                      control={
+                        <Checkbox
+                          // checked={state.checkedF}
+                          // onCha()=>nge={handleChange(item)}
+                          name="checkedF"
+                        />
+                      }
+                      label="Mobile"
+                    />
+                    <FormControlLabel
+                      className="sidebar__cont__section__item__list__label1"
+                      control={
+                        <Checkbox
+                          // checked={state.checkedF}
+                          // onCha()=>nge={handleChange(item)}
+                          name="checkedF"
+                        />
+                      }
+                      label="electronics"
+                    />
+                    <FormControlLabel
+                      className="sidebar__cont__section__item__list__label1"
+                      control={
+                        <Checkbox
+                          // checked={state.checkedF}
+                          // onCha()=>nge={handleChange(item)}
+                          name="checkedF"
+                        />
+                      }
+                      label="Stationary"
+                    />
+                  </FormGroup>
+                </div>
               </div>
               <div
-                className="sidebar__cont__section__item__list"
-                style={{
-                  display: brandVisible ? "block" : "none",
-                  maxHeight: "272px",
-                  overflowY: "scroll",
-                }}
+                className="sidebar__cont__section"
+                style={{ borderTop: "none" }}
               >
-                <FormGroup>
-                  <FormControlLabel
-                    className="sidebar__cont__section__item__list__label1"
-                    control={
-                      <Checkbox
-                        // checked={state.checkedF}
-                        // onCha()=>nge={handleChange(item)}
-                        name="checkedF"
+                <div
+                  className="sidebar__cont__section__item"
+                  onClick={() =>
+                    this.setState({ conditionVisible: !conditionVisible })
+                  }
+                >
+                  Condition <ExpandMoreIcon />
+                </div>
+                <div
+                  className="sidebar__cont__section__item__list"
+                  style={{ display: conditionVisible ? "block" : "none" }}
+                >
+                  <FormGroup onChange={this.handleChangeCondition}>
+                    {cond.map((item) => (
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label1"
+                        value={item}
+                        control={
+                          item in condition && condition[item] == true ? (
+                            <Checkbox defaultChecked />
+                          ) : (
+                            <Checkbox />
+                          )
+                        }
+                        label={item}
                       />
-                    }
-                    label="Mobile"
-                  />
-                  <FormControlLabel
-                    className="sidebar__cont__section__item__list__label1"
-                    control={
-                      <Checkbox
-                        // checked={state.checkedF}
-                        // onCha()=>nge={handleChange(item)}
-                        name="checkedF"
-                      />
-                    }
-                    label="electronics"
-                  />
-                  <FormControlLabel
-                    className="sidebar__cont__section__item__list__label1"
-                    control={
-                      <Checkbox
-                        // checked={state.checkedF}
-                        // onCha()=>nge={handleChange(item)}
-                        name="checkedF"
-                      />
-                    }
-                    label="Stationary"
-                  />
-                </FormGroup>
-              </div>
-            </div>
-            <div
-              className="sidebar__cont__section"
-              style={{ borderTop: "none" }}
-            >
-              <div
-                className="sidebar__cont__section__item"
-                onClick={() =>
-                  this.setState({ conditionVisible: !conditionVisible })
-                }
-              >
-                Condition <ExpandMoreIcon />
-              </div>
-              <div
-                className="sidebar__cont__section__item__list"
-                style={{ display: conditionVisible ? "block" : "none" }}
-              >
-                <FormGroup onChange={this.handleChangeCondition}>
-                  <FormControlLabel
-                    className="sidebar__cont__section__item__list__label1"
-                    value="Good"
-                    control={<Checkbox />}
-                    label="Good"
-                  />
-                  <FormControlLabel
+                    ))}
+                    {/* <FormControlLabel
                     className="sidebar__cont__section__item__list__label1"
                     value="New"
                     control={<Checkbox />}
@@ -407,186 +450,662 @@ class SideBar extends Component {
                     value="Poor"
                     control={<Checkbox />}
                     label="Poor"
-                  />
-                </FormGroup>
-              </div>
-            </div>
-            <div
-              className="sidebar__cont__section"
-              style={{ borderTop: "none" }}
-            >
-              <div
-                className="sidebar__cont__section__item"
-                onClick={() => this.setState({ statusVisible: !statusVisible })}
-              >
-                Status <ExpandMoreIcon />
+                  /> */}
+                  </FormGroup>
+                </div>
               </div>
               <div
-                className="sidebar__cont__section__item__list"
-                style={{ display: statusVisible ? "block" : "none" }}
+                className="sidebar__cont__section"
+                style={{ borderTop: "none" }}
               >
-                <FormGroup>
-                  <RadioGroup
-                    aria-label="status"
-                    name="status"
-                    value={status}
-                    onChange={(e) =>
-                      this.setState(
-                        { status: e.target.value },
-                        this.handleFilter
-                      )
-                    }
-                  >
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="Any"
-                      control={<Radio />}
-                      label="Any"
-                    />
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="Sold"
-                      control={<Radio />}
-                      label="Sold"
-                    />
-                  </RadioGroup>
-                </FormGroup>
-              </div>
-            </div>
-            <div
-              className="sidebar__cont__section"
-              style={{ borderTop: "none" }}
-            >
-              <div
-                className="sidebar__cont__section__item"
-                onClick={() => this.setState({ colorVisible: !colorVisible })}
-              >
-                Color <ExpandMoreIcon />
-              </div>
-              <div
-                className="sidebar__cont__section__item__list"
-                style={{
-                  display: colorVisible ? "block" : "none",
-                  // maxHeight: "272px",
-                  // overflowY: "scroll",
-                }}
-              >
-                <FormGroup>
-                  {colors.map((item) => (
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label1"
-                      value={item}
-                      control={
-                        <Checkbox
-                          onChange={() => this.handleChangeColor(item)}
-                        />
+                <div
+                  className="sidebar__cont__section__item"
+                  onClick={() =>
+                    this.setState({ statusVisible: !statusVisible })
+                  }
+                >
+                  Status <ExpandMoreIcon />
+                </div>
+                <div
+                  className="sidebar__cont__section__item__list"
+                  style={{ display: statusVisible ? "block" : "none" }}
+                >
+                  <FormGroup>
+                    <RadioGroup
+                      aria-label="status"
+                      name="status"
+                      value={status}
+                      onChange={(e) =>
+                        this.setState(
+                          { status: e.target.value },
+                          this.handleFilter
+                        )
                       }
-                      label={item}
-                    />
-                  ))}
-                </FormGroup>
+                    >
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label"
+                        value="Any"
+                        control={<Radio />}
+                        label="Any"
+                      />
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label"
+                        value="Sold"
+                        control={<Radio />}
+                        label="Sold"
+                      />
+                    </RadioGroup>
+                  </FormGroup>
+                </div>
               </div>
-            </div>
-           {this.props.location.pathname=="/buy" &&  <div
-              className="sidebar__cont__section"
-              style={{ borderTop: "none" }}
-            >
               <div
-                className="sidebar__cont__section__item"
-                onClick={() => this.setState({ priceVisible: !priceVisible })}
+                className="sidebar__cont__section"
+                style={{ borderTop: "none" }}
               >
-                Price <ExpandMoreIcon />
+                <div
+                  className="sidebar__cont__section__item"
+                  onClick={() => this.setState({ colorVisible: !colorVisible })}
+                >
+                  Color <ExpandMoreIcon />
+                </div>
+                <div
+                  className="sidebar__cont__section__item__list"
+                  style={{
+                    display: colorVisible ? "block" : "none",
+                    // maxHeight: "272px",
+                    // overflowY: "scroll",
+                  }}
+                >
+                  <FormGroup>
+                    {colors.map((item) => (
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label1"
+                        value={item}
+                        control={
+                          item in this.state.color &&
+                          this.state.color[item] == true ? (
+                            <Checkbox
+                              defaultChecked
+                              onChange={() => this.handleChangeColor(item)}
+                            />
+                          ) : (
+                            <Checkbox
+                              onChange={() => this.handleChangeColor(item)}
+                            />
+                          )
+                        }
+                        label={item}
+                      />
+                    ))}
+                  </FormGroup>
+                </div>
               </div>
-              <div
-                className="sidebar__cont__section__item__list"
-                style={{ display: priceVisible ? "block" : "none" }}
-              >
-                <FormGroup>
-                  <RadioGroup
-                    aria-label="status"
-                    name="price"
-                    value={price}
-                    onChange={(e) =>
-                      this.setState(
-                        { price: e.target.value },
-                        this.handleFilter
-                      )
+              {this.props.location.pathname == "/buy" && (
+                <div
+                  className="sidebar__cont__section"
+                  style={{ borderTop: "none" }}
+                >
+                  <div
+                    className="sidebar__cont__section__item"
+                    onClick={() =>
+                      this.setState({ priceVisible: !priceVisible })
                     }
                   >
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="0"
-                      control={<Radio />}
-                      label="Any"
-                    />
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="1"
-                      control={<Radio />}
-                      label="Under &#8377;1000"
-                    />
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="2"
-                      control={<Radio />}
-                      label="&#8377;1000 to &#8377;2000"
-                    />
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="3"
-                      control={<Radio />}
-                      label="&#8377;2000 and up"
-                    />
+                    Price <ExpandMoreIcon />
+                  </div>
+                  <div
+                    className="sidebar__cont__section__item__list"
+                    style={{ display: priceVisible ? "block" : "none" }}
+                  >
+                    <FormGroup>
+                      <RadioGroup
+                        aria-label="status"
+                        name="price"
+                        value={price}
+                        onChange={(e) =>
+                          this.setState(
+                            { price: e.target.value },
+                            this.handleFilter
+                          )
+                        }
+                      >
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="0"
+                          control={<Radio />}
+                          label="Any"
+                        />
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="1"
+                          control={<Radio />}
+                          label="Under &#8377;1000"
+                        />
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="2"
+                          control={<Radio />}
+                          label="&#8377;1000 to &#8377;2000"
+                        />
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="3"
+                          control={<Radio />}
+                          label="&#8377;2000 and up"
+                        />
 
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label"
-                      value="4"
-                      control={<Radio name="checkedF" />}
-                      label="Custom"
-                    />
-                  </RadioGroup>
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="4"
+                          control={<Radio name="checkedF" />}
+                          label="Custom"
+                        />
+                      </RadioGroup>
 
-                  <div className="sidebar__cont__section__item__list__label__custom">
-                    <TextField
-                      className="sidebar__cont__section__item__list__label__custom__tf"
-                      id="filled-number"
-                      placeholder="Min"
-                      type="number"
-                      onChange={(e) => this.setState({ min: e.target.value })}
-                      disabled={price != "4"}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                    />
+                      <div className="sidebar__cont__section__item__list__label__custom">
+                        <TextField
+                          className="sidebar__cont__section__item__list__label__custom__tf"
+                          id="filled-number"
+                          placeholder="Min"
+                          type="number"
+                          onChange={(e) =>
+                            this.setState({ min: e.target.value })
+                          }
+                          disabled={price != "4"}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          variant="outlined"
+                        />
 
-                    <div className="sidebar__cont__section__item__list__label__custom__icon">
-                      _
-                    </div>
-                    <TextField
-                      className="sidebar__cont__section__item__list__label__custom__tf"
-                      id="filled-number"
-                      placeholder="Max"
-                      type="number"
-                      disabled={price != "4"}
-                      onChange={(e) => this.setState({ max: e.target.value })}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                    />
+                        <div className="sidebar__cont__section__item__list__label__custom__icon">
+                          _
+                        </div>
+                        <TextField
+                          className="sidebar__cont__section__item__list__label__custom__tf"
+                          id="filled-number"
+                          placeholder="Max"
+                          type="number"
+                          disabled={price != "4"}
+                          onChange={(e) =>
+                            this.setState({ max: e.target.value })
+                          }
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          variant="outlined"
+                        />
+                        <div
+                          className="sidebar__cont__section__item__list__label__custom__btn"
+                          onClick={this.handleClickPrice}
+                        >
+                          Apply
+                        </div>
+                      </div>
+                    </FormGroup>
+                  </div>
+                </div>
+              )}
+            </form>
+          </div>
+        </Breakpoint>
+        <Breakpoint medium down>
+          {this.props.filter ? (
+            <Drawer anchor="left" open={true}>
+              <div className="sidebar__head" style={{ marginTop: "0" }}>
+                Filter By{" "}
+                <Button onClick={() => this.props.handleDrawer(false)}>
+                  Apply
+                </Button>
+              </div>
+              <form className="sidebar__cont">
+                <div className="sidebar__cont__section">
+                  <div
+                    className="sidebar__cont__section__item"
+                    onClick={() =>
+                      this.setState({ categoryVisible: !categoryVisible })
+                    }
+                  >
+                    Category <ExpandMoreIcon />
+                  </div>
+                  {category == "Any" && (
                     <div
-                      className="sidebar__cont__section__item__list__label__custom__btn"
-                      onClick={this.handleClickPrice}
+                      className="sidebar__cont__section__item__list"
+                      style={{ display: categoryVisible ? "block" : "none" }}
                     >
-                      Apply
+                      <FormGroup>
+                        <RadioGroup
+                          aria-label="category"
+                          name="category"
+                          value={category}
+                          onChange={async (e) =>
+                            await this.setState(
+                              { category: e.target.value },
+                              this.handleFilter
+                            )
+                          }
+                        >
+                          <FormControlLabel
+                            className="sidebar__cont__section__item__list__label"
+                            value="Any"
+                            control={<Radio />}
+                            label="Any"
+                          />
+                          {Object.keys(categories).map((item) => {
+                            return (
+                              <FormControlLabel
+                                className="sidebar__cont__section__item__list__label"
+                                value={item}
+                                control={<Radio />}
+                                label={item}
+                              />
+                            );
+                          })}
+                        </RadioGroup>
+                      </FormGroup>
+                    </div>
+                  )}
+
+                  {category != "Any" && (
+                    <>
+                      <div
+                        className="sidebar__cont__section__item1"
+                        style={{
+                          paddingLeft: "1.6rem",
+                          paddingTop: "12px",
+                          justifyContent: "flex-start",
+                          display: categoryVisible ? "block" : "none",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div className="sidebar__cont__section__item__icon">
+                          <IconButton
+                            style={{ padding: "0" }}
+                            onClick={() =>
+                              this.setState(
+                                { category: "Any", subcategory: "Any" },
+                                this.handleFilter
+                              )
+                            }
+                          >
+                            <ArrowBackIosIcon />
+                          </IconButton>
+                          <div> {category}</div>
+                        </div>
+                        <div
+                          className="sidebar__cont__section__item__list"
+                          style={{
+                            padding: "12px 0  0 0rem",
+                            display: categoryVisible ? "block" : "none",
+                          }}
+                        >
+                          <FormGroup>
+                            <RadioGroup
+                              aria-label="subcategory"
+                              name="subcategory"
+                              value={subcategory}
+                              onChange={(e) =>
+                                this.setState(
+                                  { subcategory: e.target.value },
+                                  this.handleFilter
+                                )
+                              }
+                            >
+                              <FormControlLabel
+                                className="sidebar__cont__section__item__list__label"
+                                value="Any"
+                                control={<Radio />}
+                                label="Any"
+                              />
+
+                              {categories[category].map((item) => (
+                                <FormControlLabel
+                                  className="sidebar__cont__section__item__list__label"
+                                  value={item}
+                                  control={<Radio />}
+                                  label={item}
+                                />
+                              ))}
+                            </RadioGroup>
+                          </FormGroup>
+                        </div>{" "}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div
+                  className="sidebar__cont__section"
+                  style={{ borderTop: "none" }}
+                >
+                  <div
+                    className="sidebar__cont__section__item"
+                    onClick={() =>
+                      this.setState({ brandVisible: !brandVisible })
+                    }
+                  >
+                    Brand <ExpandMoreIcon />
+                  </div>
+                  <div
+                    className="sidebar__cont__section__item__list"
+                    style={{
+                      display: brandVisible ? "block" : "none",
+                      maxHeight: "272px",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    <FormGroup>
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label1"
+                        control={
+                          <Checkbox
+                            // checked={state.checkedF}
+                            // onCha()=>nge={handleChange(item)}
+                            name="checkedF"
+                          />
+                        }
+                        label="Mobile"
+                      />
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label1"
+                        control={
+                          <Checkbox
+                            // checked={state.checkedF}
+                            // onCha()=>nge={handleChange(item)}
+                            name="checkedF"
+                          />
+                        }
+                        label="electronics"
+                      />
+                      <FormControlLabel
+                        className="sidebar__cont__section__item__list__label1"
+                        control={
+                          <Checkbox
+                            // checked={state.checkedF}
+                            // onCha()=>nge={handleChange(item)}
+                            name="checkedF"
+                          />
+                        }
+                        label="Stationary"
+                      />
+                    </FormGroup>
+                  </div>
+                </div>
+                <div
+                  className="sidebar__cont__section"
+                  style={{ borderTop: "none" }}
+                >
+                  <div
+                    className="sidebar__cont__section__item"
+                    onClick={() =>
+                      this.setState({ conditionVisible: !conditionVisible })
+                    }
+                  >
+                    Condition <ExpandMoreIcon />
+                  </div>
+                  <div
+                    className="sidebar__cont__section__item__list"
+                    style={{ display: conditionVisible ? "block" : "none" }}
+                  >
+                    <FormGroup onChange={this.handleChangeCondition}>
+                      {cond.map((item) => (
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label1"
+                          value={item}
+                          control={
+                            item in condition && condition[item] == true ? (
+                              <Checkbox defaultChecked />
+                            ) : (
+                              <Checkbox />
+                            )
+                          }
+                          label={item}
+                        />
+                      ))}
+                    </FormGroup>
+                  </div>
+                </div>
+                <div
+                  className="sidebar__cont__section"
+                  style={{ borderTop: "none" }}
+                >
+                  <div
+                    className="sidebar__cont__section__item"
+                    onClick={() =>
+                      this.setState({ statusVisible: !statusVisible })
+                    }
+                  >
+                    Status <ExpandMoreIcon />
+                  </div>
+                  <div
+                    className="sidebar__cont__section__item__list"
+                    style={{ display: statusVisible ? "block" : "none" }}
+                  >
+                    <FormGroup>
+                      <RadioGroup
+                        aria-label="status"
+                        name="status"
+                        value={status}
+                        onChange={(e) =>
+                          this.setState(
+                            { status: e.target.value },
+                            this.handleFilter
+                          )
+                        }
+                      >
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="Any"
+                          control={<Radio />}
+                          label="Any"
+                        />
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label"
+                          value="Sold"
+                          control={<Radio />}
+                          label="Sold"
+                        />
+                      </RadioGroup>
+                    </FormGroup>
+                  </div>
+                </div>
+                <div
+                  className="sidebar__cont__section"
+                  style={{ borderTop: "none" }}
+                >
+                  <div
+                    className="sidebar__cont__section__item"
+                    onClick={() =>
+                      this.setState({ colorVisible: !colorVisible })
+                    }
+                  >
+                    Color <ExpandMoreIcon />
+                  </div>
+                  <div
+                    className="sidebar__cont__section__item__list"
+                    style={{
+                      display: colorVisible ? "block" : "none",
+                      // maxHeight: "272px",
+                      // overflowY: "scroll",
+                    }}
+                  >
+                    <FormGroup>
+                      {colors.map((item) => (
+                        <FormControlLabel
+                          className="sidebar__cont__section__item__list__label1"
+                          value={item}
+                          control={
+                            item in this.state.color &&
+                            this.state.color[item] == true ? (
+                              <Checkbox
+                                defaultChecked
+                                onChange={() => this.handleChangeColor(item)}
+                              />
+                            ) : (
+                              <Checkbox
+                                onChange={() => this.handleChangeColor(item)}
+                              />
+                            )
+                          }
+                          label={item}
+                        />
+                      ))}
+                    </FormGroup>
+                  </div>
+                </div>
+                {this.props.location.pathname == "/buy" && (
+                  <div
+                    className="sidebar__cont__section"
+                    style={{ borderTop: "none" }}
+                  >
+                    <div
+                      className="sidebar__cont__section__item"
+                      onClick={() =>
+                        this.setState({ priceVisible: !priceVisible })
+                      }
+                    >
+                      Price <ExpandMoreIcon />
+                    </div>
+                    <div
+                      className="sidebar__cont__section__item__list"
+                      style={{ display: priceVisible ? "block" : "none" }}
+                    >
+                      <FormGroup>
+                        <RadioGroup
+                          aria-label="status"
+                          name="price"
+                          value={price}
+                          onChange={(e) =>
+                            this.setState(
+                              { price: e.target.value },
+                              this.handleFilter
+                            )
+                          }
+                        >
+                          <FormControlLabel
+                            className="sidebar__cont__section__item__list__label"
+                            value="0"
+                            control={<Radio />}
+                            label="Any"
+                          />
+                          <FormControlLabel
+                            className="sidebar__cont__section__item__list__label"
+                            value="1"
+                            control={<Radio />}
+                            label="Under &#8377;1000"
+                          />
+                          <FormControlLabel
+                            className="sidebar__cont__section__item__list__label"
+                            value="2"
+                            control={<Radio />}
+                            label="&#8377;1000 to &#8377;2000"
+                          />
+                          <FormControlLabel
+                            className="sidebar__cont__section__item__list__label"
+                            value="3"
+                            control={<Radio />}
+                            label="&#8377;2000 and up"
+                          />
+
+                          <FormControlLabel
+                            className="sidebar__cont__section__item__list__label"
+                            value="4"
+                            control={<Radio name="checkedF" />}
+                            label="Custom"
+                          />
+                        </RadioGroup>
+
+                        <div className="sidebar__cont__section__item__list__label__custom">
+                          <TextField
+                            className="sidebar__cont__section__item__list__label__custom__tf"
+                            id="filled-number"
+                            placeholder="Min"
+                            type="number"
+                            onChange={(e) =>
+                              this.setState({ min: e.target.value })
+                            }
+                            disabled={price != "4"}
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="outlined"
+                          />
+
+                          <div className="sidebar__cont__section__item__list__label__custom__icon">
+                            _
+                          </div>
+                          <TextField
+                            className="sidebar__cont__section__item__list__label__custom__tf"
+                            id="filled-number"
+                            placeholder="Max"
+                            type="number"
+                            disabled={price != "4"}
+                            onChange={(e) =>
+                              this.setState({ max: e.target.value })
+                            }
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="outlined"
+                          />
+                          <div
+                            className="sidebar__cont__section__item__list__label__custom__btn"
+                            onClick={this.handleClickPrice}
+                          >
+                            Apply
+                          </div>
+                        </div>
+                      </FormGroup>
                     </div>
                   </div>
-                </FormGroup>
-              </div>
-            </div>}
-          </form>
-        </div>
+                )}
+              </form>
+            </Drawer>
+          ) : (
+            <Drawer
+              anchor="bottom"
+              open={true}
+              onClose={() => this.props.handleDrawerClose(false)}
+            >
+              <h3 style={{ padding: "12px 10px" }}>Sort By</h3>
+              <Link
+                to="/exchange"
+                onClick={() => this.props.handleDrawerClose(false)}
+                className="bottom-link"
+              >
+                {" "}
+                Sort by best match{" "}
+              </Link>
+              <Link
+                to="/exchange?sort=new"
+                onClick={() => this.props.handleDrawerClose(false)}
+                className="bottom-link"
+              >
+                {" "}
+                Sort by newest first{" "}
+              </Link>
+              {this.props.buy && (
+                <>
+                  {" "}
+                  <Link
+                    value={"low"}
+                    onClick={() => this.props.history.push("/buy?sort=lowest")}
+                    className="bottom-link"
+                  >
+                    Sort by lowest price first
+                  </Link>
+                  <Link
+                    value={"high"}
+                    onClick={() => this.props.history.push("/buy?sort=highest")}
+                    className="bottom-link"
+                  >
+                    Sort by hightest price first
+                  </Link>
+                </>
+              )}
+            </Drawer>
+          )}
+        </Breakpoint>
       </>
     );
   }
@@ -595,11 +1114,13 @@ class SideBar extends Component {
 const mapStateToProps = (state) => {
   return {
     myDetails: state.myDetails.myDetails,
+    filters: state.post.filters,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addPostFiltersDispatch: (data) => dispatch(addPostFilters(data)),
     retrieveAllPostDispatch: (
       category,
       subcategory,
@@ -610,7 +1131,7 @@ const mapDispatchToProps = (dispatch) => {
       status,
       condition,
       barter,
-      exchange,
+      donate,
       sort
     ) =>
       dispatch(
@@ -624,7 +1145,7 @@ const mapDispatchToProps = (dispatch) => {
           status,
           condition,
           barter,
-          exchange,
+          donate,
           sort
         )
       ),

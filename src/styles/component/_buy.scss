@@ -41,3 +41,11 @@
         background-color: white !important;
     }
 }
+
+@media (max-width: 991px){
+    .buy{
+        &__head{
+            font-size: 1.4rem !important;
+        }
+    }
+}

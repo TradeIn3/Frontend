@@ -12,8 +12,7 @@ export default function LandingPage() {
       <div>
         <h1>This is unauth home page.</h1>
         <Link to="/login">Login</Link>
-        
-      </div> 
+      </div>
       <Switch>
         <Route path={UNAUTH_LOGIN_PATH} exact>
           {(props) => <Login {...props} />}

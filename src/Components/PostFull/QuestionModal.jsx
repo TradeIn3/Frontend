@@ -28,10 +28,14 @@ class QuestionModal extends Component {
 
   onHandleClick = async (e) => {
     e.preventDefault();
-    console.log(this.props.myDetails)
-    await this.props.askQuestionDispatch(this.state.question,this.props.match.params.id,this.props.myDetails.username)
-    this.handleClose()
-  }
+    console.log(this.props.myDetails);
+    await this.props.askQuestionDispatch(
+      this.state.question,
+      this.props.match.params.id,
+      this.props.myDetails.username
+    );
+    this.handleClose();
+  };
 
   render() {
     const { question } = this.state;
@@ -83,7 +87,7 @@ class QuestionModal extends Component {
         </Breakpoint>
 
         <Breakpoint medium down>
-        <Dialog
+          <Dialog
             open={true}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
@@ -132,7 +136,7 @@ class QuestionModal extends Component {
   }
 }
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     // isLogged: state.token.access,
     myDetails: state.myDetails.myDetails,
@@ -143,7 +147,8 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    askQuestionDispatch:(question,postId,user) => dispatch(askQuestion(question,postId,user)),
+    askQuestionDispatch: (question, postId, user) =>
+      dispatch(askQuestion(question, postId, user)),
   };
 };
 

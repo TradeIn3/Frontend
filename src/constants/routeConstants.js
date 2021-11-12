@@ -9,6 +9,8 @@ export const AUTH_BUY_PATH = "/buy";
 export const AUTH_DONATE_PATH = "/donate";
 export const AUTH_EXCHANGE_PATH = "/exchange";
 
+export const AUTH_DONATE_FILTERS = "/buy/filters";
+
 
 export const AUTH_ACCOUNT_PATH = "/account/:id";
 export const AUTH_ACCOUNT_SELL_PATH = "/account/:id/sell";

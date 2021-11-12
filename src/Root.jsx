@@ -212,7 +212,7 @@ function Root(props) {
         </UnAuthorizedRoute>
         <AuthorizedRoute path={AUTH_ACCOUNT_PATH} >
           {(props) => (
-            <Layout {...props}>
+            <Layout {...props} isLayout={true}>
               <Account {...props} />
             </Layout>
           )}

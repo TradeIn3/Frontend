@@ -16,47 +16,47 @@ const initialState = {
   buy: {},
   donate: {},
   exchange: {},
-  reserves:{},
+  reserves: {},
   wishlist: {},
   orders: {},
-  users:{},
+  users: {},
   productLoading: true,
   userLoading: true,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case EDIT_IMAGE_SUCCESS:
-     return{
-       ...state,
-        users:{
-          ...state.users,
-          [action.id]:{...state.users[action.id],image:action.value},
-        }
-     }
-     case EDIT_ADDRESS:
       return {
         ...state,
-        users:{
+        users: {
           ...state.users,
-          [action.id]:{...state.users[action.id],...action.value},
-        }
-      };  
+          [action.id]: { ...state.users[action.id], image: action.value },
+        },
+      };
+    case EDIT_ADDRESS:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [action.id]: { ...state.users[action.id], ...action.value },
+        },
+      };
     case USER_DETAILS:
       return {
         ...state,
-        users: {...state.users,[action.id]:action.value},
-        userLoading:false,
+        users: { ...state.users, [action.id]: action.value },
+        userLoading: false,
       };
     case ADD_USER_BUY:
       return {
         ...state,
-        buy: {...state.buy,[action.id]:action.value},
+        buy: { ...state.buy, [action.id]: action.value },
         productLoading: false,
       };
     case ADD_USER_DONATE:
       return {
         ...state,
-        donate: {...state.donate,[action.id]:action.value},
+        donate: { ...state.donate, [action.id]: action.value },
         productLoading: false,
       };
     case PRODUCT_LOADING:
@@ -68,31 +68,31 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userLoading: action.value,
-      };  
+      };
     case ADD_USER_EXCHANGE:
       return {
         ...state,
-        exchange: {...state.exchange,[action.id]:action.value},
+        exchange: { ...state.exchange, [action.id]: action.value },
         productLoading: false,
       };
     case ADD_USER_WISHLIST:
       return {
         ...state,
-        wishlist: {...state.wishlist,[action.id]:action.value},
+        wishlist: { ...state.wishlist, [action.id]: action.value },
         productLoading: false,
       };
     case ADD_USER_ORDERS:
       return {
         ...state,
-        orders: {...state.orders,[action.id]:action.value},
+        orders: { ...state.orders, [action.id]: action.value },
         productLoading: false,
       };
     case ADD_USER_RESERVES:
-        return {
-          ...state,
-          reserves: {...state.reserves,[action.id]:action.value},
-          productLoading: false,
-        };  
+      return {
+        ...state,
+        reserves: { ...state.reserves, [action.id]: action.value },
+        productLoading: false,
+      };
     default:
       return state;
   }

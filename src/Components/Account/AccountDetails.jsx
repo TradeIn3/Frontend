@@ -47,7 +47,7 @@ class AccountDetails extends Component {
     if (this.props.product === "wishlist") {
       await this.props.wishlistDispatch(this.props.match.params.id);
     }
-    if(this.props.product === "reserves") {
+    if (this.props.product === "reserves") {
       await this.props.reservesDispatch(this.props.match.params.id);
     }
   }
@@ -93,7 +93,13 @@ class AccountDetails extends Component {
             maxWidth="lg"
           >
             <DialogTitle className="ordertitle">
-              <IconButton onClick={() => this.props.history.push(`/account/${this.props.match.params.id}`)}>
+              <IconButton
+                onClick={() =>
+                  this.props.history.push(
+                    `/account/${this.props.match.params.id}`
+                  )
+                }
+              >
                 <ArrowBackIcon />
               </IconButton>
               {this.props.title}
@@ -130,8 +136,18 @@ class AccountDetails extends Component {
                       xs={6}
                       style={{ marginBottom: "1rem" }}
                     >
-                      <Link to={this.props.product === "orders" ? `/account/${this.props.match.params.id}/orders/${item.id}` :`/buy/${item.id}`}>
-                        <PostCard item={item} type={this.props.product} {...this.props} />
+                      <Link
+                        to={
+                          this.props.product === "orders"
+                            ? `/account/${this.props.match.params.id}/orders/${item.id}`
+                            : `/buy/${item.id}`
+                        }
+                      >
+                        <PostCard
+                          item={item}
+                          type={this.props.product}
+                          {...this.props}
+                        />
                       </Link>
                     </Grid>
                   ))

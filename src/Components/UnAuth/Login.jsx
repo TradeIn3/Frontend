@@ -111,10 +111,16 @@ class Login extends Component {
     const { showPassword, formErrors, formValid, username, password } =
       this.state;
     const { loading, success, isLoggedIn } = this.props;
-    if(isLoggedIn && new URLSearchParams(this.props.location.search).get("login")){ 
-     this.props.history.push(this.props.location.pathname);
+    if (
+      isLoggedIn &&
+      new URLSearchParams(this.props.location.search).get("login")
+    ) {
+      this.props.history.push(this.props.location.pathname);
     }
-    if(isLoggedIn || !new URLSearchParams(this.props.location.search).get("login")){ 
+    if (
+      isLoggedIn ||
+      !new URLSearchParams(this.props.location.search).get("login")
+    ) {
       return null;
     }
     return (
@@ -261,9 +267,9 @@ class Login extends Component {
               <div className="moboLogo">
                 <div className="moboLogo__icon">
                   <IconButton>
-                  <ArrowBackIosIcon />
-                   </IconButton>   
-                  </div>
+                    <ArrowBackIosIcon />
+                  </IconButton>
+                </div>
 
                 <img src={WebsiteLogo} />
                 <h1>TradeIn</h1>
@@ -272,7 +278,7 @@ class Login extends Component {
                 <p>A better place to buy and sell products</p>
               </div>
             </DialogTitle>
-            
+
             <DialogContent
               style={{ overflow: "hidden", height: "30rem", padding: "0" }}
               dividers

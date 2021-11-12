@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 
 export default class Home extends Component {
-
   render() {
     const categories = getCategories();
     return (
@@ -24,11 +23,8 @@ export default class Home extends Component {
           </div>
         </Breakpoint>
 
-        <Breakpoint medium down>
-
-        </Breakpoint>
+        <Breakpoint medium down></Breakpoint>
       </>
-      
     );
   }
 }

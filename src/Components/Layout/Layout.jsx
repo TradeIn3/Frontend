@@ -13,35 +13,40 @@ import { withRouter } from "react-router";
 class Layout extends Component {
   async componentDidMount() {
     await this.props.myDetailsDispatch();
-    if(this.props.isLoggedIn){
-      this.props.history.push(this.props.location.pathname)
+    if (this.props.isLoggedIn) {
+      this.props.history.push(this.props.location.pathname);
     }
   }
 
-  async componentDidUpdate(props,state){
-    if(props.myDetails==null)
-      await this.props.myDetailsDispatch();
+  async componentDidUpdate(props, state) {
+    if (props.myDetails == null) await this.props.myDetailsDispatch();
   }
 
   render() {
-    const {isLoggedIn} = this.props;
+    const { isLoggedIn } = this.props;
     if (isLoggedIn && !this.props.myDetails) return <MainLoader />;
     return (
       <>
         <Breakpoint large up>
           <Grid container>
             <Grid xs={12}>
-              <Navbar {...this.props}/>
+              <Navbar {...this.props} />
             </Grid>
-            <Grid item xs={12} style={{marginTop:"3rem"}}>
+            <Grid item xs={12} style={{ marginTop: "3rem" }}>
               {this.props.children}
             </Grid>
           </Grid>
         </Breakpoint>
         <Breakpoint medium down>
-          <Navbar />
-          {this.props.children}
-          <BottomBar />
+          {this.props.isLayout ? (
+            this.props.children
+          ) : (
+            <>
+              <Navbar {...this.props} />
+              {this.props.children}
+              <BottomBar {...this.props} />
+            </>
+          )}
         </Breakpoint>
       </>
     );

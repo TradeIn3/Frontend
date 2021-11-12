@@ -21,8 +21,8 @@ import WebsiteLogo from "../../assets/WebsiteLogo.svg";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { getToken } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
-import { Scrollbars } from 'react-custom-scrollbars';
-import FourOFour from '../FourOFour/FourOFourError';
+import { Scrollbars } from "react-custom-scrollbars";
+import FourOFour from "../FourOFour/FourOFourError";
 import {
   PostImageUrl,
   ProductPayment,
@@ -106,10 +106,10 @@ class ExchangeFull extends Component {
   handleDelete = async (id) => {
     await this.props.deleteQuestionDispatch(id, this.props.match.params.id);
   };
-  handlePostDelete = async () =>{
+  handlePostDelete = async () => {
     this.props.deletePostDispatch(this.props.match.params.id);
     this.props.history.push("/home");
-  }
+  };
 
   handleSave = async (isSaved) => {
     if (this.props.isLoggedIn)
@@ -271,10 +271,10 @@ class ExchangeFull extends Component {
   };
 
   render() {
-    const {  selected, answer, sort } = this.state;
-    const { post, loading,success } = this.props;
+    const { selected, answer, sort } = this.state;
+    const { post, loading, success } = this.props;
     if (loading) return <PostLoader />;
-    if (!success && !loading ) return <FourOFour/>
+    if (!success && !loading) return <FourOFour />;
     return (
       <>
         <Breakpoint large up>
@@ -284,7 +284,10 @@ class ExchangeFull extends Component {
             style={{ paddingLeft: "5rem", paddingTop: "2.5rem" }}
           >
             <Grid item xs={6} className="product__lt">
-              <h5 className="product__headline"><a href="/home">TradeIn</a> / <a href="/exchnage">Exchange</a> / {post.title}</h5>
+              <h5 className="product__headline">
+                <a href="/home">TradeIn</a> / <a href="/exchnage">Exchange</a> /{" "}
+                {post.title}
+              </h5>
               <div className="product__lt__Box">
                 <div className="product__lt__Box__imageWrapper">
                   {post.images.map((item, index) => (
@@ -297,7 +300,7 @@ class ExchangeFull extends Component {
                     >
                       <a herf="#pic1">
                         <img
-                          src={PostImageUrl+""+item}
+                          src={PostImageUrl + "" + item}
                           onClick={() => this.setState({ selected: index })}
                           style={{ opacity: index == selected ? "1" : "0.4" }}
                         />
@@ -306,7 +309,7 @@ class ExchangeFull extends Component {
                   ))}
                 </div>
                 <div className="product__lt__Box__outer">
-                  <img src={PostImageUrl+""+post.images[selected]} />
+                  <img src={PostImageUrl + "" + post.images[selected]} />
                   <div className="product__Box__outer__icons">
                     {selected > 0 && (
                       <div className="product__lt__Box__outer__icons__icon1">
@@ -335,7 +338,16 @@ class ExchangeFull extends Component {
               </div>
               <div className="product__lt__moreopt">
                 <h3>
-                  Have a similar item? <a href={this.props.isLoggedIn?"/sell":`${this.props.pathname}?login=true`}>Sell yours</a>
+                  Have a similar item?{" "}
+                  <a
+                    href={
+                      this.props.isLoggedIn
+                        ? "/sell"
+                        : `${this.props.pathname}?login=true`
+                    }
+                  >
+                    Sell yours
+                  </a>
                 </h3>
 
                 <div className="product__lt__moreopt__like">
@@ -357,7 +369,14 @@ class ExchangeFull extends Component {
 
               <div className="product__lt__profile">
                 <div className="product__lt__profile__pic">
-                <img src={post.user_image? ProfileImageUrl+""+post.user_image: NoProfileImage} className="nav__profile"/>
+                  <img
+                    src={
+                      post.user_image
+                        ? ProfileImageUrl + "" + post.user_image
+                        : NoProfileImage
+                    }
+                    className="nav__profile"
+                  />
                   <div className="product__lt__profile__name">
                     Exchanged by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
@@ -365,175 +384,196 @@ class ExchangeFull extends Component {
                 </div>
 
                 <div className="product__lt__profile__btn">
-                  <Button onClick={()=>this.props.history.push(`/account/${post.user_id}/`)}>View Profile</Button>
+                  <Button
+                    onClick={() =>
+                      this.props.history.push(`/account/${post.user_id}/`)
+                    }
+                  >
+                    View Profile
+                  </Button>
                 </div>
               </div>
-             
+
               <div className="product__lt__ques">
-              <Scrollbars style={{ width: "100%", height: "100%" }}>
-                <div className="product__lt__ques__heading">
-                  <h2>Questions and Answers</h2>
-                  {!post.is_owner && (
-                    <div className="product__lt__ques__heading__ask">
-                      <Link
-                        to={
-                          this.props.isLoggedIn
-                            ? `/buy/${this.props.match.params.id}/ask`
-                            : `${this.props.pathname}?login==true`
+                <Scrollbars style={{ width: "100%", height: "100%" }}>
+                  <div className="product__lt__ques__heading">
+                    <h2>Questions and Answers</h2>
+                    {!post.is_owner && (
+                      <div className="product__lt__ques__heading__ask">
+                        <Link
+                          to={
+                            this.props.isLoggedIn
+                              ? `/buy/${this.props.match.params.id}/ask`
+                              : `${this.props.pathname}?login==true`
+                          }
+                        >
+                          Ask Question
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  {!post.is_owner ? (
+                    <div className="product__lt__ques__sort">
+                      <FormLabel
+                        component="legend"
+                        className="product__lt__ques__sort__lbl"
+                      >
+                        Sort:
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-label="sort"
+                        name="sort"
+                        value={sort}
+                        onChange={(e) =>
+                          this.setState({ sort: e.target.value })
                         }
                       >
-                        Ask Question
-                      </Link>
+                        <FormControlLabel
+                          value="all"
+                          control={<Radio />}
+                          label="All Questions"
+                        />
+                        <FormControlLabel
+                          value="my"
+                          control={<Radio />}
+                          label="My Questions"
+                        />
+                      </RadioGroup>
+                    </div>
+                  ) : (
+                    <div className="product__lt__ques__sort">
+                      <FormLabel
+                        component="legend"
+                        className="product__lt__ques__sort__lbl"
+                      >
+                        Sort:
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-label="sort"
+                        name="sort"
+                        value={sort}
+                        onChange={(e) =>
+                          this.setState({ sort: e.target.value })
+                        }
+                      >
+                        <FormControlLabel
+                          value="all"
+                          control={<Radio />}
+                          label="All Questions"
+                        />
+                        <FormControlLabel
+                          value="my"
+                          control={<Radio />}
+                          label="Not Answered"
+                        />
+                      </RadioGroup>
                     </div>
                   )}
-                </div>
-                {!post.is_owner ? (
-                  <div className="product__lt__ques__sort">
-                    <FormLabel
-                      component="legend"
-                      className="product__lt__ques__sort__lbl"
-                    >
-                      Sort:
-                    </FormLabel>
-                    <RadioGroup
-                      row
-                      aria-label="sort"
-                      name="sort"
-                      value={sort}
-                      onChange={(e) => this.setState({ sort: e.target.value })}
-                    >
-                      <FormControlLabel
-                        value="all"
-                        control={<Radio />}
-                        label="All Questions"
-                      />
-                      <FormControlLabel
-                        value="my"
-                        control={<Radio />}
-                        label="My Questions"
-                      />
-                    </RadioGroup>
-                  </div>
-                ): <div className="product__lt__ques__sort">
-                <FormLabel
-                  component="legend"
-                  className="product__lt__ques__sort__lbl"
-                >
-                  Sort:
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-label="sort"
-                  name="sort"
-                  value={sort}
-                  onChange={(e) => this.setState({ sort: e.target.value })}
-                >
-                  <FormControlLabel
-                    value="all"
-                    control={<Radio />}
-                    label="All Questions"
-                  />
-                  <FormControlLabel
-                    value="my"
-                    control={<Radio />}
-                    label="Not Answered"
-                  />
-                </RadioGroup>
-              </div>}
-                {post.questions.length==0 && <div className="product__lt__ques__empty"><img src={NoQuestionImage}/><h3>Nothing to show!</h3></div>}
-                {post.questions.map((obj, index) => {
-                  if (
-                    sort == "all" ||
-                    (sort == "my" && obj.user == this.props.myDetails.username && !post.is_owner) ||
-                    (sort == "my" && !obj.is_answered && post.is_owner)
-                  )
-                    return (
-                      <div className="product__lt__ques__q1">
-                        <div className="product__lt__ques__q1__qa1">
-                          <h3>Q. {obj.question}</h3>
-                          {!post.is_owner && (
-                            <h3 style={{ color: "#6e6e6e" }}>
-                              {obj.is_answered ? (
-                                `A. ${obj.answer}`
-                              ) : (
-                                <>
-                                  <div
-                                    style={{
-                                      color: "#9e9e9e",
-                                      fontSize: "0.85rem",
-                                    }}
-                                  >
-                                    Not Answered yet
-                                  </div>
-                                </>
-                              )}
-                            </h3>
-                          )}
+                  {post.questions.length == 0 && (
+                    <div className="product__lt__ques__empty">
+                      <img src={NoQuestionImage} />
+                      <h3>Nothing to show!</h3>
+                    </div>
+                  )}
+                  {post.questions.map((obj, index) => {
+                    if (
+                      sort == "all" ||
+                      (sort == "my" &&
+                        obj.user == this.props.myDetails.username &&
+                        !post.is_owner) ||
+                      (sort == "my" && !obj.is_answered && post.is_owner)
+                    )
+                      return (
+                        <div className="product__lt__ques__q1">
+                          <div className="product__lt__ques__q1__qa1">
+                            <h3>Q. {obj.question}</h3>
+                            {!post.is_owner && (
+                              <h3 style={{ color: "#6e6e6e" }}>
+                                {obj.is_answered ? (
+                                  `A. ${obj.answer}`
+                                ) : (
+                                  <>
+                                    <div
+                                      style={{
+                                        color: "#9e9e9e",
+                                        fontSize: "0.85rem",
+                                      }}
+                                    >
+                                      Not Answered yet
+                                    </div>
+                                  </>
+                                )}
+                              </h3>
+                            )}
 
-                          {post.is_owner && (
-                            <div className="product__lt__ques__q1__ans">
-                              {!obj.is_answered ? (
-                                <>
-                                  <TextField
-                                    type="text"
-                                    required
-                                    value={index in answer ? answer[index] : ""}
-                                    placeholder="write your answer here"
-                                    onChange={(e) =>
-                                      this.onHandleChange(e, index)
-                                    }
-                                    className="login__right__myForm__formData__username"
-                                    variant="outlined"
-                                    name="answer"
-                                    multiline
-                                    row={4}
-                                  ></TextField>
-                                  <Button
-                                    onClick={() =>
-                                      this.handleAnswer(obj.id, "add", index)
-                                    }
-                                  >
-                                    Answer
-                                  </Button>
-                                </>
-                              ) : (
-                                <div className="product__lt__ques__q1__ansdone">
-                                  <h3 style={{ color: "#6e6e6e" }}>
-                                    A. {obj.answer}
-                                  </h3>{" "}
-                                  <Link>
-                                    <IconButton
-                                      style={{ padding: "0" }}
+                            {post.is_owner && (
+                              <div className="product__lt__ques__q1__ans">
+                                {!obj.is_answered ? (
+                                  <>
+                                    <TextField
+                                      type="text"
+                                      required
+                                      value={
+                                        index in answer ? answer[index] : ""
+                                      }
+                                      placeholder="write your answer here"
+                                      onChange={(e) =>
+                                        this.onHandleChange(e, index)
+                                      }
+                                      className="login__right__myForm__formData__username"
+                                      variant="outlined"
+                                      name="answer"
+                                      multiline
+                                      row={4}
+                                    ></TextField>
+                                    <Button
                                       onClick={() =>
-                                        this.handleAnswer(obj.id, "delete")
+                                        this.handleAnswer(obj.id, "add", index)
                                       }
                                     >
-                                      <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
-                                    </IconButton>
-                                  </Link>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                        {!post.is_owner &&
-                          obj.user == this.props.myDetails.username && (
-                            <div className="product__lt__ques__q1__icon1">
-                              {/* <IconButton style={{padding:"0"}} >
+                                      Answer
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <div className="product__lt__ques__q1__ansdone">
+                                    <h3 style={{ color: "#6e6e6e" }}>
+                                      A. {obj.answer}
+                                    </h3>{" "}
+                                    <Link>
+                                      <IconButton
+                                        style={{ padding: "0" }}
+                                        onClick={() =>
+                                          this.handleAnswer(obj.id, "delete")
+                                        }
+                                      >
+                                        <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                                      </IconButton>
+                                    </Link>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          {!post.is_owner &&
+                            obj.user == this.props.myDetails.username && (
+                              <div className="product__lt__ques__q1__icon1">
+                                {/* <IconButton style={{padding:"0"}} >
                         <EditIcon className="product__lt__ques__q1__icon1__edit" />
                       </IconButton> */}
-                              <IconButton
-                                style={{ padding: "0" }}
-                                onClick={() => this.handleDelete(obj.id)}
-                              >
-                                <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
-                              </IconButton>
-                            </div>
-                          )}
-                      </div>
-                    );
-                })}
-               </Scrollbars>
+                                <IconButton
+                                  style={{ padding: "0" }}
+                                  onClick={() => this.handleDelete(obj.id)}
+                                >
+                                  <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                                </IconButton>
+                              </div>
+                            )}
+                        </div>
+                      );
+                  })}
+                </Scrollbars>
               </div>
             </Grid>
 
@@ -550,9 +590,25 @@ class ExchangeFull extends Component {
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-                <h5 className="errormessage" style={{letterSpacing:"0.03em",marginTop:"12px"}}>{post.is_reserved?"this post is reserved upto "+post.reserved_expire_date+","+post.reserved_expire_time:null}</h5>
+                <h5
+                  className="errormessage"
+                  style={{ letterSpacing: "0.03em", marginTop: "12px" }}
+                >
+                  {post.is_reserved
+                    ? "this post is reserved upto " +
+                      post.reserved_expire_date +
+                      "," +
+                      post.reserved_expire_time
+                    : null}
+                </h5>
                 {!post.is_owner ? (
-                  <div className="product__rt__sell__buttons" style={{borderBottom:"2px solid #e6e6e6",paddingBottom:"2rem"}}>
+                  <div
+                    className="product__rt__sell__buttons"
+                    style={{
+                      borderBottom: "2px solid #e6e6e6",
+                      paddingBottom: "2rem",
+                    }}
+                  >
                     <div
                       className="product__rt__sell__buttons__buy"
                       style={{ width: "100%" }}
@@ -564,16 +620,18 @@ class ExchangeFull extends Component {
                         Buy Now
                       </Button>
                     </div>
-                    <div className="product__rt__sell__reserved" style={{width:"100%",padding:"0",border:"none"}}>
-                    <Button
-                      disabled={post.is_reserved}
-                      className="product__rt__sell__reserved__reservedbtn"
-                      onClick={this.showReserveRazorpay}
+                    <div
+                      className="product__rt__sell__reserved"
+                      style={{ width: "100%", padding: "0", border: "none" }}
                     >
-                      {post.is_reserved ? "Already reserved" :"RESERVED"}
-                    
-                    </Button>
-                  </div>
+                      <Button
+                        disabled={post.is_reserved}
+                        className="product__rt__sell__reserved__reservedbtn"
+                        onClick={this.showReserveRazorpay}
+                      >
+                        {post.is_reserved ? "Already reserved" : "RESERVED"}
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div
@@ -598,7 +656,10 @@ class ExchangeFull extends Component {
                       className="product__rt__sell__buttons__del"
                       style={{ width: "100%" }}
                     >
-                      <Button className="product__rt__sell__buttons__del__delbtn" onClick={this.handlePostDelete}>
+                      <Button
+                        className="product__rt__sell__buttons__del__delbtn"
+                        onClick={this.handlePostDelete}
+                      >
                         Delete
                       </Button>
                     </div>
@@ -669,7 +730,7 @@ class ExchangeFull extends Component {
             <div className="product__lt">
               <div className="product__lt__Box">
                 <div className="product__lt__Box__outer">
-                  <img src={PostImageUrl+""+post.images[selected]} />
+                  <img src={PostImageUrl + "" + post.images[selected]} />
                   <div className="product__Box__outer__icons">
                     {selected > 0 && (
                       <div className="product__lt__Box__outer__icons__icon1">
@@ -706,7 +767,7 @@ class ExchangeFull extends Component {
                     >
                       <a herf="#pic1">
                         <img
-                          src={PostImageUrl+""+item}
+                          src={PostImageUrl + "" + item}
                           onClick={() => this.setState({ selected: index })}
                           style={{ opacity: index == selected ? "1" : "0.4" }}
                         />
@@ -746,9 +807,25 @@ class ExchangeFull extends Component {
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
                 </div>
-                <h5 className="errormessage" style={{letterSpacing:"0.03em",marginTop:"12px"}}>{post.is_reserved?"this post is reserved upto "+post.reserved_expire_date+","+post.reserved_expire_time:null}</h5>
+                <h5
+                  className="errormessage"
+                  style={{ letterSpacing: "0.03em", marginTop: "12px" }}
+                >
+                  {post.is_reserved
+                    ? "this post is reserved upto " +
+                      post.reserved_expire_date +
+                      "," +
+                      post.reserved_expire_time
+                    : null}
+                </h5>
                 {!post.is_owner ? (
-                  <div className="product__rt__sell__buttons" style={{ borderBottom: "2px solid #e6e6e6",paddingBottom:"1.5rem" }}>
+                  <div
+                    className="product__rt__sell__buttons"
+                    style={{
+                      borderBottom: "2px solid #e6e6e6",
+                      paddingBottom: "1.5rem",
+                    }}
+                  >
                     <div
                       className="product__rt__sell__buttons__buy"
                       style={{ width: "100%" }}
@@ -760,16 +837,18 @@ class ExchangeFull extends Component {
                         Buy Now
                       </Button>
                     </div>
-                    <div className="product__rt__sell__reserved" style={{width:"100%",padding:"0",border:"none"}}>
-                    <Button
-                      disabled={post.is_reserved}
-                      className="product__rt__sell__reserved__reservedbtn"
-                      onClick={this.showReserveRazorpay}
+                    <div
+                      className="product__rt__sell__reserved"
+                      style={{ width: "100%", padding: "0", border: "none" }}
                     >
-                      {post.is_reserved ? "Already reserved" :"RESERVED"}
-                    
-                    </Button>
-                  </div>
+                      <Button
+                        disabled={post.is_reserved}
+                        className="product__rt__sell__reserved__reservedbtn"
+                        onClick={this.showReserveRazorpay}
+                      >
+                        {post.is_reserved ? "Already reserved" : "RESERVED"}
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div
@@ -860,7 +939,14 @@ class ExchangeFull extends Component {
 
               <div className="product__lt__profile">
                 <div className="product__lt__profile__pic">
-                <img src={post.user_image? ProfileImageUrl+""+post.user_image: NoProfileImage} className="nav__profile"/>
+                  <img
+                    src={
+                      post.user_image
+                        ? ProfileImageUrl + "" + post.user_image
+                        : NoProfileImage
+                    }
+                    className="nav__profile"
+                  />
                   <div className="product__lt__profile__name">
                     Exchanged by {post.first_name + " " + post.last_name} <br />{" "}
                     <span>{post.city}</span>
@@ -868,175 +954,196 @@ class ExchangeFull extends Component {
                 </div>
 
                 <div className="product__lt__profile__btn">
-                  <Button onClick={()=>this.props.history.push(`/account/${post.user_id}/`)}>View Profile</Button>
+                  <Button
+                    onClick={() =>
+                      this.props.history.push(`/account/${post.user_id}/`)
+                    }
+                  >
+                    View Profile
+                  </Button>
                 </div>
               </div>
 
               <div className="product__lt__ques">
-              <Scrollbars style={{ width: "100%", height: "100%" }}>
-                <div className="product__lt__ques__heading">
-                  <h2>Questions and Answers</h2>
-                  {!post.is_owner && (
-                    <div className="product__lt__ques__heading__ask">
-                      <Link
-                        to={
-                          this.props.isLoggedIn
-                            ? `/buy/${this.props.match.params.id}/ask`
-                            : `${this.props.pathname}?login==true`
+                <Scrollbars style={{ width: "100%", height: "100%" }}>
+                  <div className="product__lt__ques__heading">
+                    <h2>Questions and Answers</h2>
+                    {!post.is_owner && (
+                      <div className="product__lt__ques__heading__ask">
+                        <Link
+                          to={
+                            this.props.isLoggedIn
+                              ? `/buy/${this.props.match.params.id}/ask`
+                              : `${this.props.pathname}?login==true`
+                          }
+                        >
+                          Ask Question
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  {!post.is_owner ? (
+                    <div className="product__lt__ques__sort">
+                      <FormLabel
+                        component="legend"
+                        className="product__lt__ques__sort__lbl"
+                      >
+                        Sort:
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-label="sort"
+                        name="sort"
+                        value={sort}
+                        onChange={(e) =>
+                          this.setState({ sort: e.target.value })
                         }
                       >
-                        Ask Question
-                      </Link>
+                        <FormControlLabel
+                          value="all"
+                          control={<Radio />}
+                          label="All Questions"
+                        />
+                        <FormControlLabel
+                          value="my"
+                          control={<Radio />}
+                          label="My Questions"
+                        />
+                      </RadioGroup>
+                    </div>
+                  ) : (
+                    <div className="product__lt__ques__sort">
+                      <FormLabel
+                        component="legend"
+                        className="product__lt__ques__sort__lbl"
+                      >
+                        Sort:
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-label="sort"
+                        name="sort"
+                        value={sort}
+                        onChange={(e) =>
+                          this.setState({ sort: e.target.value })
+                        }
+                      >
+                        <FormControlLabel
+                          value="all"
+                          control={<Radio />}
+                          label="All Questions"
+                        />
+                        <FormControlLabel
+                          value="my"
+                          control={<Radio />}
+                          label="Not Answered"
+                        />
+                      </RadioGroup>
                     </div>
                   )}
-                </div>
-                {!post.is_owner ? (
-                  <div className="product__lt__ques__sort">
-                    <FormLabel
-                      component="legend"
-                      className="product__lt__ques__sort__lbl"
-                    >
-                      Sort:
-                    </FormLabel>
-                    <RadioGroup
-                      row
-                      aria-label="sort"
-                      name="sort"
-                      value={sort}
-                      onChange={(e) => this.setState({ sort: e.target.value })}
-                    >
-                      <FormControlLabel
-                        value="all"
-                        control={<Radio />}
-                        label="All Questions"
-                      />
-                      <FormControlLabel
-                        value="my"
-                        control={<Radio />}
-                        label="My Questions"
-                      />
-                    </RadioGroup>
-                  </div>
-                ): <div className="product__lt__ques__sort">
-                <FormLabel
-                  component="legend"
-                  className="product__lt__ques__sort__lbl"
-                >
-                  Sort:
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-label="sort"
-                  name="sort"
-                  value={sort}
-                  onChange={(e) => this.setState({ sort: e.target.value })}
-                >
-                  <FormControlLabel
-                    value="all"
-                    control={<Radio />}
-                    label="All Questions"
-                  />
-                  <FormControlLabel
-                    value="my"
-                    control={<Radio />}
-                    label="Not Answered"
-                  />
-                </RadioGroup>
-              </div>}
-              {post.questions.length==0 && <div className="product__lt__ques__empty"><img src={NoQuestionImage}/><h3>Nothing to show!</h3></div>}
-                {post.questions.map((obj, index) => {
-                  if (
-                    sort == "all" ||
-                    (sort == "my" && obj.user == this.props.myDetails.username && !post.is_owner) ||
-                    (sort == "my" && !obj.is_answered && post.is_owner)
-                  )
-                    return (
-                      <div className="product__lt__ques__q1">
-                        <div className="product__lt__ques__q1__qa1">
-                          <h3>Q. {obj.question}</h3>
-                          {!post.is_owner && (
-                            <h3 style={{ color: "#6e6e6e" }}>
-                              {obj.is_answered ? (
-                                `A. ${obj.answer}`
-                              ) : (
-                                <>
-                                  <div
-                                    style={{
-                                      color: "#9e9e9e",
-                                      fontSize: "0.85rem",
-                                    }}
-                                  >
-                                    Not Answered yet
-                                  </div>
-                                </>
-                              )}
-                            </h3>
-                          )}
+                  {post.questions.length == 0 && (
+                    <div className="product__lt__ques__empty">
+                      <img src={NoQuestionImage} />
+                      <h3>Nothing to show!</h3>
+                    </div>
+                  )}
+                  {post.questions.map((obj, index) => {
+                    if (
+                      sort == "all" ||
+                      (sort == "my" &&
+                        obj.user == this.props.myDetails.username &&
+                        !post.is_owner) ||
+                      (sort == "my" && !obj.is_answered && post.is_owner)
+                    )
+                      return (
+                        <div className="product__lt__ques__q1">
+                          <div className="product__lt__ques__q1__qa1">
+                            <h3>Q. {obj.question}</h3>
+                            {!post.is_owner && (
+                              <h3 style={{ color: "#6e6e6e" }}>
+                                {obj.is_answered ? (
+                                  `A. ${obj.answer}`
+                                ) : (
+                                  <>
+                                    <div
+                                      style={{
+                                        color: "#9e9e9e",
+                                        fontSize: "0.85rem",
+                                      }}
+                                    >
+                                      Not Answered yet
+                                    </div>
+                                  </>
+                                )}
+                              </h3>
+                            )}
 
-                          {post.is_owner && (
-                            <div className="product__lt__ques__q1__ans">
-                              {!obj.is_answered ? (
-                                <>
-                                  <TextField
-                                    type="text"
-                                    required
-                                    value={index in answer ? answer[index] : ""}
-                                    placeholder="write your answer here"
-                                    onChange={(e) =>
-                                      this.onHandleChange(e, index)
-                                    }
-                                    className="login__right__myForm__formData__username"
-                                    variant="outlined"
-                                    name="answer"
-                                    multiline
-                                    row={4}
-                                  ></TextField>
-                                  <Button
-                                    onClick={() =>
-                                      this.handleAnswer(obj.id, "add", index)
-                                    }
-                                  >
-                                    Answer
-                                  </Button>
-                                </>
-                              ) : (
-                                <div className="product__lt__ques__q1__ansdone">
-                                  <h3 style={{ color: "#6e6e6e" }}>
-                                    A. {obj.answer}
-                                  </h3>{" "}
-                                  <Link>
-                                    <IconButton
-                                      style={{ padding: "0" }}
+                            {post.is_owner && (
+                              <div className="product__lt__ques__q1__ans">
+                                {!obj.is_answered ? (
+                                  <>
+                                    <TextField
+                                      type="text"
+                                      required
+                                      value={
+                                        index in answer ? answer[index] : ""
+                                      }
+                                      placeholder="write your answer here"
+                                      onChange={(e) =>
+                                        this.onHandleChange(e, index)
+                                      }
+                                      className="login__right__myForm__formData__username"
+                                      variant="outlined"
+                                      name="answer"
+                                      multiline
+                                      row={4}
+                                    ></TextField>
+                                    <Button
                                       onClick={() =>
-                                        this.handleAnswer(obj.id, "delete")
+                                        this.handleAnswer(obj.id, "add", index)
                                       }
                                     >
-                                      <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
-                                    </IconButton>
-                                  </Link>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                        {!post.is_owner &&
-                          obj.user == this.props.myDetails.username && (
-                            <div className="product__lt__ques__q1__icon1">
-                              {/* <IconButton style={{padding:"0"}} >
+                                      Answer
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <div className="product__lt__ques__q1__ansdone">
+                                    <h3 style={{ color: "#6e6e6e" }}>
+                                      A. {obj.answer}
+                                    </h3>{" "}
+                                    <Link>
+                                      <IconButton
+                                        style={{ padding: "0" }}
+                                        onClick={() =>
+                                          this.handleAnswer(obj.id, "delete")
+                                        }
+                                      >
+                                        <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                                      </IconButton>
+                                    </Link>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          {!post.is_owner &&
+                            obj.user == this.props.myDetails.username && (
+                              <div className="product__lt__ques__q1__icon1">
+                                {/* <IconButton style={{padding:"0"}} >
                         <EditIcon className="product__lt__ques__q1__icon1__edit" />
                       </IconButton> */}
-                              <IconButton
-                                style={{ padding: "0" }}
-                                onClick={() => this.handleDelete(obj.id)}
-                              >
-                                <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
-                              </IconButton>
-                            </div>
-                          )}
-                      </div>
-                    );
-                })}
-               </Scrollbars>
+                                <IconButton
+                                  style={{ padding: "0" }}
+                                  onClick={() => this.handleDelete(obj.id)}
+                                >
+                                  <DeleteIcon className="product__lt__ques__q1__icon1__delete" />
+                                </IconButton>
+                              </div>
+                            )}
+                        </div>
+                      );
+                  })}
+                </Scrollbars>
               </div>
             </div>
           </div>
@@ -1059,9 +1166,10 @@ const mapStateToProps = (state, ownProps) => {
     loading: state.post.postLoading,
     success: state.post.postSuccess,
     isLoggedIn: state.token.isLoggedIn,
-    post: ownProps.match.params.id &&  ownProps.match.params.id in state.post.posts
-      ? state.post.posts[ownProps.match.params.id]
-      : {},
+    post:
+      ownProps.match.params.id && ownProps.match.params.id in state.post.posts
+        ? state.post.posts[ownProps.match.params.id]
+        : {},
   };
 };
 

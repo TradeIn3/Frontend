@@ -6,19 +6,53 @@ import {
   ADD_ALL_POST_DATA,
   CREATE_POST_SUCCESS,
   NO_CONTENT_AVAILABLE,
+  ADD_POST_FILTERS,
+  ADD_SORT_BY,
 } from "./postTypes";
 
 const initialState = {
+  filters: {
+    categoryVisible: true,
+    brandVisible: true,
+    conditionVisible: true,
+    statusVisible: true,
+    priceVisible: true,
+    colorVisible: true,
+    subcategVisible: true,
+
+    status: "Any",
+    condition: [],
+    category: "Any",
+    subcategory: "Any",
+    brand: "Any",
+    price: "0",
+    color: {},
+    min: 0,
+    max: 0,
+    bool: false,
+  },
   posts: {},
   loading: true,
-  postLoading:true,
-  postSuccess:true,
-  success:false,
-  postId:null,
-  allPost :[],
+  postLoading: true,
+  postSuccess: true,
+  success: false,
+  postId: null,
+  allPost: [],
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_POST_FILTERS:
+      return {
+        ...state,
+        filters: {
+          ...action.data,
+        },
+      };
+    case ADD_SORT_BY:
+      return {
+        ...state,
+        sort: action.value,
+      };
     case ADD_POST_DATA:
       return {
         ...state,
@@ -27,27 +61,27 @@ const reducer = (state = initialState, action) => {
           [action.post.id]: action.post,
         },
         postLoading: false,
-        postSuccess:true,
+        postSuccess: true,
       };
-      case NO_CONTENT_AVAILABLE:
+    case NO_CONTENT_AVAILABLE:
       return {
         ...state,
         postLoading: action.loading,
-        postSuccess:action.success,
+        postSuccess: action.success,
       };
-      case ADD_ALL_POST_DATA:
+    case ADD_ALL_POST_DATA:
       return {
         ...state,
         loading: false,
         allPost: action.post,
       };
-      case CREATE_POST_SUCCESS:
+    case CREATE_POST_SUCCESS:
       return {
         ...state,
         postSuccess: action.value,
-        postId:action.id,
-        postLoading:false,
-      };  
+        postId: action.id,
+        postLoading: false,
+      };
     case ADD_QUESION_DATA:
       return {
         ...state,

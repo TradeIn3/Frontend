@@ -3,8 +3,8 @@ import { Breakpoint } from "react-socks";
 import { getCategories } from "../../utils/Utils";
 import NoProfileImage from "../../assets/NoProfile.svg";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {editAddress} from "../../redux/mydetails/myDetailsActions";
-import {connect} from "react-redux";
+import { editAddress } from "../../redux/mydetails/myDetailsActions";
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import {
   Button,
@@ -24,8 +24,11 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@material-ui/core";
-import PostLoader from '../Loaders/PostLoader';
-import {getUserDetails,userLoading} from "../../redux/profile/profileActions";
+import PostLoader from "../Loaders/PostLoader";
+import {
+  getUserDetails,
+  userLoading,
+} from "../../redux/profile/profileActions";
 
 class Address extends Component {
   constructor(props) {
@@ -34,11 +37,11 @@ class Address extends Component {
     this.state = {
       address: this.props.user.address || "",
       district: this.props.user.district || "",
-      city: this.props.user.city || "" ,
-      pincode: this.props.user.pincode ||"",
-      phone:this.props.user.phone || "",
-      firstname: this.props.user.first_name ||"",
-      lastname: this.props.user.last_name ||"",
+      city: this.props.user.city || "",
+      pincode: this.props.user.pincode || "",
+      phone: this.props.user.phone || "",
+      firstname: this.props.user.first_name || "",
+      lastname: this.props.user.last_name || "",
       firstnameValid: true,
       lastnameValid: true,
       cityValid: true,
@@ -58,7 +61,7 @@ class Address extends Component {
       },
     };
   }
-   async componentDidMount(){
+  async componentDidMount() {
     // await this.props.userLoadingDispatch(true)
     await this.props.getUserDispatch(this.props.match.params.id);
   }
@@ -141,7 +144,7 @@ class Address extends Component {
             : "";
         fieldValidationErrors.phone = errorMsg;
         break;
-        case "pincode":
+      case "pincode":
         pincodeValid = value.match(/^[0-9]{6}$/);
         errorMsg =
           value.length < 6 || value.length > 10
@@ -150,62 +153,61 @@ class Address extends Component {
             ? "only numbers are allowed"
             : "";
         fieldValidationErrors.pincode = errorMsg;
-        break; 
+        break;
       default:
         break;
     }
     this.setState(
       {
         formErrors: fieldValidationErrors,
-        firstnameValid : firstnameValid,
-         lastnameValid : lastnameValid,
-         districtValid : districtValid,
-         cityValid : cityValid,
-         pincodeValid : pincodeValid,
-         addressValid : addressValid,
-         phoneValid : phoneValid,
+        firstnameValid: firstnameValid,
+        lastnameValid: lastnameValid,
+        districtValid: districtValid,
+        cityValid: cityValid,
+        pincodeValid: pincodeValid,
+        addressValid: addressValid,
+        phoneValid: phoneValid,
       },
       this.validateForm
-    ); 
+    );
   }
 
   validateForm() {
     this.setState({
-      formValid:  this.state.firstnameValid &&
-         this.state.lastnameValid &&
-         this.state.districtValid &&
-         this.state.cityValid &&
-         this.state.pincodeValid &&
-         this.state.addressValid &&
-         this.state.phoneValid 
+      formValid:
+        this.state.firstnameValid &&
+        this.state.lastnameValid &&
+        this.state.districtValid &&
+        this.state.cityValid &&
+        this.state.pincodeValid &&
+        this.state.addressValid &&
+        this.state.phoneValid,
     });
   }
 
-   onHandleSubmit = async (e) => {
+  onHandleSubmit = async (e) => {
     e.preventDefault();
     const { formValid } = this.state;
     const data = {
-    first_name : this.state.firstname,
-     last_name : this.state.lastname,
-     district : this.state.district,
-     city : this.state.city,
-     pincode : this.state.pincode+"",
-     address : this.state.address,
-     phone : this.state.phone+"",
-    }
-    if(formValid)
-    await this.props.editAddressDispatch(data);
+      first_name: this.state.firstname,
+      last_name: this.state.lastname,
+      district: this.state.district,
+      city: this.state.city,
+      pincode: this.state.pincode + "",
+      address: this.state.address,
+      phone: this.state.phone + "",
+    };
+    if (formValid) await this.props.editAddressDispatch(data);
   };
 
   render() {
     const categories = getCategories();
-      const {  formErrors, formValid} =
-      this.state;
-      const {user,myDetails,loading} = this.props;
+    const { formErrors, formValid } = this.state;
+    const { user, myDetails, loading } = this.props;
 
-      const is_mine = user.username === myDetails.username;
+    const is_mine = user.username === myDetails.username;
     // if(loading) return <PostLoader/>
-    if(!user) return <div>User not found</div> 
+    if (!user) return <div>User not found</div>;
     return (
       <Dialog
         open={true}
@@ -248,9 +250,9 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.firstname}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.firstname}
+                    </FormHelperText>
                   </div>
                 </Grid>
                 <Grid
@@ -275,9 +277,9 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.lastname}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.lastname}
+                    </FormHelperText>
                   </div>
                 </Grid>
                 <Grid item xs={12} className="address__details__add">
@@ -295,9 +297,9 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.address}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.address}
+                    </FormHelperText>
                   </div>
                 </Grid>
                 <Grid
@@ -322,9 +324,9 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.district}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.district}
+                    </FormHelperText>
                   </div>
                 </Grid>
                 <Grid
@@ -349,9 +351,9 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.city}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.city}
+                    </FormHelperText>
                   </div>
                 </Grid>
                 <Grid
@@ -376,9 +378,9 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.pincode}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.pincode}
+                    </FormHelperText>
                   </div>
                 </Grid>
                 <Grid
@@ -404,23 +406,25 @@ class Address extends Component {
                       variant="outlined"
                       className="login__right__myForm__formData__select"
                     ></TextField>
-                     <FormHelperText className="errormessage">
-                        {formErrors.phone}
-                      </FormHelperText>
+                    <FormHelperText className="errormessage">
+                      {formErrors.phone}
+                    </FormHelperText>
                   </div>
                 </Grid>
-                 {is_mine  &&<Button
-                      disabled={!formValid}
-                      onClick={this.onHandleSubmit}
-                      className={
-                        !formValid
-                          ? "login__right__myForm__loginButton__disable"
-                          : "login__right__myForm__loginButton"
-                      }
-                      type="submit"
-                    >
-                      Edit Address
-                    </Button>}
+                {is_mine && (
+                  <Button
+                    disabled={!formValid}
+                    onClick={this.onHandleSubmit}
+                    className={
+                      !formValid
+                        ? "login__right__myForm__loginButton__disable"
+                        : "login__right__myForm__loginButton"
+                    }
+                    type="submit"
+                  >
+                    Edit Address
+                  </Button>
+                )}
               </Grid>
             </form>
           </div>
@@ -430,21 +434,25 @@ class Address extends Component {
   }
 }
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    loading:state.profile.userLoading,
+    loading: state.profile.userLoading,
     myDetails: state.myDetails.myDetails,
-    user:ownProps.match.params.id ? state.profile.users[ownProps.match.params.id]:null,
+    user: ownProps.match.params.id
+      ? state.profile.users[ownProps.match.params.id]
+      : null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editAddressDispatch:(data)=>dispatch(editAddress(data)),
-    userLoadingDispatch:(value)=>dispatch(userLoading(value)),
-    getUserDispatch:(id)=>dispatch(getUserDetails(id))
+    editAddressDispatch: (data) => dispatch(editAddress(data)),
+    userLoadingDispatch: (value) => dispatch(userLoading(value)),
+    getUserDispatch: (id) => dispatch(getUserDetails(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Address));
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Address));

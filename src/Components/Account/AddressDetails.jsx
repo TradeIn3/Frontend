@@ -3,8 +3,8 @@ import { Breakpoint } from "react-socks";
 import { getCategories } from "../../utils/Utils";
 import NoProfileImage from "../../assets/NoProfile.svg";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {editAddress} from "../../redux/mydetails/myDetailsActions";
-import {connect} from "react-redux";
+import { editAddress } from "../../redux/mydetails/myDetailsActions";
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import {
   Button,
@@ -24,8 +24,11 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@material-ui/core";
-import PostLoader from '../Loaders/PostLoader';
-import {getUserDetails,userLoading} from "../../redux/profile/profileActions";
+import PostLoader from "../Loaders/PostLoader";
+import {
+  getUserDetails,
+  userLoading,
+} from "../../redux/profile/profileActions";
 
 class AddressDetails extends Component {
   constructor(props) {
@@ -34,11 +37,11 @@ class AddressDetails extends Component {
     this.state = {
       address: this.props.user.address || "",
       district: this.props.user.district || "",
-      city: this.props.user.city || "" ,
-      pincode: this.props.user.pincode ||"",
-      phone:this.props.user.phone || "",
-      firstname: this.props.user.first_name ||"",
-      lastname: this.props.user.last_name ||"",
+      city: this.props.user.city || "",
+      pincode: this.props.user.pincode || "",
+      phone: this.props.user.phone || "",
+      firstname: this.props.user.first_name || "",
+      lastname: this.props.user.last_name || "",
       firstnameValid: "",
       lastnameValid: "",
       cityValid: "",
@@ -58,7 +61,7 @@ class AddressDetails extends Component {
       },
     };
   }
-   async componentDidMount(){
+  async componentDidMount() {
     // await this.props.userLoadingDispatch(true)
     await this.props.getUserDispatch(this.props.match.params.id);
   }
@@ -141,7 +144,7 @@ class AddressDetails extends Component {
             : "";
         fieldValidationErrors.phone = errorMsg;
         break;
-        case "pincode":
+      case "pincode":
         pincodeValid = value.match(/^[0-9]{6}$/);
         errorMsg =
           value.length < 6 || value.length > 10
@@ -150,62 +153,61 @@ class AddressDetails extends Component {
             ? "only numbers are allowed"
             : "";
         fieldValidationErrors.pincode = errorMsg;
-        break; 
+        break;
       default:
         break;
     }
     this.setState(
       {
         formErrors: fieldValidationErrors,
-        firstnameValid : firstnameValid,
-         lastnameValid : lastnameValid,
-         districtValid : districtValid,
-         cityValid : cityValid,
-         pincodeValid : pincodeValid,
-         addressValid : addressValid,
-         phoneValid : phoneValid,
+        firstnameValid: firstnameValid,
+        lastnameValid: lastnameValid,
+        districtValid: districtValid,
+        cityValid: cityValid,
+        pincodeValid: pincodeValid,
+        addressValid: addressValid,
+        phoneValid: phoneValid,
       },
       this.validateForm
-    ); 
+    );
   }
 
   validateForm() {
     this.setState({
-      formValid:  this.state.firstnameValid &&
-         this.state.lastnameValid &&
-         this.state.districtValid &&
-         this.state.cityValid &&
-         this.state.pincodeValid &&
-         this.state.addressValid &&
-         this.state.phoneValid 
+      formValid:
+        this.state.firstnameValid &&
+        this.state.lastnameValid &&
+        this.state.districtValid &&
+        this.state.cityValid &&
+        this.state.pincodeValid &&
+        this.state.addressValid &&
+        this.state.phoneValid,
     });
   }
 
-   onHandleSubmit = async (e) => {
+  onHandleSubmit = async (e) => {
     e.preventDefault();
     const { formValid } = this.state;
     const data = {
-    first_name : this.state.firstname,
-     last_name : this.state.lastname,
-     district : this.state.district,
-     city : this.state.city,
-     pincode : this.state.pincode,
-     address : this.state.address,
-     phone : this.state.phone,
-    }
-    if(formValid)
-    await this.props.editAddressDispatch(data);
+      first_name: this.state.firstname,
+      last_name: this.state.lastname,
+      district: this.state.district,
+      city: this.state.city,
+      pincode: this.state.pincode,
+      address: this.state.address,
+      phone: this.state.phone,
+    };
+    if (formValid) await this.props.editAddressDispatch(data);
   };
 
   render() {
     const categories = getCategories();
-      const {  formErrors, formValid} =
-      this.state;
-      const {user,myDetails,loading} = this.props;
+    const { formErrors, formValid } = this.state;
+    const { user, myDetails, loading } = this.props;
 
-      const is_mine = user.username === myDetails.username;
+    const is_mine = user.username === myDetails.username;
     // if(loading) return <PostLoader/>
-    if(!user) return <div>User not found</div> 
+    if (!user) return <div>User not found</div>;
     return (
       <Dialog
         open={true}
@@ -223,49 +225,54 @@ class AddressDetails extends Component {
         </DialogTitle>
         <Divider />
         <DialogContent style={{ padding: "8px" }}>
-             <div className="login__right__myForm__formData">
-                    <label htmlFor="name">Fullname:</label>
-                    <h4>{user.first_name+" "+user.last_name}</h4>
-                    <label htmlFor="name">Address:</label>
-                    <h4>{user.address}</h4>
-                     <label htmlFor="name">City:</label>
-                    <h4>{user.city}</h4>
-                     <label htmlFor="name">Pincode:</label>
-                    <h4>{user.pincode}</h4>
-                     <label htmlFor="name">District:</label>
-                    <h4>{user.district}</h4>
-                     <label htmlFor="name">Phone no:</label>
-                    <h4>{user.phone}</h4>
-                    
-              </div>  
-                <Button
-                      type="submit"
-                      style={{background:"#e6e6e6",width:"100%"}}
-                      onClick={()=>this.props.history.push(`${this.props.location.pathname}/edit`)}
-                    >
-                      Edit Address
-                    </Button>
+          <div className="login__right__myForm__formData">
+            <label htmlFor="name">Fullname:</label>
+            <h4>{user.first_name + " " + user.last_name}</h4>
+            <label htmlFor="name">Address:</label>
+            <h4>{user.address}</h4>
+            <label htmlFor="name">City:</label>
+            <h4>{user.city}</h4>
+            <label htmlFor="name">Pincode:</label>
+            <h4>{user.pincode}</h4>
+            <label htmlFor="name">District:</label>
+            <h4>{user.district}</h4>
+            <label htmlFor="name">Phone no:</label>
+            <h4>{user.phone}</h4>
+          </div>
+          <Button
+            type="submit"
+            style={{ background: "#e6e6e6", width: "100%" }}
+            onClick={() =>
+              this.props.history.push(`${this.props.location.pathname}/edit`)
+            }
+          >
+            Edit Address
+          </Button>
         </DialogContent>
       </Dialog>
     );
   }
 }
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    loading:state.profile.userLoading,
+    loading: state.profile.userLoading,
     myDetails: state.myDetails.myDetails,
-    user:ownProps.match.params.id ? state.profile.users[ownProps.match.params.id]:null,
+    user: ownProps.match.params.id
+      ? state.profile.users[ownProps.match.params.id]
+      : null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editAddressDispatch:(data)=>dispatch(editAddress(data)),
-    userLoadingDispatch:(value)=>dispatch(userLoading(value)),
-    getUserDispatch:(id)=>dispatch(getUserDetails(id))
+    editAddressDispatch: (data) => dispatch(editAddress(data)),
+    userLoadingDispatch: (value) => dispatch(userLoading(value)),
+    getUserDispatch: (id) => dispatch(getUserDetails(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddressDetails));
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AddressDetails));
