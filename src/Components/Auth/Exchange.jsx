@@ -59,7 +59,7 @@ class Exchange extends Component {
     await this.props.retrieveAllPostDispatch(
       "Any",
       "Any",
-      "Any",
+      [],
       [],
       0,
       0,
@@ -127,6 +127,7 @@ class Exchange extends Component {
             {showSidebar ? (
               <Sidebar
                 filter={true}
+                type="exchange"
                 handleDrawer={this.handleDrawer}
                 {...this.props}
               />
@@ -134,6 +135,7 @@ class Exchange extends Component {
             {bottom ? (
               <Sidebar
                 filter={false}
+                type="exchange"
                 handleDrawerClose={this.handleDrawerClose}
                 {...this.props}
               />

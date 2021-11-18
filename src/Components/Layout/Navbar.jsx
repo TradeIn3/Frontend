@@ -163,7 +163,7 @@ class Navbar extends Component {
                 <h1>TradeIn</h1>
               </a>
             </div>
-            {isLoggedIn && (
+            {isLoggedIn ? (
               <a
                 onClick={() =>
                   this.setState({ show: show == "block" ? "none" : "block" })
@@ -227,7 +227,12 @@ class Navbar extends Component {
                   </li>
                 </ul>
               </a>
-            )}
+            ):
+            <ul>
+               <li className="nav__login">
+                  <Link to="?login=true">Login</Link>
+                </li>
+             </ul>   }
             {/* <ul>
           <li className="nav__tab">
             <Link to="/home">HOME</Link>

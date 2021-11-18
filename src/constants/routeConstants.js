@@ -35,4 +35,6 @@ export const AUTH_DONATE_PRODUCT ="/donateproduct";
 export const AUTH_EXCHANGE_PRODUCT ="/exchangeproduct";
 
 export const AUTH_BUY_EDIT_PATH = "/buy/:id(\\d+)/edit";
+export const AUTH_DONATE_EDIT_PATH = "/donate/:id(\\d+)/edit";
+export const AUTH_EXCHANGE_EDIT_PATH = "/exchange/:id(\\d+)/edit";
 

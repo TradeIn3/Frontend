@@ -8,6 +8,7 @@ import {
   NO_CONTENT_AVAILABLE,
   ADD_POST_FILTERS,
   ADD_SORT_BY,
+  ALL_BRANDS,
 } from "./postTypes";
 
 const initialState = {
@@ -24,7 +25,7 @@ const initialState = {
     condition: [],
     category: "Any",
     subcategory: "Any",
-    brand: "Any",
+    brand: [],
     price: "0",
     color: {},
     min: 0,
@@ -37,10 +38,16 @@ const initialState = {
   postSuccess: true,
   success: false,
   postId: null,
+  brands:null,
   allPost: [],
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ALL_BRANDS:
+      return {
+        ...state,
+        brands:action.data,
+      }
     case ADD_POST_FILTERS:
       return {
         ...state,

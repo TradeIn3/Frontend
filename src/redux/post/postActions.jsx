@@ -7,6 +7,7 @@ import {
   CreatePost,
   PostDelete,
   PostEdit,
+  AllBrands,
 } from "../../api/pathConstants";
 import { Request } from "../../api/Request";
 import { openSnackbar } from "../snackbar/snackbarActions";
@@ -18,6 +19,7 @@ import {
   ADD_QUESION_DATA,
   ADD_SAVED_DATA,
   ADD_SORT_BY,
+  ALL_BRANDS,
   CREATE_POST_SUCCESS,
   DELETE_POST_DATA,
   DELETE_QUESION_DATA,
@@ -45,6 +47,29 @@ export const CreatePostSuccess = (value, id) => {
     id: id,
   };
 };
+
+export const allBrands = (data) => {
+  return {
+    type: ALL_BRANDS,
+    data: data,
+  };
+};
+
+export const getAllBrands = () => {
+  return async (dispatch, getState) => {
+    const res = await Request(
+      "GET",
+      `${AllBrands}`,
+      null,
+      null 
+    );
+    if (res && res.status === 200) {
+      await dispatch(allBrands(res.data));
+    }
+  };
+};
+
+
 
 export const CreateNewPost = (data) => {
   return async (dispatch, getState) => {
@@ -110,11 +135,12 @@ export const retrieveAllPost = (
   sort
 ) => {
   return async (dispatch, getState) => {
+    console.log("sorted",sort)
     const res = await Request(
       "GET",
       `${RetrieveAllPost}?category=${category}&subcategory=${subcategory}&brand=${brand}&color=${color}&min=${min}&max=${max}&state=${status}&condition=${condition}&barter=${barter}&donate=${donate}&sort=${sort}`,
       null,
-      null
+      null 
     );
     if (res && res.status === 200) {
       await dispatch(addAllPostDetails(res.data));

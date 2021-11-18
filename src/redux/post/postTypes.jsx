@@ -8,3 +8,4 @@ export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
 export const DELETE_POST_DATA = "DELETE_POST_DATA";
 export const ADD_POST_FILTERS = "ADD_POST_FILTERS";
 export const ADD_SORT_BY = "ADD_SORT_BY";
+export const ALL_BRANDS = "ALL_BRANDS";
