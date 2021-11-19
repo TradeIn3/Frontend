@@ -145,10 +145,10 @@ function Root(props) {
             <Layout {...props}>
               <Breakpoint large up>
                 <Grid container>
-                  <Grid item xs={2} style={{ position: "relative" }}>
+                  {/* <Grid item xs={2} style={{ position: "relative" }}>
                     <Sidebar {...props}/>
-                  </Grid>
-                  <Grid item xs={10}>
+                  </Grid> */}
+                  <Grid item xs={12}>
                     {" "}
                     <Exchange {...props} />
                   </Grid>

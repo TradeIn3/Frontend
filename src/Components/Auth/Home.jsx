@@ -23,12 +23,12 @@ export default class Home extends Component {
               return <div>{item}</div>;
             })}
           </div>
-          <NegotiateModal />
+          {/* <NegotiateModal /> */}
           {/* <DeleteModal/> */}
         </Breakpoint>
 
         <Breakpoint medium down>
-          <NegotiateModal />
+          {/* <NegotiateModal /> */}
           {/* <DeleteModal/> */}
         </Breakpoint>
       </>

@@ -5,8 +5,11 @@ import {
   Drawer,
   FormControl,
   Grid,
+  InputAdornment,
   InputLabel,
   Select,
+  TextField,
+  IconButton,
 } from "@material-ui/core";
 import PostCard from "../Card/PostCard";
 import { retrieveAllPost, retrievePost } from "../../redux/post/postActions";
@@ -18,6 +21,8 @@ import { AUTH_BUY_FULL_PATH } from "../../constants/routeConstants";
 import EmptyData from "../Skeleton/EmptyData";
 import Sidebar from "../Layout/Sidebar";
 import { Breakpoint } from "react-socks";
+import BookHeader from "../../assets/BookHeader.svg";
+import SearchIcon from "@material-ui/icons/Search";
 
 export function bottomDrawer(sort, handleDrawerClose) {
   return (
@@ -48,10 +53,24 @@ export function bottomDrawer(sort, handleDrawerClose) {
 }
 
 class Exchange extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      search: "",
+    };
+  }
+  onHandleChange = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value });
+  };
   state = {
     sort: new URLSearchParams(this.props.location.search).get("sort"),
     showSidebar: false,
     bottom: false,
+    search: "",
   };
   async componentDidMount() {
     const { status, condition, category, subcategory, color, brand, min, max } =
@@ -76,11 +95,39 @@ class Exchange extends Component {
     this.setState({ bottom: value });
   };
   render() {
+    const { search } = this.state;
     const { loading, posts } = this.props;
     const { sort, showSidebar, bottom } = this.state;
     return (
-      <div>
-        <div className="buy">
+      <div className="exchange">
+        <div className="exchange__bg">
+          <h2>EXCHANGE YOUR OLD BOOKS</h2>
+          <div className="exchange__bg__search">
+            <TextField
+              onChange={this.onHandleChange}
+              required
+              className="exchange__bg__search__text"
+              name="search"
+              value={this.state["search"]}
+              variant="outlined"
+              placeholder="Search Genre..."
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment>
+                    <IconButton>
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            ></TextField>
+          </div>
+        </div>
+
+        <div className="exchange__result">
+          Search for <span>"COMIC"</span>
+        </div>
+        {/* <div className="buy">
           <div className="buy__head">
             Exchange results{" "}
             <span>
@@ -174,7 +221,7 @@ class Exchange extends Component {
               </Grid>
             ))
           )}
-        </Grid>
+        </Grid> */}
       </div>
     );
   }
