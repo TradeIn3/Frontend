@@ -87,7 +87,7 @@ class Account extends Component {
               <div className="authhome__upper__icon1">
                 <IconButton
                   style={{ padding: "0" }}
-                  onClick={() => this.props.history.goBack()}
+                  onClick={() => this.props.history.push("/")}
                 >
                   <ArrowBackIcon style={{ color: "white" }} />
                 </IconButton>

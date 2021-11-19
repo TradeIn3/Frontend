@@ -41,7 +41,7 @@ class EditSell extends Component {
       title: this.props.post.title || "",
       desc: this.props.post.description || "",
       brand: this.props.post.brand || "",
-      premium: false,
+      premium: "false",
       loading: false,
       price: this.props.post.price || "",
       formValid: true,
@@ -195,7 +195,6 @@ class EditSell extends Component {
       this.props.history.push(`/buy/${this.props.match.params.id}`);
       return;
     }
-
     return (
       <React.Fragment>
         <div className="outer1">
@@ -401,7 +400,7 @@ class EditSell extends Component {
                     style={{ paddingLeft: "4px" }}
                     className="outer1__sell__lt__outer__subcate"
                   >
-                    <div
+                   {this.props.type=="buy" && <div
                       className="login__right__myForm__formData"
                       style={{ width: "100%" }}
                     >
@@ -421,7 +420,7 @@ class EditSell extends Component {
                         }}
                         variant="outlined"
                       />
-                    </div>
+                    </div>}
                   </Grid>
                 </Grid>
 
@@ -597,7 +596,7 @@ class EditSell extends Component {
                         style={{ paddingBottom: "1.4rem" }}
                         control={<Radio />}
                         label="Free Ad"
-                        value={false}
+                        value="false"
                       />
                       <div className="outer1__sell__rt__radio__lt1__hr">
                         <hr />
@@ -606,7 +605,7 @@ class EditSell extends Component {
                         style={{ paddingTop: "1rem" }}
                         control={<Radio />}
                         label="Premium Ad"
-                        value={true}
+                        value="true"
                       />
                     </RadioGroup>
                   </FormControl>

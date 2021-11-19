@@ -39,3 +39,7 @@ export const ProfileUser = "user/details/";
 export const AddressEdit = "user/account/update/";
 export const EditImage = "user/image/";
 export const ProfileReserves = "user/reserves/";
+
+
+// additionals
+export const AllBrands = "post/allbrands/";

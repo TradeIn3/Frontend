@@ -8,12 +8,13 @@ import SwapHorizontalCircleIcon from "@material-ui/icons/SwapHorizontalCircle";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Breakpoint } from "react-socks";
+import { Breakpoint } from "react-socks"; 
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import CloseIcon from '@material-ui/icons/Close';
 import { removeTokenRequest } from "../../redux/token/tokenActions";
 import {
   Checkbox,
@@ -27,7 +28,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { getCategories, getColors } from "../../utils/Utils";
-import { addPostFilters, retrieveAllPost } from "../../redux/post/postActions";
+import { addPostFilters, getAllBrands, retrieveAllPost } from "../../redux/post/postActions";
 
 class SideBar extends Component {
   state = {
@@ -37,11 +38,11 @@ class SideBar extends Component {
   };
 
   async componentDidMount() {
+    await this.props.allBrandsDispatch()
     let barter = false;
     let donate = false;
     const { status, condition, category, subcategory, color, brand, min, max } =
       this.state;
-    
     const data = {
         categoryVisible: true,
         brandVisible: true,
@@ -55,7 +56,7 @@ class SideBar extends Component {
         condition: [],
         category: "Any",
         subcategory: "Any",
-        brand: "Any",
+        brand: [],
         price: "0",
         color: {},
         min: 0,
@@ -66,7 +67,7 @@ class SideBar extends Component {
     await this.props.retrieveAllPostDispatch(
       category,
       subcategory,
-      brand,
+      [],
       [],
       min,
       max,
@@ -80,9 +81,8 @@ class SideBar extends Component {
     if (
       new URLSearchParams(this.props.location.search).get("sort") != state.sort
     ) {
-      this.handleFilter(
-        new URLSearchParams(this.props.location.search).get("sort")
-      );
+      this.setState({sort:new URLSearchParams(this.props.location.search).get("sort")},
+      this.handleFilter)
       return;
     }
     if(this.props.location.pathname!=props.location.pathname){
@@ -99,9 +99,9 @@ class SideBar extends Component {
         condition: [],
         category: "Any",
         subcategory: "Any",
-        brand: "Any",
         price: "0",
         color: {},
+        brand:[],
         min: 0,
         max: 0,
         bool: false,
@@ -137,17 +137,31 @@ class SideBar extends Component {
     );
   };
 
+  handleChangeBrand = (event) => {
+    const item = event.target.value;
+    this.setState(
+      {
+        brand:
+          item in this.state.brand == false
+            ? { ...this.state.brand, [item]: true }
+            : { ...this.state.brand, [item]: false },
+      },
+      this.handleFilter
+    );
+  };
+
   handleClickPrice = () => {
     this.setState({ bool: true });
     this.handleFilter();
     window.scrollTo(0, 0);
   };
 
-  handleFilter = async (sort) => {
+  handleFilter = async () => {
+  
     if (this.state.price == 4 && this.state.bool == false) return;
     await this.props.addPostFiltersDispatch(this.state);
     let barter = false;
-    let exchange = false;
+    let donate = false;
     const {
       status,
       condition,
@@ -159,6 +173,7 @@ class SideBar extends Component {
       max,
       price,
     } = this.state;
+    
     let col = [];
     await Object.keys(color).map(
       async (item) => color[item] && (await col.push(item))
@@ -166,6 +181,11 @@ class SideBar extends Component {
     let con = [];
     await Object.keys(condition).map(
       async (item) => condition[item] && (await con.push(item))
+    );
+
+    let brandData = [];
+    await Object.keys(brand).map(
+      async (item) => brand[item] && (await brandData.push(item))
     );
     
     let minp = 0,
@@ -182,19 +202,20 @@ class SideBar extends Component {
       minp = min;
       maxp = max;
     }
+
     await this.props.addPostFiltersDispatch(this.state);
     await this.props.retrieveAllPostDispatch(
       category,
       subcategory,
-      brand,
+      brandData,
       col,
       minp,
       maxp,
       status,
       con,
       barter,
-      exchange,
-      sort
+      donate,
+      this.state.sort
     );
     if (price != 4) window.scrollTo(0, 0);
   };
@@ -202,7 +223,8 @@ class SideBar extends Component {
   render() {
     const categories = getCategories();
     const colors = getColors();
-    console.log(this.state);
+    
+    const {type} = this.props;
     const {
       categoryVisible,
       brandVisible,
@@ -213,13 +235,14 @@ class SideBar extends Component {
       subcategVisible,
       status,
       color,
+      sort,
       condition,
       category,
       cond,
       price,
       subcategory,
     } = this.state;
-
+    console.log(sort)
     return (
       <>
         <Breakpoint large up>
@@ -355,45 +378,25 @@ class SideBar extends Component {
                   className="sidebar__cont__section__item__list"
                   style={{
                     display: brandVisible ? "block" : "none",
-                    maxHeight: "272px",
-                    overflowY: "scroll",
+                    // maxHeight: "272px",
+                    // overflowY: "scroll",
                   }}
                 >
-                  <FormGroup>
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label1"
-                      control={
-                        <Checkbox
-                          // checked={state.checkedF}
-                          // onCha()=>nge={handleChange(item)}
-                          name="checkedF"
-                        />
-                      }
-                      label="Mobile"
-                    />
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label1"
-                      control={
-                        <Checkbox
-                          // checked={state.checkedF}
-                          // onCha()=>nge={handleChange(item)}
-                          name="checkedF"
-                        />
-                      }
-                      label="electronics"
-                    />
-                    <FormControlLabel
-                      className="sidebar__cont__section__item__list__label1"
-                      control={
-                        <Checkbox
-                          // checked={state.checkedF}
-                          // onCha()=>nge={handleChange(item)}
-                          name="checkedF"
-                        />
-                      }
-                      label="Stationary"
-                    />
-                  </FormGroup>
+        
+                  <FormGroup onChange={this.handleChangeBrand}>
+                     {this.props.brands && this.props.brands.map((item)=> <FormControlLabel
+                        className="sidebar__cont__section__item__list__label1"
+                        control={
+                          <Checkbox
+                            name={item}
+                            value={item}
+                          />
+                        }
+                        label={item}
+                      />)}
+                     
+                    </FormGroup>
+              
                 </div>
               </div>
               <div
@@ -794,40 +797,18 @@ class SideBar extends Component {
                       overflowY: "scroll",
                     }}
                   >
-                    <FormGroup>
-                      <FormControlLabel
+                    <FormGroup onChange={this.handleChangeBrand}>
+                     {this.props.brands && this.props.brands.map((item)=> <FormControlLabel
                         className="sidebar__cont__section__item__list__label1"
                         control={
                           <Checkbox
-                            // checked={state.checkedF}
-                            // onCha()=>nge={handleChange(item)}
-                            name="checkedF"
+                            name={item}
+                            value={item}
                           />
                         }
-                        label="Mobile"
-                      />
-                      <FormControlLabel
-                        className="sidebar__cont__section__item__list__label1"
-                        control={
-                          <Checkbox
-                            // checked={state.checkedF}
-                            // onCha()=>nge={handleChange(item)}
-                            name="checkedF"
-                          />
-                        }
-                        label="electronics"
-                      />
-                      <FormControlLabel
-                        className="sidebar__cont__section__item__list__label1"
-                        control={
-                          <Checkbox
-                            // checked={state.checkedF}
-                            // onCha()=>nge={handleChange(item)}
-                            name="checkedF"
-                          />
-                        }
-                        label="Stationary"
-                      />
+                        label={item}
+                      />)}
+                     
                     </FormGroup>
                   </div>
                 </div>
@@ -1067,42 +1048,18 @@ class SideBar extends Component {
               open={true}
               onClose={() => this.props.handleDrawerClose(false)}
             >
-              <h3 style={{ padding: "12px 10px" }}>Sort By</h3>
-              <Link
-                to="/exchange"
-                onClick={() => this.props.handleDrawerClose(false)}
-                className="bottom-link"
-              >
-                {" "}
-                Sort by best match{" "}
-              </Link>
-              <Link
-                to="/exchange?sort=new"
-                onClick={() => this.props.handleDrawerClose(false)}
-                className="bottom-link"
-              >
-                {" "}
-                Sort by newest first{" "}
-              </Link>
-              {this.props.buy && (
-                <>
-                  {" "}
-                  <Link
-                    value={"low"}
-                    onClick={() => this.props.history.push("/buy?sort=lowest")}
-                    className="bottom-link"
-                  >
-                    Sort by lowest price first
-                  </Link>
-                  <Link
-                    value={"high"}
-                    onClick={() => this.props.history.push("/buy?sort=highest")}
-                    className="bottom-link"
-                  >
-                    Sort by hightest price first
-                  </Link>
-                </>
-              )}
+              <h3 style={{ padding: "12px 10px",display:"flex",alignItems:"center",justifyContent:"space-between" }}>Sort By <IconButton onClick={()=>this.props.handleDrawerClose(false)} style={{padding:"0",paddingRight:"8px"}}><CloseIcon/></IconButton></h3>
+              <RadioGroup style={{paddingLeft:"16px",paddingBottom:"16px"}} aria-label="sortby" name="sortby" value={sort=="new" ? "2" : sort =="lowest" ? "3" : sort== "highest" ? "4" : "1"} >
+                <FormControlLabel value="1" control={<Radio />} onClick={()=>this.props.history.push(`/${type}`)} label="Sort by best match" />
+                <FormControlLabel value="2" onClick={()=>this.props.history.push(`/${type}?sort=new`)} control={<Radio />} label="Sort by newest first" />
+                {this.props.buy && (
+                  <>
+                  <FormControlLabel value="3" onClick={()=>this.props.history.push(`/${type}?sort=lowest`)} control={<Radio />} label="Sort by lowest price first" />
+                  <FormControlLabel value="4" onClick={()=>this.props.history.push(`/${type}?sort=highest`)} control={<Radio />} label="Sort by highest price first" />
+                  </>
+                )}
+              </RadioGroup>
+              
             </Drawer>
           )}
         </Breakpoint>
@@ -1115,11 +1072,13 @@ const mapStateToProps = (state) => {
   return {
     myDetails: state.myDetails.myDetails,
     filters: state.post.filters,
+    brands:state.post.brands,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    allBrandsDispatch : ()=>dispatch(getAllBrands()),
     addPostFiltersDispatch: (data) => dispatch(addPostFilters(data)),
     retrieveAllPostDispatch: (
       category,

@@ -59,7 +59,7 @@ class Donate extends Component {
     await this.props.retrieveAllPostDispatch(
       "Any",
       "Any",
-      "Any",
+      [],
       [],
       0,
       0,
@@ -127,6 +127,7 @@ class Donate extends Component {
             {showSidebar ? (
               <Sidebar
                 filter={true}
+                type="donate"
                 handleDrawer={this.handleDrawer}
                 {...this.props}
               />
@@ -134,6 +135,7 @@ class Donate extends Component {
             {bottom ? (
               <Sidebar
                 filter={false}
+                type="donate"
                 handleDrawerClose={this.handleDrawerClose}
                 {...this.props}
               />

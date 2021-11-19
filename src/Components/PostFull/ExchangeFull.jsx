@@ -645,9 +645,13 @@ class ExchangeFull extends Component {
                       className="product__rt__sell__buttons__edit"
                       style={{ width: "100%" }}
                     >
-                      <Button
+                       <Button
                         className="product__rt__sell__buttons__edit__editbtn"
-                        onClick={this.showProductRazorpay}
+                        onClick={() =>
+                          this.props.history.push(
+                            `/exchange/${this.props.match.params.id}/edit`
+                          )
+                        }
                       >
                         Edit
                       </Button>
@@ -862,9 +866,13 @@ class ExchangeFull extends Component {
                       className="product__rt__sell__buttons__edit"
                       style={{ width: "100%" }}
                     >
-                      <Button
+                       <Button
                         className="product__rt__sell__buttons__edit__editbtn"
-                        onClick={this.showProductRazorpay}
+                        onClick={() =>
+                          this.props.history.push(
+                            `/exchange/${this.props.match.params.id}/edit`
+                          )
+                        }
                       >
                         Edit
                       </Button>

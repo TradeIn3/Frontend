@@ -36,7 +36,7 @@ class Donate extends Component {
       title: "",
       desc: "",
       brand: "",
-      premium: false,
+      premium: "false",
       loading: false,
       price: "",
       formValid: false,
@@ -194,7 +194,7 @@ class Donate extends Component {
       this.props.history.push(`buy/${this.props.postId}`);
       return;
     }
-    console.log(this.state);
+
     return (
       <React.Fragment>
         <div className="outer1">
@@ -612,7 +612,7 @@ class Donate extends Component {
                         style={{ paddingBottom: "1.4rem" }}
                         control={<Radio />}
                         label="Free Ad"
-                        value={false}
+                        value="false"
                       />
                       <div className="outer1__sell__rt__radio__lt1__hr">
                         <hr />
@@ -621,7 +621,7 @@ class Donate extends Component {
                         style={{ paddingTop: "1rem" }}
                         control={<Radio />}
                         label="Premium Ad"
-                        value={true}
+                        value="true"
                       />
                     </RadioGroup>
                   </FormControl>

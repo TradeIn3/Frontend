@@ -75,7 +75,7 @@ class Buy extends Component {
     await this.props.retrieveAllPostDispatch(
       "Any",
       "Any",
-      "Any",
+      [],
       [],
       0,
       0,
@@ -156,6 +156,7 @@ class Buy extends Component {
             {showSidebar ? (
               <Sidebar
                 filter={true}
+                type="buy"
                 handleDrawer={this.handleDrawer}
                 {...this.props}
               />
@@ -163,6 +164,7 @@ class Buy extends Component {
             {bottom ? (
               <Sidebar
                 filter={false}
+                type="buy"
                 buy={true}
                 handleDrawerClose={this.handleDrawerClose}
                 {...this.props}

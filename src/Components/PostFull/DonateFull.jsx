@@ -645,9 +645,13 @@ class DonateFull extends Component {
                       className="product__rt__sell__buttons__edit"
                       style={{ width: "100%" }}
                     >
-                      <Button
+                       <Button
                         className="product__rt__sell__buttons__edit__editbtn"
-                        onClick={this.showProductRazorpay}
+                        onClick={() =>
+                          this.props.history.push(
+                            `/donate/${this.props.match.params.id}/edit`
+                          )
+                        }
                       >
                         Edit
                       </Button>
@@ -865,7 +869,11 @@ class DonateFull extends Component {
                     >
                       <Button
                         className="product__rt__sell__buttons__edit__editbtn"
-                        onClick={this.showProductRazorpay}
+                        onClick={() =>
+                          this.props.history.push(
+                            `/donate/${this.props.match.params.id}/edit`
+                          )
+                        }
                       >
                         Edit
                       </Button>
@@ -1156,6 +1164,7 @@ class DonateFull extends Component {
             </Route>
           </Switch>
         )}
+        
       </>
     );
   }

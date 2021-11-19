@@ -14,6 +14,8 @@ import {
   AUTH_ACCOUNT_PATH,
   UNAUTH_HOME_PATH,
   UNAUTH_LOGIN_PATH,
+  AUTH_DONATE_EDIT_PATH,
+  AUTH_EXCHANGE_EDIT_PATH,
 } from "./constants/routeConstants";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { getToken } from "./redux/token/tokenActions";
@@ -99,10 +101,25 @@ function Root(props) {
       <AuthorizedRoute path={AUTH_BUY_EDIT_PATH} exact>
           {(props) => (
             <Layout {...props}>
+              <EditSell type="buy" {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_DONATE_EDIT_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
               <EditSell {...props} />
             </Layout>
           )}
         </AuthorizedRoute>
+        <AuthorizedRoute path={AUTH_EXCHANGE_EDIT_PATH} exact>
+          {(props) => (
+            <Layout {...props}>
+              <EditSell {...props} />
+            </Layout>
+          )}
+        </AuthorizedRoute>
+        
         <Route path={AUTH_DONATE_PATH} exact>
           {(props) => (
             <Layout {...props}>
