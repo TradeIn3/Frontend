@@ -9,6 +9,8 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@material-ui/core";
+import NegotiateModal from "../PostFull/NegotiateModal";
+import DeleteModal from "../PostFull/DeleteModal";
 
 export default class Home extends Component {
   render() {
@@ -21,9 +23,14 @@ export default class Home extends Component {
               return <div>{item}</div>;
             })}
           </div>
+          <NegotiateModal />
+          {/* <DeleteModal/> */}
         </Breakpoint>
 
-        <Breakpoint medium down></Breakpoint>
+        <Breakpoint medium down>
+          <NegotiateModal />
+          {/* <DeleteModal/> */}
+        </Breakpoint>
       </>
     );
   }

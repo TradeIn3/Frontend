@@ -123,29 +123,32 @@ export const isMobileOrTabletDevice = () => {
   return check;
 };
 
-export const getFormattedPath = (pathname,routePath) => {
-  if(!routePath) return false;
+export const getFormattedPath = (pathname, routePath) => {
+  if (!routePath) return false;
 
-  const regexp = pathToRegexp(routePath,[],{sensetive:true});
-  if(regexp.exec(pathname))
+  const regexp = pathToRegexp(routePath, [], { sensetive: true });
+  if (regexp.exec(pathname))
     return true;
   return false;
 };
 
-export const getCategories = () =>{
-  return  {
-    'Electronics':["Laptops","Power Banks","Pen drives & Storage","Tablets","Computer & Accessories","Headphones & earphones","Speakers","Camera & accessories","Gaming accessories"],
-    "Mobile":["Mobile","Mobile Accessories"],
-    "Appliances":["Televisions","Kitches Appliances","Air conditioners","Refrigerators","Washing machine","Microwaves","Chimneys","Dishwashers","Cooler"],
-    "Men's Fashion":["Clothing","Footware","Watches","Bags","Wallets","Luggage","Sunglasses","Accessories"],
-    "Women's Fashion":["Clothing","Footware","Watches","Fashion & Jewellery","Hanbags & clutches","Sunglasses"],
-    "Home":["kitchen & appliances","Furniture","Home Decor","Indoor Lighting","Art & Crafts","Garden & Outdoors"],
-    "Sports & Fitness":["Cycle","Exercies & Fitness","Sports accessories"],
-    "Baby Products":["Clothing","Footware","School bags","Toys and Games"],
-    "Vehicles":["Two wheelers & accessories","Four wheelers & accessories","others"],
-    "Others":["Stationary Products","Arts & Handicrafts","Beauty"]
-  } 
+export const getCategories = () => {
+  return {
+    'Electronics': ["Laptops", "Power Banks", "Pen drives & Storage", "Tablets", "Computer & Accessories", "Headphones & earphones", "Speakers", "Camera & accessories", "Gaming accessories"],
+    "Mobile": ["Mobile", "Mobile Accessories"],
+    "Appliances": ["Televisions", "Kitches Appliances", "Air conditioners", "Refrigerators", "Washing machine", "Microwaves", "Chimneys", "Dishwashers", "Cooler"],
+    "Men's Fashion": ["Clothing", "Footware", "Watches", "Bags", "Wallets", "Luggage", "Sunglasses", "Accessories"],
+    "Women's Fashion": ["Clothing", "Footware", "Watches", "Fashion & Jewellery", "Hanbags & clutches", "Sunglasses"],
+    "Home": ["kitchen & appliances", "Furniture", "Home Decor", "Indoor Lighting", "Art & Crafts", "Garden & Outdoors"],
+    "Sports & Fitness": ["Cycle", "Exercies & Fitness", "Sports accessories"],
+    "Baby Products": ["Clothing", "Footware", "School bags", "Toys and Games"],
+    "Vehicles": ["Two wheelers & accessories", "Four wheelers & accessories", "others"],
+    "Others": ["Stationary Products", "Arts & Handicrafts", "Beauty"]
+  }
 }
-export const getColors = () =>{
-  return ['Black','Blue','Grey','White','Red','Green','Brown','Beige','Orange','Yellow','Purple','Pink','Gold','Silver']
+export const getColors = () => {
+  return ['Black', 'Blue', 'Grey', 'White', 'Red', 'Green', 'Brown', 'Beige', 'Orange', 'Yellow', 'Purple', 'Pink', 'Gold', 'Silver']
+}
+export const getBookGenres = () => {
+  return ['Art', 'Biography', 'Business', 'Christian', 'Comics', 'Contemporary', 'Cooking', 'Crime', 'Fantasy', 'Fiction', 'History', 'Horror', 'Memoir', 'Mystery', 'Nonfiction','Philosophy', 'Poetry', 'Psychology', 'Religion', 'Science', 'Suspense', 'Spirituality', 'Sports', 'Thriller', 'Travel', 'Classics']
 }

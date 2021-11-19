@@ -40,6 +40,8 @@ import PostFull from "./Components/PostFull/PostFull";
 import DonateFull from "./Components/PostFull/DonateFull";
 import ExchangeFull from "./Components/PostFull/ExchangeFull";
 import QuestionModal from "./Components/PostFull/QuestionModal";
+import NegotiateModal from "./Components/PostFull/NegotiateModal";
+import DeleteModal from "./Components/PostFull/DeleteModal";
 import Sell from "./Components/AddPost/Sell";
 import DonateProd from "./Components/AddPost/Donate";
 import ExchangeProd from "./Components/AddPost/Exchange";
