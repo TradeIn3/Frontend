@@ -116,7 +116,7 @@ class SideBar extends Component {
     this.setState(
       {
         color:
-          item in this.state.color == false
+          item in this.state.color == false || (item in this.state.color==true && this.state.color[item]==false)
             ? { ...this.state.color, [item]: true }
             : { ...this.state.color, [item]: false },
       },
@@ -129,7 +129,7 @@ class SideBar extends Component {
     this.setState(
       {
         condition:
-          item in this.state.condition == false
+          item in this.state.condition == false|| (item in this.state.condition==true && this.state.condition[item]==false)
             ? { ...this.state.condition, [item]: true }
             : { ...this.state.condition, [item]: false },
       },
@@ -142,7 +142,7 @@ class SideBar extends Component {
     this.setState(
       {
         brand:
-          item in this.state.brand == false
+          item in this.state.brand == false || (item in this.state.brand==true && this.state.brand[item]==false)
             ? { ...this.state.brand, [item]: true }
             : { ...this.state.brand, [item]: false },
       },
@@ -150,9 +150,8 @@ class SideBar extends Component {
     );
   };
 
-  handleClickPrice = () => {
-    this.setState({ bool: true });
-    this.handleFilter();
+  handleClickPrice = async() => {
+    await this.setState({ bool: true,price:"4" },this.handleFilter);
     window.scrollTo(0, 0);
   };
 
@@ -170,6 +169,7 @@ class SideBar extends Component {
       color,
       brand,
       min,
+      bool,
       max,
       price,
     } = this.state;
@@ -223,7 +223,7 @@ class SideBar extends Component {
   render() {
     const categories = getCategories();
     const colors = getColors();
-    
+    console.log(this.state);
     const {type} = this.props;
     const {
       categoryVisible,
@@ -242,7 +242,6 @@ class SideBar extends Component {
       price,
       subcategory,
     } = this.state;
-    console.log(sort)
     return (
       <>
         <Breakpoint large up>

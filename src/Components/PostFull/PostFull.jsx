@@ -277,7 +277,7 @@ class PostFull extends Component {
   render() {
     const { selected, answer, sort } = this.state;
     const { post, loading, success } = this.props;
-    if (loading) return <PostLoader />;
+    if (loading || !post) return <PostLoader />;
     if (!success && !loading) return <FourOFour />;
     return (
       <>

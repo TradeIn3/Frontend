@@ -3,6 +3,75 @@
   margin: 0;
   box-sizing: border-box;
 }
+.home{
+  min-height: 664px;
+  height: 55vh;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  max-height: none;
+  background-image:   url("https://u-web-assets.mercdn.net/assets/banner/fell-the-pre-loved-love-desktop4.png");
+  background-position: 50% 50%;
+  &__btm{
+    position: absolute;
+    bottom: 0;
+    padding: 36px;
+    background: rgb(117, 117, 117);
+    &__fs{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      h4{
+        color: white;
+        font-size: 1.25rem;
+        letter-spacing: 0.03em;
+        font-weight: 500;
+      }
+      h6{
+        font-size: 0.8125rem;
+        letter-spacing: 0.03em;
+        text-align: center;
+        width: 80%;
+        color: white;
+        font-weight: 400; 
+      }
+    }
+  }
+  &__ttl{
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.03em;
+    padding-left: 2rem;
+  }
+}
+
+.acc{
+  &__fs{
+    padding: 12px;
+    text-align: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    img{
+      border-radius: 50%;
+      width: 10rem;
+      height: 10rem;
+      object-fit: cover;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }h3{
+      font-weight: 500;
+      font-size: 1.125rem;
+      letter-spacing: 0.03em;
+      color: $black;
+    }
+    h5{
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      color: $dark-grey;
+    }
+  }
+}
 .authhome {
   &__upper {
     display: flex;

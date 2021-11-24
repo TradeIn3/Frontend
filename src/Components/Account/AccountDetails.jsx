@@ -21,9 +21,11 @@ import {
   getUserReserve,
 } from "../../redux/profile/profileActions";
 import { connect } from "react-redux";
+import NoProfileImage from "../../assets/NoProfile.svg";
 import PostCard from "../Card/PostCard";
 import CardSkeleton from "../Skeleton/CardSkeleton";
 import EmptyData from "../Skeleton/EmptyData";
+import { ProfileImageUrl } from "../../api/pathConstants";
 
 class AccountDetails extends Component {
   state = {
@@ -77,11 +79,134 @@ class AccountDetails extends Component {
     }
   }
   render() {
-    const { data, loading } = this.props;
+    const { data, loading,user,myDetails } = this.props;
     if (!data) return null;
+    let is_mine = false;
+    if (myDetails) is_mine = user.username === myDetails.username;
     return (
       <>
-        <Breakpoint large up></Breakpoint>
+        <Breakpoint large up>
+          <Grid container direction="row" className="acc">
+            <Grid item xs={3} className="acc__fs">
+              <img src={
+                        user.image
+                          ? ProfileImageUrl + "" + user.image
+                          : NoProfileImage
+                      }/>
+              <h3>{myDetails.first_name+" "+myDetails.last_name}</h3>
+              <h5>{myDetails.username}</h5>
+            </Grid>
+          <Grid item xs={6} direction="row" style={{display:"flex",flexWrap:"wrap"}} spacing={2}>
+          {loading ? (
+                  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
+                    <Grid
+                      item
+                      lg={6}
+                      md={6}
+                      sm={6}
+                      xs={6}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <CardSkeleton />
+                    </Grid>
+                  ))
+                ) : data.length == 0 ? (
+                  <EmptyData type={this.props.product} />
+                ) : (
+                  data.map((item) => (
+                    <Grid
+                      item
+                      lg={3}
+                      md={3}
+                      sm={6}
+                      xs={6}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <Link
+                        to={
+                          this.props.product === "orders"
+                            ? `/account/${this.props.match.params.id}/orders/${item.id}`
+                            : `/buy/${item.id}`
+                        }
+                      >
+                        <PostCard
+                          item={item}
+                          type={this.props.product}
+                          {...this.props}
+                        />
+                      </Link>
+                    </Grid>
+                  ))
+                )}
+          </Grid>
+          <Grid item xs={3} className="acc__last">
+          
+          {is_mine && (
+              <Link
+                to={`/account/${this.props.computedMatch.params.id}/orders`}
+                className=""
+              >
+                  Order
+              </Link>
+            )}
+    
+
+            {is_mine && (
+              <Link
+                to={`/account/${this.props.computedMatch.params.id}/reserves`}
+                className=""
+              >
+              
+                  Reserve
+                  
+              </Link>
+            )}
+
+            {is_mine && (
+              <Link
+                to={`/account/${this.props.computedMatch.params.id}/wishlist`}
+                className=""
+              >
+               
+                  Wishlist
+                 
+              </Link>
+            )}
+            <Link
+              to={`/account/${this.props.computedMatch.params.id}/sell`}
+              className=""
+            >
+            
+                Sell
+               
+            </Link>
+            <Link
+              to={`/account/${this.props.computedMatch.params.id}/donate`}
+              className=""
+            >
+             
+                Donate
+              
+            </Link>
+            <Link
+              to={`/account/${this.props.computedMatch.params.id}/exchange`}
+              className=""
+            >
+              
+                Exchange
+               
+            </Link>
+            <Link
+              to={`/account/${this.props.computedMatch.params.id}/address`}
+              className=""
+            >
+            
+                Address
+             
+            </Link>
+          </Grid>
+          </Grid>
+        </Breakpoint>
 
         <Breakpoint medium down>
           <Dialog
@@ -162,8 +287,11 @@ class AccountDetails extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const ur = ownProps.match.params.id;
+  const ur = ownProps.computedMatch.params.id;
   return {
+    user: ownProps.computedMatch.params.id
+    ? state.profile.users[ownProps.computedMatch.params.id]
+    : null,
     myDetails: state.myDetails.myDetails,
     loading: state.profile.productLoading,
     data:
