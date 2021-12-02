@@ -42,7 +42,7 @@ import {
 } from "../../redux/post/postActions";
 import CardSkeleton from "../Skeleton/CardSkeleton";
 import { Route, Link, Switch } from "react-router-dom";
-import { AUTH_DONATE_FULL_QUESTION_PATH } from "../../constants/routeConstants";
+import { AUTH_DONATE_FULL_QUESTION_PATH, AUTH_EXCHANGE_FULL_QUESTION_PATH } from "../../constants/routeConstants";
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
 const handleReservePaymentSuccess = async (
@@ -273,7 +273,7 @@ class ExchangeFull extends Component {
   render() {
     const { selected, answer, sort } = this.state;
     const { post, loading, success } = this.props;
-    if (loading) return <PostLoader />;
+    if (loading || !post) return <PostLoader />;
     if (!success && !loading) return <FourOFour />;
     return (
       <>
@@ -694,15 +694,25 @@ class ExchangeFull extends Component {
 
                 <div className="product__rt__overview__categ">
                   <div className="product__rt__overview__categ__categTy">
-                    <h3>Category</h3>
+                    <h3>Author</h3>
                   </div>
                   <div className="product__rt__overview__categ__type">
-                    <h3>{post.category}</h3>
+                    <h3>{post.author}</h3>
                   </div>
                 </div>
+
+                <div className="product__rt__overview__categ">
+                  <div className="product__rt__overview__categ__categTy">
+                    <h3>Genre</h3>
+                  </div>
+                  <div className="product__rt__overview__categ__type">
+                    <h3>{post.genre}</h3>
+                  </div>
+                </div>
+
                 <div className="product__rt__overview__brand">
                   <div className="product__rt__overview__brand__brandNa">
-                    <h3>Brand</h3>
+                    <h3>Publication</h3>
                   </div>
                   <div className="product__rt__overview__brand__name">
                     <h3>{post.brand}</h3>
@@ -1158,7 +1168,7 @@ class ExchangeFull extends Component {
         </Breakpoint>
         {!post.is_owner && this.props.isLoggedIn && (
           <Switch>
-            <Route path={AUTH_DONATE_FULL_QUESTION_PATH} exact>
+            <Route path={AUTH_EXCHANGE_FULL_QUESTION_PATH} exact>
               {(props) => <QuestionModal {...props} />}
             </Route>
           </Switch>
@@ -1177,7 +1187,7 @@ const mapStateToProps = (state, ownProps) => {
     post:
       ownProps.match.params.id && ownProps.match.params.id in state.post.posts
         ? state.post.posts[ownProps.match.params.id]
-        : {},
+        : null,
   };
 };
 

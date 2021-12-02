@@ -200,15 +200,61 @@ class AddressDetails extends Component {
     if (formValid) await this.props.editAddressDispatch(data);
   };
 
+  handleClose = () =>{
+    this.props.history.push(`/account/${this.props.match.params.id}`)
+  }
   render() {
     const categories = getCategories();
     const { formErrors, formValid } = this.state;
     const { user, myDetails, loading } = this.props;
-
-    const is_mine = user.username === myDetails.username;
+    let is_mine=false;
+    if(myDetails) is_mine = user.username === myDetails.username;
     // if(loading) return <PostLoader/>
     if (!user) return <div>User not found</div>;
     return (
+      <>
+      <Breakpoint large up>
+      <Dialog
+        open={true}
+        onClose={this.handleClose}
+        aria-labelledby="form-dialog-title"
+        maxWidth="lg"
+      >
+        <DialogTitle className="ordertitle" style={{paddingLeft:"8px", display:"flex",alignItems:"center"}}>
+          <IconButton onClick={() => this.props.history.goBack()}>
+            <ArrowBackIcon />
+          </IconButton>
+          Address
+        </DialogTitle>
+        <Divider />
+        <DialogContent style={{ padding: "8px",width:"32rem",height:"auto" }}>
+          <div className="login__right__myForm__formData">
+            <label htmlFor="name">Fullname:</label>
+            <h4>{user.first_name + " " + user.last_name}</h4>
+            <label htmlFor="name">Address:</label>
+            <h4>{user.address}</h4>
+            <label htmlFor="name">City:</label>
+            <h4>{user.city}</h4>
+            <label htmlFor="name">Pincode:</label>
+            <h4>{user.pincode}</h4>
+            <label htmlFor="name">District:</label>
+            <h4>{user.district}</h4>
+            <label htmlFor="name">Phone no:</label>
+            <h4>{user.phone}</h4>
+          </div>
+          {is_mine && <Button
+            type="submit"
+            style={{ background: "#e6e6e6", width: "100%" }}
+            onClick={() =>
+              this.props.history.push(`${this.props.location.pathname}/edit`)
+            }
+          >
+            Edit Address
+          </Button>}
+        </DialogContent>
+      </Dialog>
+      </Breakpoint>
+      <Breakpoint medium down>
       <Dialog
         open={true}
         // onClose={this.handleClose}
@@ -239,7 +285,7 @@ class AddressDetails extends Component {
             <label htmlFor="name">Phone no:</label>
             <h4>{user.phone}</h4>
           </div>
-          <Button
+         {is_mine && <Button
             type="submit"
             style={{ background: "#e6e6e6", width: "100%" }}
             onClick={() =>
@@ -247,9 +293,11 @@ class AddressDetails extends Component {
             }
           >
             Edit Address
-          </Button>
+          </Button>}
         </DialogContent>
       </Dialog>
+      </Breakpoint>
+      </>
     );
   }
 }

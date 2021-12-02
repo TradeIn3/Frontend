@@ -30,6 +30,10 @@ export const AUTH_BUY_FULL_QUESTION_PATH = "/buy/:id(\\d+)/ask";
 export const AUTH_DONATE_FULL_PATH = "/donate/:id(\\d+)";
 export const AUTH_DONATE_FULL_QUESTION_PATH = "/donate/:id(\\d+)/ask";
 
+export const AUTH_EXCHANGE_FULL_PATH = "/exchange/:id(\\d+)";
+export const AUTH_EXCHANGE_FULL_QUESTION_PATH = "/exchange/:id(\\d+)/ask";
+
+
 export const AUTH_SELL_PRODUCT ="/sellproduct";
 export const AUTH_DONATE_PRODUCT ="/donateproduct";
 export const AUTH_EXCHANGE_PRODUCT ="/exchangeproduct";

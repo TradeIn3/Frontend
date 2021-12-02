@@ -13,7 +13,6 @@ const initialState = {
   loading: false,
   access: cookie.load("access") || null,
   refresh: cookie.load("refresh") || null,
-  // session_id: cookie.load("session_id") || null,
   isLoggedIn: isTokenValid(cookie.load("refresh") || null),
   success: false,
 };

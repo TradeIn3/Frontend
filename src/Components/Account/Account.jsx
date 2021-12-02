@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Breakpoint } from "react-socks";
-import { getCategories } from "../../utils/Utils";
+import { getCategories, getFormattedPath } from "../../utils/Utils";
 import { Link, Route, Switch, withRouter } from "react-router-dom";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import NoProfileImage from "../../assets/NoProfile.svg";
@@ -24,6 +24,7 @@ import {
   AUTH_ACCOUNT_WISHLIST_PATH,
   AUTH_ORDERSUMMARY_PATH,
   AUTH_ACCOUNT_RESERVE_PATH,
+  AUTH_ACCOUNT_PATH,
 } from "../../constants/routeConstants";
 import { connect } from "react-redux";
 import AccountDetails from "./AccountDetails";
@@ -69,17 +70,28 @@ class Account extends Component {
           file: e.target.files[0],
         },
       });
+      console.log(e.target.files[0])
+      const data = new FormData();
+      data.append("image",e.target.files[0])
+      this.props.editImageDispatch(data);
   };
   render() {
     const { user, myDetails, loading } = this.props;
-    console.log(this.props);
     if (loading) return <PostLoader />;
     if (!user) return <div>User not found</div>;
     let is_mine = false;
     if (myDetails) is_mine = user.username === myDetails.username;
     return (
       <>
-        <Breakpoint large up></Breakpoint>
+        
+        <Breakpoint large up>
+          {getFormattedPath(this.props.location.pathname,AUTH_ACCOUNT_PATH) && <AccountDetails 
+                user={user}
+                home="yes"
+                {...this.props}
+              />}
+         
+        </Breakpoint>
 
         <Breakpoint medium down>
           <div className="authhome">
@@ -263,6 +275,8 @@ class Account extends Component {
               <AccountDetails
                 title="My Products(Sell)"
                 product="sell"
+                home="no"
+                user={user}
                 {...props}
               />
             )}
@@ -272,6 +286,8 @@ class Account extends Component {
               <AccountDetails
                 title="My Products(Donate)"
                 product="donate"
+                home="no"
+                user={user}
                 {...props}
               />
             )}
@@ -281,6 +297,8 @@ class Account extends Component {
               <AccountDetails
                 title="My Products(Exchange)"
                 product="exchange"
+                home="no"
+                user={user}
                 {...props}
               />
             )}
@@ -288,7 +306,7 @@ class Account extends Component {
           {is_mine && (
             <Route path={AUTH_ACCOUNT_ORDER_PATH} exact>
               {(props) => (
-                <AccountDetails title="My Orders" product="orders" {...props} />
+                <AccountDetails title="My Orders" home="no" product="orders"  user={user} {...props} />
               )}
             </Route>
           )}
@@ -296,21 +314,25 @@ class Account extends Component {
             <Route path={AUTH_ACCOUNT_RESERVE_PATH} exact>
               {(props) => (
                 <AccountDetails
+                home="no"
                   title="My Reserve"
                   product="reserves"
+                  user={user}
                   {...props}
                 />
               )}
             </Route>
           )}
           <Route path={AUTH_ORDERSUMMARY_PATH} exact>
-            {(props) => <OrderSummary {...props} />}
+            {(props) => <OrderSummary user={user} home="no" {...props} />}
           </Route>
           {is_mine && (
             <Route path={AUTH_ACCOUNT_WISHLIST_PATH}>
               {(props) => (
                 <AccountDetails
+                home="no"
                   title="My Wishlist"
+                  user={user}
                   product="wishlist"
                   {...props}
                 />
@@ -319,12 +341,12 @@ class Account extends Component {
           )}
           {is_mine && (
             <Route path={AUTH_ACCOUNT_ADDRESS_EDIT_PATH} exact>
-              {(props) => <Address {...props} />}
+              {(props) => <Address user={user} {...props} />}
             </Route>
           )}
 
           <Route path={AUTH_ACCOUNT_ADDRESS_PATH} exact>
-            {(props) => <AddressDetails {...props} />}
+            {(props) => <AddressDetails user={user} {...props} />}
           </Route>
         </Switch>
       </>

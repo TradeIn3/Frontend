@@ -111,6 +111,9 @@
         margin-bottom: 24px;
         &__select{
           width: 100%;
+          input{
+            padding: 8px 14px !important;
+          }
         }
         &__username {
           width: 100%;
@@ -271,6 +274,7 @@
     color: white;
   }
 }
+
 @media (max-width: 991px) {
   .MuiDialog-scrollPaper {
     width: 100% !important;
@@ -298,7 +302,6 @@
         }
         &__loginButton {
           width: 100% !important;
-          // padding: 0 !important;
         }
       }
     }

@@ -49,6 +49,7 @@ import {
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
 import EditSell from "../EditPost/EditSell";
+import { NO_CONTENT_AVAILABLE } from "../../redux/post/postTypes";
 const handleReservePaymentSuccess = async (
   response,
   detail,
@@ -105,6 +106,14 @@ class PostFull extends Component {
 
   async componentDidMount() {
     await this.props.retrievePostDispatch(this.props.match.params.id);
+  }
+  async componentDidUpdate(props,state){
+    
+    if(this.props.match.params.id!=props.match.params.id){
+      await this.props.retrievePostDispatch(this.props.match.params.id);
+     await NO_CONTENT_AVAILABLE(true,false);
+    }
+    
   }
 
   handleDelete = async (id) => {
@@ -279,6 +288,7 @@ class PostFull extends Component {
     const { post, loading, success } = this.props;
     if (loading || !post) return <PostLoader />;
     if (!success && !loading) return <FourOFour />;
+    
     return (
       <>
         <Breakpoint large up>
@@ -1201,7 +1211,7 @@ const mapStateToProps = (state, ownProps) => {
     post:
       ownProps.match.params.id && ownProps.match.params.id in state.post.posts
         ? state.post.posts[ownProps.match.params.id]
-        : {},
+        : null,
   };
 };
 

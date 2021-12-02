@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import { CreateNewPost, CreatePostSuccess } from "../../redux/post/postActions";
 import { connect } from "react-redux";
-import { getCategories, getColors } from "../../utils/Utils";
+import { getBookGenres, getCategories, getColors } from "../../utils/Utils";
 import { plugToRequest } from "react-cookies";
 import { withRouter } from "react-router-dom";
 
@@ -34,8 +34,10 @@ class Exchange extends Component {
       color: "",
       condn: "",
       title: "",
+      genre:"",
       desc: "",
       brand: "",
+      author:"",
       premium: "false",
       loading: false,
       price: "",
@@ -44,8 +46,10 @@ class Exchange extends Component {
       fieldValid: {
         category: false,
         subcategory: false,
+        genre: false,
         color: false,
         condn: false,
+        author: false,
         title: false,
         desc: false,
         brand: false,
@@ -77,6 +81,9 @@ class Exchange extends Component {
       case "category":
         value == "" ? (val = false) : (val = true);
         break;
+      case "genre":
+        value == "" ? (val = false) : (val = true);
+        break;  
       case "subcategory":
         value == "" ? (val = false) : (val = true);
         break;
@@ -89,6 +96,9 @@ class Exchange extends Component {
       case "brand":
         value == "" ? (val = false) : (val = true);
         break;
+      case "author":
+          value == "" ? (val = false) : (val = true);
+          break;  
       case "title":
         value.length <= 2 || value.length >= 100 ? (val = false) : (val = true);
         break;
@@ -105,15 +115,13 @@ class Exchange extends Component {
   };
 
   validateForm = async () => {
-    console.log(
-      this.state.fieldValid["category"] && this.state.fieldValid["subcategory"]
-    );
+   
     await this.setState({
       formValid:
-        this.state.fieldValid["category"] &&
-        this.state.fieldValid["subcategory"] &&
+        this.state.fieldValid["genre"] &&
         this.state.fieldValid["brand"] & this.state.fieldValid["color"] &&
         this.state.fieldValid["title"] &&
+        this.state.fieldValid["author"] &&
         this.state.fieldValid["desc"] &&
         this.state.fieldValid["condn"] &&
         (this.state.img1.image ||
@@ -173,13 +181,13 @@ class Exchange extends Component {
     data.append("img2", this.state.img2.file);
     data.append("img3", this.state.img3.file);
     data.append("img4", this.state.img4.file);
-    data.append("category", this.state.category);
-    data.append("subcategory", this.state.subcategory);
+    data.append("genre", this.state.genre );
     data.append("color", this.state.color);
     data.append("condition", this.state.condn);
     data.append("title", this.state.title);
     data.append("description", this.state.desc);
     data.append("brand", this.state.brand);
+    data.append("author", this.state.author);
     data.append("premium", this.state.premium);
     data.append("price", 0);
     data.append("is_barter", true);
@@ -190,11 +198,12 @@ class Exchange extends Component {
   render() {
     const categories = getCategories();
     const colors = getColors();
+    const genres = getBookGenres();
     if (this.props.success) {
       this.props.history.push(`buy/${this.props.postId}`);
       return;
     }
-    console.log(this.state);
+    
     return (
       <React.Fragment>
         <div className="outer1">
@@ -230,14 +239,14 @@ class Exchange extends Component {
                     className="outer__sell__lt__outer__categ"
                   >
                     <div className="login__right__myForm__formData">
-                      <label htmlFor="name">Category</label>
+                      <label htmlFor="name">Genre</label>
                       <br />
                       <Box style={{ paddingTop: "10px" }}>
                         <Select
                           id="demo-simple-select"
-                          value={this.state["category"]}
+                          value={this.state["genre"]}
                           displayEmpty
-                          name="category"
+                          name="genre"
                           className="login__right__myForm__formData__select"
                           variant="outlined"
                           // label="Category"
@@ -246,7 +255,7 @@ class Exchange extends Component {
                           <MenuItem value="" disabled>
                             Select
                           </MenuItem>
-                          {Object.keys(categories).map((item) => (
+                          {genres.map((item) => (
                             <MenuItem value={item}>{item}</MenuItem>
                           ))}
                         </Select>
@@ -263,31 +272,19 @@ class Exchange extends Component {
                     className="outer1__sell_lt__outer__subcate"
                   >
                     <div className="login__right__myForm__formData">
-                      <label htmlFor="name">Sub-Category</label>
+                      <label htmlFor="name">Author</label>
                       <br />
-                      <Box
-                        sx={{ minWidth: 120 }}
-                        style={{ paddingTop: "10px" }}
-                      >
-                        <Select
-                          id="demo-simple-select"
-                          value={this.state["subcategory"]}
-                          displayEmpty
-                          variant="outlined"
-                          disabled={this.state["category"] == ""}
-                          name="subcategory"
-                          className="login__right__myForm__formData__select"
+                      <TextField
                           onChange={this.onHandleChange}
-                        >
-                          <MenuItem value="" disabled>
-                            Select
-                          </MenuItem>
-                          {this.state.category != "" &&
-                            categories[this.state.category].map((item) => (
-                              <MenuItem value={item}>{item}</MenuItem>
-                            ))}
-                        </Select>
-                      </Box>
+                          required
+                          style={{ paddingTop: "10px", width: "100%" }}
+                          className="login__right__myForm__formData__username"
+                          name="author"
+                          value={this.state["author"]}
+                          placeholder="Author"
+                          variant="outlined"
+                          className="login__right__myForm__formData__select"
+                        ></TextField>
                     </div>
                   </Grid>
                 </Grid>
@@ -340,7 +337,7 @@ class Exchange extends Component {
                       style={{ width: "100%" }}
                     >
                       <div className="login__right__myForm__formData">
-                        <label htmlFor="name">Brand</label>
+                        <label htmlFor="name">Publication</label>
                         <br />
                         <TextField
                           onChange={this.onHandleChange}

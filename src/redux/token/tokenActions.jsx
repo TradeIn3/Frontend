@@ -22,7 +22,6 @@ export const getTokenRequest = () => {
 export const removeTokenRequest = () => {
   cookie.remove("access", { path: "/" });
   cookie.remove("refresh", { path: "/" });
-  // cookie.remove("session_id", { path: "/" });
   return {
     type: REMOVE_TOKEN_REQUEST,
   };
@@ -81,6 +80,7 @@ export const isTokenValid = (jwtToken) => {
 
 
 
+
 export const getToken = () => {
   return async (dispatch, getState) => {
     await dispatch(getTokenRequest());
@@ -98,7 +98,7 @@ export const getToken = () => {
         if (updatedToken && updatedToken.status === 200) {
           await dispatch(setToken(updatedToken.data));
         } else if (updatedToken && updatedToken!==200) {
-          // await dispatch(removeTokenRequest());
+    
           console.log("this is the problem")
          
         } else {
@@ -138,6 +138,8 @@ export const setToken = (jwtToken) => {
     }
   };
 };
+
+
 
 export const loginAction = (user_id, password, value) => {
   return async (dispatch) => {

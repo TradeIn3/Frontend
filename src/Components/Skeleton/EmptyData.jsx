@@ -11,7 +11,7 @@ export default function EmptyData(props) {
       <div className="nopost__image">
         <img
           src={
-            type == "sell" || type == "donate" || type == "exchange"
+            type == "sell" || type == "donate" || type == "exchange" || type== "reserves"
               ? NoBuy
               : type == "orders"
               ? NoOrders
@@ -23,12 +23,14 @@ export default function EmptyData(props) {
       </div>
       <div className="nopost__con">
         <h3>
-          {type == "sell" || type == "donate" || type == "exchange"
+          {type == "sell" || type == "donate" || type == "exchange" 
             ? "You didn't add any product"
             : type == "orders"
             ? "You didn't order anything"
             : type == "wishlist"
             ? "Nothing in your wishlist"
+            : type == "reserves" ?
+            "You didn't reserve any product"
             : "No product available"}
         </h3>
       </div>

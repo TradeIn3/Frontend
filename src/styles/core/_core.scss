@@ -7,13 +7,10 @@ body {
   padding: 0 !important;
   overflow-y:scroll;
   box-sizing: border-box;
-  /* Disables pull-to-refresh and not allows overscroll glow effects. */
   overscroll-behavior-y: none;
   background-color: white !important;
-  // min-height: 720px;
-  // min-width: 1200px;
 
-  * {
+* {
     font-family: 'Roboto', sans-serif;
   }
 }

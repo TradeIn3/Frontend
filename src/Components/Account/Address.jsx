@@ -204,8 +204,8 @@ class Address extends Component {
     const categories = getCategories();
     const { formErrors, formValid } = this.state;
     const { user, myDetails, loading } = this.props;
-
-    const is_mine = user.username === myDetails.username;
+    let is_mine = false;
+    if (myDetails) is_mine = user.username ==  myDetails.username;
     // if(loading) return <PostLoader/>
     if (!user) return <div>User not found</div>;
     return (

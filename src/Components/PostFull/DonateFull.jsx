@@ -273,7 +273,7 @@ class DonateFull extends Component {
   render() {
     const { selected, answer, sort } = this.state;
     const { post, loading, success } = this.props;
-    if (loading) return <PostLoader />;
+    if (loading || !post) return <PostLoader />;
     if (!success && !loading) return <FourOFour />;
     return (
       <>
@@ -1179,7 +1179,7 @@ const mapStateToProps = (state, ownProps) => {
     post:
       ownProps.match.params.id && ownProps.match.params.id in state.post.posts
         ? state.post.posts[ownProps.match.params.id]
-        : {},
+        : null,
   };
 };
 

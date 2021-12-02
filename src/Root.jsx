@@ -16,6 +16,7 @@ import {
   UNAUTH_LOGIN_PATH,
   AUTH_DONATE_EDIT_PATH,
   AUTH_EXCHANGE_EDIT_PATH,
+  AUTH_EXCHANGE_FULL_PATH,
 } from "./constants/routeConstants";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { getToken } from "./redux/token/tokenActions";
@@ -145,9 +146,6 @@ function Root(props) {
             <Layout {...props}>
               <Breakpoint large up>
                 <Grid container>
-                  {/* <Grid item xs={2} style={{ position: "relative" }}>
-                    <Sidebar {...props}/>
-                  </Grid> */}
                   <Grid item xs={12}>
                     {" "}
                     <Exchange {...props} />
@@ -164,6 +162,13 @@ function Root(props) {
         {(props) => (
             <Layout {...props}>
               <PostFull {...props} />
+            </Layout>
+          )}
+        </Route>
+        <Route path={AUTH_EXCHANGE_FULL_PATH}>
+        {(props) => (
+            <Layout {...props}>
+              <ExchangeFull {...props} />
             </Layout>
           )}
         </Route>

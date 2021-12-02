@@ -127,12 +127,12 @@ class Navbar extends Component {
                         Profile
                       </a>
                     </li>
-                    <li className="nav__dropdownprofile__list">
+                    {/* <li className="nav__dropdownprofile__list">
                       <Link href="#">
                         <BookmarkBorderOutlinedIcon />
                         Saved
                       </Link>
-                    </li>
+                    </li> */}
                     <li
                       className="nav__dropdownprofile__list"
                       style={{ border: "none" }}
@@ -205,12 +205,12 @@ class Navbar extends Component {
                       Profile
                     </a>
                   </li>
-                  <li className="nav__dropdownprofile__list">
+                  {/* <li className="nav__dropdownprofile__list">
                     <Link href="#">
                       <BookmarkBorderOutlinedIcon />
                       Saved
                     </Link>
-                  </li>
+                  </li> */}
                   <li
                     className="nav__dropdownprofile__list"
                     style={{ border: "none" }}

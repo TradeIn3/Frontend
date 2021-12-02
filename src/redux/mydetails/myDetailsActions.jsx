@@ -59,7 +59,7 @@ export const editAddress = (data) => {
       if (res && res.status == 200) {
         await dispatch(EditAddressSuccess(res.data, user));
         await dispatch(EditProfileAddress(res.data, user));
-        await dispatch(openSnackbar("Post edited successfully"));
+        await dispatch(openSnackbar("Data edited successfully"));
       } else {
         await dispatch(openSnackbar("Something went wrong"));
       }
