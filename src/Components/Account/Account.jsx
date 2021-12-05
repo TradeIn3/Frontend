@@ -70,7 +70,7 @@ class Account extends Component {
           file: e.target.files[0],
         },
       });
-      console.log(e.target.files[0])
+      // console.log(e.target.files[0])
       const data = new FormData();
       data.append("image",e.target.files[0])
       this.props.editImageDispatch(data);

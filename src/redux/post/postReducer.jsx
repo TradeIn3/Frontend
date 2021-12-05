@@ -85,9 +85,9 @@ const reducer = (state = initialState, action) => {
     case CREATE_POST_SUCCESS:
       return {
         ...state,
-        postSuccess: action.value,
+        success: action.value,
         postId: action.id,
-        postLoading: false,
+        loading: false,
       };
     case ADD_QUESION_DATA:
       return {

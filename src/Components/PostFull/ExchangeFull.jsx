@@ -22,6 +22,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { getToken } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
 import { Scrollbars } from "react-custom-scrollbars";
+import DeleteModal from './DeleteModal'
 import FourOFour from "../FourOFour/FourOFourError";
 import {
   PostImageUrl,
@@ -42,7 +43,7 @@ import {
 } from "../../redux/post/postActions";
 import CardSkeleton from "../Skeleton/CardSkeleton";
 import { Route, Link, Switch } from "react-router-dom";
-import { AUTH_DONATE_FULL_QUESTION_PATH, AUTH_EXCHANGE_FULL_QUESTION_PATH } from "../../constants/routeConstants";
+import { AUTH_EXCHANGE_FULL_QUESTION_PATH,AUTH_EXCHANGE_FULL_DELETE_PATH } from "../../constants/routeConstants";
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
 const handleReservePaymentSuccess = async (
@@ -181,7 +182,7 @@ class ExchangeFull extends Component {
       image: WebsiteLogo, // add image url
       order_id: res.data.payment.id,
       handler: function (response) {
-        console.log(props);
+        // console.log(props);
         handleProductPaymentSuccess(
           response,
           data,
@@ -271,7 +272,7 @@ class ExchangeFull extends Component {
   };
 
   render() {
-    const { selected, answer, sort } = this.state;
+    const { selected, answer, sort,openDel } = this.state;
     const { post, loading, success } = this.props;
     if (loading || !post) return <PostLoader />;
     if (!success && !loading) return <FourOFour />;
@@ -662,7 +663,7 @@ class ExchangeFull extends Component {
                     >
                       <Button
                         className="product__rt__sell__buttons__del__delbtn"
-                        onClick={this.handlePostDelete}
+                        onClick={()=>this.props.history.push(`/exchange/${this.props.match.params.id}/delete`)}
                       >
                         Delete
                       </Button>
@@ -742,6 +743,10 @@ class ExchangeFull extends Component {
         <Breakpoint medium down>
           <div class Name="product">
             <div className="product__lt">
+            <h5 className="product__headline">
+                <a href="/home">TradeIn</a> / <a href="/exchnage">Exchange</a> /{" "}
+                {post.title}
+              </h5>
               <div className="product__lt__Box">
                 <div className="product__lt__Box__outer">
                   <img src={PostImageUrl + "" + post.images[selected]} />
@@ -891,7 +896,8 @@ class ExchangeFull extends Component {
                       className="product__rt__sell__buttons__del"
                       style={{ width: "100%" }}
                     >
-                      <Button className="product__rt__sell__buttons__del__delbtn">
+                      <Button className="product__rt__sell__buttons__del__delbtn"
+                        onClick={()=>this.props.history.push(`/exchange/${this.props.match.params.id}/delete`)}>
                         Delete
                       </Button>
                     </div>
@@ -1173,6 +1179,13 @@ class ExchangeFull extends Component {
             </Route>
           </Switch>
         )}
+        {post.is_owner && 
+           <Switch>
+           <Route path={AUTH_EXCHANGE_FULL_DELETE_PATH} exact>
+             {(props) => <DeleteModal type="exchange" handlePostDelete={this.handlePostDelete}  {...props} />}
+           </Route>
+         </Switch>
+        }
       </>
     );
   }

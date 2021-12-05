@@ -28,7 +28,7 @@ class QuestionModal extends Component {
 
   onHandleClick = async (e) => {
     e.preventDefault();
-    console.log(this.props.myDetails);
+    // console.log(this.props.myDetails);
     await this.props.askQuestionDispatch(
       this.state.question,
       this.props.match.params.id,

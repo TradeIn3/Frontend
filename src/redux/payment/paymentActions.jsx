@@ -34,7 +34,7 @@ export const makeReservedPayment = (product_id,amount) => {
       token,
       data
     );
-    console.log(res);
+    // console.log(res);
     if (res && res.status === 200) {
       var options = {
         key: `${process.env.REACT_APP_RAZORPAY_KEY}`,
@@ -92,7 +92,7 @@ export const makeReservedPayment = (product_id,amount) => {
         await dispatch(makePayment());
       }
     } catch (error) {
-      console.log(console.error());
+      // console.log(console.error());
     }
   };
 }

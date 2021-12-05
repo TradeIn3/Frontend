@@ -99,7 +99,7 @@ class AccountDetails extends Component {
           file: e.target.files[0],
         },
       });
-      console.log(e.target.files[0])
+      // console.log(e.target.files[0])
       const data = new FormData();
       data.append("image",e.target.files[0])
       this.props.editImageDispatch(data);
@@ -109,7 +109,7 @@ class AccountDetails extends Component {
     if (!data) return null;
     let is_mine = false;
     if (myDetails) is_mine = user.username === myDetails.username;
-    console.log(this.props.location)
+    // console.log(this.props.location)
     return (
       <>
         <Breakpoint large up>

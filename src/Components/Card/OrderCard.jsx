@@ -8,7 +8,7 @@ import { AUTH_ORDERSUMMARY_PATH } from "../../constants/routeConstants";
 export default class OrderCard extends Component {
   render() {
     const { item } = this.props;
-    console.log("slkfhd");
+    // console.log("slkfhd");
     return (
       <>
         <div className="card">

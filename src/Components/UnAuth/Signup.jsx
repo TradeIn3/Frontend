@@ -17,25 +17,37 @@ import {
 import LoginImage from "../../assets/LoginImage.svg";
 import WebsiteLogo from "../../assets/WebsiteLogo.svg";
 import LoginBg from "../../assets/LoginBg.svg";
+import {UserCheckUsername} from '../../api/pathConstants';
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link, withRouter } from "react-router-dom";
-import { loginAction } from "../../redux/token/tokenActions";
+import { loginAction, SignupAction } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
 import PersonIcon from "@material-ui/icons/Person";
 import HttpsIcon from "@material-ui/icons/Https";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-class Login extends Component {
+import { openSnackbar } from "../../redux/snackbar/snackbarActions";
+import { Request } from "../../api/Request";
+class SignUp extends Component {
   state = {
     username: "",
     password: "",
+    email:"",
+    firstname:"",
+    lastname:"",
     usernameValid: "",
     showPassword: false,
     passwordValid: "",
+    emailValid:"",
+    firstnameValid:"",
+    lastnameValid:"",
     formValid: "",
     formErrors: {
       username: "",
+      email:"",
+      firstname:"",
+      lastname:"",
       password: "",
     },
   };
@@ -44,26 +56,102 @@ class Login extends Component {
     e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
+    if(name=="username"){
+      this.setState({ [name]: value }, () => {
+        this.validateUsername( value);
+      });
+    }
+    else
     this.setState({ [name]: value }, () => {
       this.validateField(name, value);
     });
   };
-
-  validateField(fieldName, value) {
-    let fieldValidationErrors = this.state.formErrors;
-    let usernameValid = this.state.usernameValid;
-    let passwordValid = this.state.passwordValid;
-    switch (fieldName) {
-      case "username":
-        usernameValid = value.match(/^[A-Za-z0-9_@]{3,63}$/);
-        const errorMsg =
+  
+  validateUsername = async(value) =>{
+    let res = null;
+    if(value=="")
+      {
+        this.setState({formErrors:{username:"length should be between 3-30 characters"},usernameValid:false})
+        return;
+      }
+    await Request("GET",`${UserCheckUsername}${value}/`,null,null).then((data)=>{
+    res=data
+    });
+    // console.log(res.status,"status",value)
+    if(res && res.status==204) {
+      this.setState({formErrors:{username:"User already exists"},usernameValid:false}, () => {
+        this.validateField("username", value);
+      })
+      return false;
+    }
+    else if(res && res.status==200) {
+       const usernameValid = value.match(/^[A-Za-z0-9_@]{3,30}$/);
+       const errorMsg =
           value.length < 3 || value.length > 30
             ? "length should be between 3-30 characters"
             : !usernameValid
             ? "Characters, Numbers and Underscores are allowed"
             : "";
-        fieldValidationErrors.username = errorMsg;
+
+     this.setState({formErrors:{username:errorMsg},usernameValid:usernameValid}, () => {
+      // this.validateField("username", value);
+    })
+      return true;
+    }
+    else{
+     this.props.openSnackbarDispatch("Something wents wrong");
+     return true;
+    }
+    
+    
+   
+  }
+
+  validateField(fieldName, value) {
+
+    let fieldValidationErrors = this.state.formErrors;
+    let usernameValid = this.state.usernameValid;
+    let passwordValid = this.state.passwordValid;
+    let firstnameValid = this.state.firstnameValid;
+    let lastnameValid = this.state.lastnameValid;
+    let emailValid = this.state.emailValid;
+    switch (fieldName) {
+      case "email":
+        emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+        const errorMsg3 = !emailValid?" invalid email id" :"";
+        fieldValidationErrors.email = errorMsg3
         break;
+      // case "username":
+      //   usernameValid = value.match(/^[A-Za-z0-9_@]{3,30}$/);
+      //   const errorMsg =
+      //     value.length < 3 || value.length > 30
+      //       ? "length should be between 3-30 characters"
+
+      //       : !usernameValid
+      //       ? "Characters, Numbers and Underscores are allowed"
+      //       : "";
+      //   fieldValidationErrors.username = errorMsg;
+      //   break;
+      case "firstname":
+        firstnameValid = value.match(/^[A-Za-z]{3,30}$/);
+        const errorMsg1 = 
+            value.length<3 || value.length>30 
+            ? "length should be between 3-30 characters"
+            : !firstnameValid 
+            ? "invalid firstname"
+            : "";
+            fieldValidationErrors.firstname = errorMsg1;
+            break;
+      case "lastname":
+        lastnameValid = value.match(/^[A-Za-z]{3,30}$/);
+        const errorMsg2 = 
+            value.length<3 || value.length>30 
+            ? "length should be between 3-30 characters"
+            : !lastnameValid 
+            ? "invalid lastname"
+            : "";
+            fieldValidationErrors.lastname = errorMsg2;
+            break;
       case "password":
         passwordValid = value.length >= 8;
         fieldValidationErrors.password = passwordValid ? "" : " is too short";
@@ -76,6 +164,10 @@ class Login extends Component {
         formErrors: fieldValidationErrors,
         usernameValid: usernameValid,
         passwordValid: passwordValid,
+        firstnameValid: firstnameValid,
+        lastnameValid: lastnameValid,
+        emailValid:emailValid
+        
       },
       this.validateForm
     );
@@ -83,17 +175,17 @@ class Login extends Component {
 
   validateForm() {
     this.setState({
-      formValid: this.state.usernameValid && this.state.passwordValid,
+      formValid: this.state.usernameValid && this.state.passwordValid && this.state.firstnameValid && this.state.lastnameValid && this.state.emailValid,
     });
   }
 
   onHandleSubmit = async (e) => {
     e.preventDefault();
     const { loading, success } = this.props;
-    const { username, password, formValid } = this.state;
+    const { username, password,email,firstname,lastname, formValid } = this.state;
 
     // if (!success && !loading && formValid) {
-    await this.props.loginDispatch(username, password, "login");
+    await this.props.signupDispatch(username, password,email,firstname,lastname, "signup");
     // }
   };
 
@@ -108,18 +200,18 @@ class Login extends Component {
   };
 
   render() {
-    const { showPassword, formErrors, formValid, username, password } =
+    const { showPassword, formErrors, formValid,email,firstname,lastname, username, password } =
       this.state;
     const { loading, success, isLoggedIn } = this.props;
     if (
       isLoggedIn &&
-      new URLSearchParams(this.props.location.search).get("login")
+      new URLSearchParams(this.props.location.search).get("signup")
     ) {
       this.props.history.push(this.props.location.pathname);
     }
     if (
       isLoggedIn ||
-      !new URLSearchParams(this.props.location.search).get("login")
+      !new URLSearchParams(this.props.location.search).get("signup")
     ) {
       return null;
     }
@@ -143,14 +235,14 @@ class Login extends Component {
                     <h1>TradeIn</h1>
                   </div>
                   <p>A better place to buy and sell products</p>
-                  <h2>Welcome back!</h2>
+                  <h2>Welcome to our platform!</h2>
                   <div className="login__left__loginImage">
                     <img src={LoginImage} />
                   </div>
                 </div>
-                <div className="login__right">
+                <div className="login__right" style={{overflow:"scroll"}}>
                   {loading && <LinearProgress style={{ height: "5.5px" }} />}
-                  <h2>Login to your account</h2>
+                  <h2>Create new account</h2>
                   <form
                     className="login__right__myForm"
                     onSubmit={this.onHandleSubmit}
@@ -178,6 +270,82 @@ class Login extends Component {
                       ></TextField>
                       <FormHelperText className="errormessage">
                         {formErrors.username}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Email</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="email"
+                        className="login__right__myForm__formData__username"
+                        name="email"
+                        type="email"
+                        value={email}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.email}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Firstname</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="firstname"
+                        className="login__right__myForm__formData__username"
+                        name="firstname"
+                        value={firstname}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.firstname}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Lastname</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="lastname"
+                        className="login__right__myForm__formData__username"
+                        name="lastname"
+                        value={lastname}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.lastname}
                       </FormHelperText>
                     </div>
                     <div className="login__right__myForm__formData">
@@ -223,9 +391,9 @@ class Login extends Component {
                       </FormHelperText>
                     </div>
 
-                    <div className="login__right__myForm__pass">
+                    {/* <div className="login__right__myForm__pass">
                       Forgot Password?
-                    </div>
+                    </div> */}
                     <Button
                       disabled={!formValid || loading}
                       onClick={this.onHandleSubmit}
@@ -236,18 +404,18 @@ class Login extends Component {
                       }
                       type="submit"
                     >
-                      Login
+                      Signup
                     </Button>
-                    <div className="login__right__myForm__signup">
-                      New to TradeIn?&nbsp;
-                      <Link to="?signup=true">Create Account</Link>
+                    <div className="login__right__myForm__signup" style={{marginBottom:"8px"}}>
+                      Already have an account?&nbsp;
+                      <Link to="?login=true">Login</Link>
                     </div>
-                    <Button
+                    {/* <Button
                       className="login__right__myForm__close"
                       onClick={this.handleClose}
                     >
                       Close
-                    </Button>
+                    </Button> */}
                   </form>
                 </div>
               </div>
@@ -266,7 +434,7 @@ class Login extends Component {
             <DialogTitle className="moboLogo__title">
               <div className="moboLogo">
                 <div className="moboLogo__icon">
-                  <IconButton onClick={()=>this.props.history.push(this.props.location.pathname)}>
+                <IconButton onClick={()=>this.props.history.push(this.props.location.pathname)}>
                     <ArrowBackIosIcon />
                   </IconButton>
                 </div>
@@ -283,10 +451,11 @@ class Login extends Component {
               style={{ overflow: "hidden", height: "30rem", padding: "0" }}
               dividers
             >
-              <div className="login">
-                <div className="login__right">
+             <div className="login">
+              
+                <div className="login__right" style={{overflow:"scroll"}}>
                   {loading && <LinearProgress style={{ height: "5.5px" }} />}
-                  <h2>Login to your account</h2>
+                  <h2>Create new account</h2>
                   <form
                     className="login__right__myForm"
                     onSubmit={this.onHandleSubmit}
@@ -314,6 +483,82 @@ class Login extends Component {
                       ></TextField>
                       <FormHelperText className="errormessage">
                         {formErrors.username}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Email</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="email"
+                        className="login__right__myForm__formData__username"
+                        name="email"
+                        type="email"
+                        value={email}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.email}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Firstname</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="firstname"
+                        className="login__right__myForm__formData__username"
+                        name="firstname"
+                        value={firstname}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.firstname}
+                      </FormHelperText>
+                    </div>
+                    <div className="login__right__myForm__formData">
+                      <label htmlFor="name">Lastname</label>
+                      <br />
+                      <TextField
+                        onChange={this.onHandleChange}
+                        required
+                        placeholder="lastname"
+                        className="login__right__myForm__formData__username"
+                        name="lastname"
+                        value={lastname}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon
+                                style={{ color: "#9e9e9e", fontSize: "1.4rem" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        variant="outlined"
+                      ></TextField>
+                      <FormHelperText className="errormessage">
+                        {formErrors.lastname}
                       </FormHelperText>
                     </div>
                     <div className="login__right__myForm__formData">
@@ -359,9 +604,9 @@ class Login extends Component {
                       </FormHelperText>
                     </div>
 
-                    <div className="login__right__myForm__pass">
+                    {/* <div className="login__right__myForm__pass">
                       Forgot Password?
-                    </div>
+                    </div> */}
                     <Button
                       disabled={!formValid || loading}
                       onClick={this.onHandleSubmit}
@@ -372,12 +617,18 @@ class Login extends Component {
                       }
                       type="submit"
                     >
-                      Login
+                      Signup
                     </Button>
-                    <div className="login__right__myForm__signup">
-                      New to TradeIn?&nbsp;
-                      <a href="?signup=true">Create Account</a>
+                    <div className="login__right__myForm__signup" style={{marginBottom:"8px"}}>
+                      Already have an account?&nbsp;
+                      <Link to="?login=true">Login</Link>
                     </div>
+                    {/* <Button
+                      className="login__right__myForm__close"
+                      onClick={this.handleClose}
+                    >
+                      Close
+                    </Button> */}
                   </form>
                 </div>
               </div>
@@ -398,9 +649,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginDispatch: (username, password, value) =>
-      dispatch(loginAction(username, password, value)),
+    signupDispatch: (username, password,email,firstname,lastname, value) =>
+      dispatch(SignupAction(username, password,email,firstname,lastname, value)),
+    openSnackbarDispatch:(msg) =>dispatch(openSnackbar(msg)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUp));

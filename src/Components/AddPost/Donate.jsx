@@ -105,9 +105,9 @@ class Donate extends Component {
   };
 
   validateForm = async () => {
-    console.log(
-      this.state.fieldValid["category"] && this.state.fieldValid["subcategory"]
-    );
+    // console.log(
+    //   this.state.fieldValid["category"] && this.state.fieldValid["subcategory"]
+    // );
     await this.setState({
       formValid:
         this.state.fieldValid["category"] &&
@@ -191,7 +191,7 @@ class Donate extends Component {
     const categories = getCategories();
     const colors = getColors();
     if (this.props.success) {
-      this.props.history.push(`buy/${this.props.postId}`);
+      this.props.history.push(`/donate/${this.props.postId}`);
       return;
     }
 

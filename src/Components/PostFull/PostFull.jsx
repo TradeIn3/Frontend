@@ -41,15 +41,17 @@ import {
   retrievePost,
 } from "../../redux/post/postActions";
 import CardSkeleton from "../Skeleton/CardSkeleton";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch,Redirect  } from "react-router-dom";
 import {
   AUTH_BUY_EDIT_PATH,
+  AUTH_BUY_FULL_DELETE_PATH,
   AUTH_BUY_FULL_QUESTION_PATH,
 } from "../../constants/routeConstants";
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
 import EditSell from "../EditPost/EditSell";
 import { NO_CONTENT_AVAILABLE } from "../../redux/post/postTypes";
+import DeleteModal from "./DeleteModal";
 const handleReservePaymentSuccess = async (
   response,
   detail,
@@ -65,6 +67,7 @@ const handleReservePaymentSuccess = async (
 
   const res = await Request("POST", ReservePaymentSuccess, token, data);
   if (res && res.status == 200) {
+    // console.log("no nat at all")
     props.openSnackbarDispatch("Payment done successfully");
   } else if (res && res.status == 204) {
     props.openSnackbarDispatch("Already Reserved");
@@ -87,8 +90,12 @@ const handleProductPaymentSuccess = async (
   };
 
   const res = await Request("POST", ProductPaymentSuccess, token, data);
+ 
   if (res && res.status == 200) {
+    props.history.push(`account/${props.match.params.id}/orders/${props.post.id}`)
     props.openSnackbarDispatch("Payment done successfully");
+    return <Redirect to={`/account/${props.myDetails.username}/orders/${props.post.id}`}  />
+    
   } else {
     props.openSnackbarDispatch("Something went wrong");
   }
@@ -167,7 +174,7 @@ class PostFull extends Component {
     }
     const props = this.props;
     let data = {
-      amount: 100000,
+      amount: this.props.post.price+15,
       username: this.props.myDetails.username,
       order_product: this.props.match.params.id,
     };
@@ -194,7 +201,6 @@ class PostFull extends Component {
       image: WebsiteLogo, // add image url
       order_id: res.data.payment.id,
       handler: function (response) {
-        console.log(props);
         handleProductPaymentSuccess(
           response,
           data,
@@ -666,8 +672,8 @@ class PostFull extends Component {
                     >
                       <Button
                         className="product__rt__sell__buttons__del__delbtn"
-                        onClick={this.handlePostDelete}
-                      >
+                        onClick={()=>this.props.history.push(`/buy/${this.props.match.params.id}/delete`)}
+                                              >
                         Delete
                       </Button>
                     </div>
@@ -759,6 +765,10 @@ class PostFull extends Component {
         <Breakpoint medium down>
           <div class Name="product">
             <div className="product__lt">
+            <h5 className="product__headline">
+                <a href="/home">TradeIn</a> / <a href="/buy">Buy</a> /{" "}
+                {post.title}
+              </h5>
               <div className="product__lt__Box">
                 <div className="product__lt__Box__outer">
                   <img src={PostImageUrl + "" + post.images[selected]} />
@@ -898,7 +908,8 @@ class PostFull extends Component {
                       className="product__rt__sell__buttons__del"
                       style={{ width: "100%" }}
                     >
-                      <Button className="product__rt__sell__buttons__del__delbtn">
+                      <Button className="product__rt__sell__buttons__del__delbtn"
+                      onClick={()=>this.props.history.push(`/buy/${this.props.match.params.id}/delete`)}>
                         Delete
                       </Button>
                     </div>
@@ -1197,6 +1208,13 @@ class PostFull extends Component {
             </Route>
           </Switch>
         )}
+         {post.is_owner && 
+           <Switch>
+           <Route path={AUTH_BUY_FULL_DELETE_PATH} exact>
+             {(props) => <DeleteModal type="buy" handlePostDelete={this.handlePostDelete}  {...props} />}
+           </Route>
+         </Switch>
+        }
       </>
     );
   }

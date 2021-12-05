@@ -65,7 +65,7 @@ class EditSell extends Component {
   }
   static getDerivedStateFromProps(props, state) {
     if (props.post.category != state.category) {
-      console.log(props.post);
+      // console.log(props.post);
       return {
         category: props.post.category || "",
         subcategory: props.post.subcategory || "",
@@ -184,7 +184,7 @@ class EditSell extends Component {
       is_donate: false,
       id: this.props.computedMatch.params.id,
     };
-    console.log(data);
+    // console.log(data);
     await this.props.editPostDispatch(data);
   };
 

@@ -15,7 +15,7 @@
   background-position: center center;
   position: relative;
   max-height: none;
-  background-image:   url("https://u-web-assets.mercdn.net/assets/banner/fell-the-pre-loved-love-desktop4.png");
+  background-image:   url("https://u-web-assets.mercdn.net/assets/banner/love-this-season-md-2x.webp");
   background-position: 50% 50%;
   &__btm{
     position: absolute;
@@ -251,7 +251,26 @@
     }
   }
 }
+
+
 @media (max-width: 500px) {
+  .home{
+    overflow-y: scroll;
+    min-height: 584px;
+    &__btm{
+      // position: absolute;
+      bottom: -160px;
+      padding: 10px 56px;
+      // background: #757575;
+    }
+    &__ttl{
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.01em;
+      padding-left: 1.5rem;
+    }
+  }
   .authhome {
     &__upper {
       &__profile {

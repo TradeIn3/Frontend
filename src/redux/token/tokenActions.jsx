@@ -1,5 +1,5 @@
 import { Request } from "../../api/Request";
-import { UserLogin, UserTokenRefresh } from "../../api/pathConstants";
+import { UserAccountCreate, UserLogin, UserTokenRefresh } from "../../api/pathConstants";
 import cookie from "react-cookies";
 
 import {
@@ -93,13 +93,13 @@ export const getToken = () => {
         const updatedToken = await Request("POST", UserTokenRefresh, null, {
           refresh_token: refresh,
         });
-        console.log("refresh ok");
-        console.log(updatedToken);
+        // console.log("refresh ok");
+        // console.log(updatedToken);
         if (updatedToken && updatedToken.status === 200) {
           await dispatch(setToken(updatedToken.data));
         } else if (updatedToken && updatedToken!==200) {
     
-          console.log("this is the problem")
+          // console.log("this is the problem")
          
         } else {
           await dispatch(openSnackbar("Network Error"));
@@ -139,6 +139,55 @@ export const setToken = (jwtToken) => {
   };
 };
 
+export const SignupAction = (user_id, password,email,first_name,last_name, value) =>{
+  return async (dispatch) =>{
+    const res = await Request("POST",UserAccountCreate,null,{
+      user_id,
+      password,
+      email,
+      first_name,
+      last_name,
+    })
+    if (res) {
+      if(res.status ===204){
+        await dispatch(openSnackbar("User already exists"))
+      }
+      // else if (res.status == 400) {
+      //   await dispatch(openSnackbar("email id already exists"));
+      // }
+      else if (res.status !== 201) {
+        await dispatch(openSnackbar("Something went wrong"));
+      }
+      else if (res.status === 201) {
+        await dispatch(setToken(res.data));
+      } else if (!res.status) {
+        await dispatch(openSnackbar("Network error"));
+      } else {
+        if (value === "signup") {
+          window.location.href = UNAUTH_LOGIN_PATH;
+        } else {
+          await dispatch(removeTokenRequest());
+          if (res.data.detail) await dispatch(openSnackbar(res.data.detail));
+          else {
+            if (res.data.username) {
+              await dispatch(openSnackbar(res.data.username[0]));
+            }
+            if (res.data.password) {
+              await dispatch(openSnackbar(res.data.password[0]));
+            }
+          }
+        }
+      }
+    } else {
+      if (value === "signup") {
+        window.location.href = UNAUTH_LOGIN_PATH;
+      } else {
+        dispatch(removeTokenRequest());
+        dispatch(openSnackbar("something went wrong"));
+      }
+    }
+  }
+}
 
 
 export const loginAction = (user_id, password, value) => {

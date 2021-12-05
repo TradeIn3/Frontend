@@ -14,17 +14,18 @@ import { connect } from "react-redux";
 import { Label } from "@material-ui/icons";
 
 class DeleteModal extends Component {
-  handleClose = () => {
-    this.props.history.push(`/buy/${this.props.match.params.id}`);
+  handleClose = (type) => {
+    this.props.history.push(`/${type}/${this.props.match.params.id}`);
   };
 
   render() {
+    
     return (
       <React.Fragment>
         <Breakpoint large up>
           <Dialog
             open={true}
-            onClose={this.handleClose}
+            onClose={()=>this.handleClose(this.props.type)}
             aria-labelledby="form-dialog-title"
             fullWidth
             maxWidth="lg"
@@ -43,12 +44,12 @@ class DeleteModal extends Component {
             <DialogActions style={{ padding: "12px 0" }}>
               <div className="qmodal__buttons">
                 <div className="qmodal__buttons__cancel">
-                  <Button onClick={this.handleClose}>Cancel</Button>
+                  <Button onClick={()=>this.handleClose(this.props.type)}>Cancel</Button>
                 </div>
                 <div className="qmodal__buttons__save">
                   <Button
                     style={{ background: "#ea5653" }}
-                    onClick={this.onHandleClick}
+                    onClick={this.props.handlePostDelete}
                   >
                     Delete
                   </Button>
@@ -61,7 +62,7 @@ class DeleteModal extends Component {
         <Breakpoint medium down>
           <Dialog
             open={true}
-            onClose={this.handleClose}
+            onClose={()=>this.handleClose(this.props.type)}
             aria-labelledby="form-dialog-title"
             fullWidth
             fullScreen
@@ -77,12 +78,12 @@ class DeleteModal extends Component {
             <DialogActions style={{ padding: "12px 0" }}>
               <div className="qmodal__buttons">
                 <div className="qmodal__buttons__cancel">
-                  <Button onClick={this.handleClose}>Cancel</Button>
+                  <Button onClick={()=>this.handleClose(this.props.type)}>Cancel</Button>
                 </div>
                 <div className="qmodal__buttons__save">
                   <Button
                     style={{ background: "#ea5653" }}
-                    onClick={this.onHandleClick}
+                    onClick={this.props.handlePostDelete}
                   >
                     Delete
                   </Button>

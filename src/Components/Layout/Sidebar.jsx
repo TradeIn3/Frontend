@@ -223,7 +223,7 @@ class SideBar extends Component {
   render() {
     const categories = getCategories();
     const colors = getColors();
-    console.log(this.state);
+    // console.log(this.state);
     const {type} = this.props;
     const {
       categoryVisible,

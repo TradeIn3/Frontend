@@ -97,7 +97,7 @@ export const editPost = (data) => {
     await dispatch(getToken());
     const token = await getState().token.access;
     const user = await getState().myDetails.myDetails.username;
-    console.log(data);
+    // console.log(data);
     if (token && user) {
       data["user"] = user;
       const res = await Request("PUT", PostEdit, token, data);
@@ -135,7 +135,7 @@ export const retrieveAllPost = (
   sort
 ) => {
   return async (dispatch, getState) => {
-    console.log("sorted",sort)
+    // console.log("sorted",sort)
     const res = await Request(
       "GET",
       `${RetrieveAllPost}?category=${category}&subcategory=${subcategory}&brand=${brand}&color=${color}&min=${min}&max=${max}&state=${status}&condition=${condition}&barter=${barter}&donate=${donate}&sort=${sort}`,
@@ -200,6 +200,7 @@ export const deletePost = (postId) => {
       const data = await getState().post.posts;
       await delete data[postId];
       await dispatch(noPostDetails(false, false));
+      await dispatch(openSnackbar("Post deleted successfully"));
     } else if (res && res.status == 204) {
       await dispatch(openSnackbar("No results found"));
     } else if (res && res.status != 200) {

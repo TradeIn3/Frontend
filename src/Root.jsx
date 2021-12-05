@@ -17,6 +17,7 @@ import {
   AUTH_DONATE_EDIT_PATH,
   AUTH_EXCHANGE_EDIT_PATH,
   AUTH_EXCHANGE_FULL_PATH,
+  UNAUTH_SIGNUP_PATH,
 } from "./constants/routeConstants";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { getToken } from "./redux/token/tokenActions";
@@ -49,6 +50,7 @@ import Sell from "./Components/AddPost/Sell";
 import DonateProd from "./Components/AddPost/Donate";
 import ExchangeProd from "./Components/AddPost/Exchange";
 import EditSell from "./Components/EditPost/EditSell";
+import Signup from "./Components/UnAuth/Signup";
 function Root(props) {
   useEffect(() => {
     async function getToken() {
@@ -243,13 +245,14 @@ function Root(props) {
           )}
         </AuthorizedRoute>
         <Route path="*">
-          <Layout {...props}>
+          <Layout {...props}> 
             {" "}
             <FourOFourError {...props} />{" "}
           </Layout>
         </Route>
       </Switch>
       <Route path={UNAUTH_LOGIN_PATH}>{(props) => <Login {...props} />}</Route>
+      <Route path={UNAUTH_SIGNUP_PATH}>{(props) => <Signup  {...props} />}</Route>
       <SessionExpirePrompt />
       <SnackBars />
     </div>

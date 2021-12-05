@@ -68,7 +68,7 @@ class Sell extends Component {
     const value = event.target.value;
     if (name == "price") {
       if (
-        value.charAt(value.length - 1) < "0" ||
+        
         value.charAt(value.length - 1) > "9"
       )
         return;
@@ -199,10 +199,10 @@ class Sell extends Component {
     const categories = getCategories();
     const colors = getColors();
     if (this.props.success) {
-      this.props.history.push(`buy/${this.props.postId}`);
+      this.props.history.push(`/buy/${this.props.postId}`);
       return;
     }
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <React.Fragment>
         <div className="outer1">
@@ -417,8 +417,8 @@ class Sell extends Component {
                       <TextField
                         className="outer1__sell__lt__outer__subcate__tf"
                         id="filled-number"
-                        placeholder="Range"
-                        // type="number"
+                        placeholder="Price"
+                        type="number"
                         name="price"
                         onChange={this.onHandleChange}
                         value={this.state["price"]}
