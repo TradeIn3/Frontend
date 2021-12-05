@@ -25,7 +25,7 @@ import {
   retrievePost,
 } from "../../redux/post/postActions";
 import { connect } from "react-redux";
-import { getCategories, getColors } from "../../utils/Utils";
+import { getCategories, getColors } from "../../utils/Utils.js";
 import { plugToRequest } from "react-cookies";
 import { withRouter } from "react-router-dom";
 
