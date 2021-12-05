@@ -27,7 +27,7 @@ import {
   Drawer,
   Button,
 } from "@material-ui/core";
-import { getCategories, getColors } from "../../utils/Utils";
+import { getCategories, getColors } from "../../utils/Utils.js";
 import { addPostFilters, getAllBrands, retrieveAllPost } from "../../redux/post/postActions";
 
 class SideBar extends Component {

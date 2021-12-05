@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Breakpoint } from "react-socks";
-import { getCategories, getFormattedPath } from "../../utils/Utils";
+import { getCategories, getFormattedPath } from "../../utils/Utils.js";
 import { Link, Route, Switch, withRouter } from "react-router-dom";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import NoProfileImage from "../../assets/NoProfile.svg";
