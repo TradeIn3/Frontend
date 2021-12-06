@@ -255,11 +255,17 @@
 
 @media (max-width: 500px) {
   .home{
-    overflow-y: scroll;
-    min-height: 584px;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    height:auto;
+    min-height: auto;
     &__btm{
-      // position: absolute;
-      bottom: -160px;
+      position: absolute;
+      bottom: 3rem;
+      opacity: 0.91;
       padding: 10px 56px;
       // background: #757575;
     }
