@@ -79,6 +79,7 @@ export const CreateNewPost = (data) => {
     if (token && user) {
       data.append("user", user);
       const res = await Request("POST", CreatePost, token, data);
+      console.log(res)
       if (res && res.status == 201) {
         await dispatch(CreatePostSuccess(true, res.data.id));
         await dispatch(openSnackbar("Post Created successfully"));

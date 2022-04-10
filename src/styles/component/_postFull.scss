@@ -352,6 +352,12 @@
   &__rt {
     padding-top: 2rem;
     &__sell {
+      &__premium{
+        color: #f7ff0c;
+        display: flex;
+        align-items: center;
+        margin-left: 12px;
+      }
       h1 {
         font-family: Roboto, sans-serif;
         font-size: 2.1rem;
@@ -368,6 +374,8 @@
         font-weight: 500;
         letter-spacing: 0.01em;
         color: $theme-a;
+        display: flex;
+        align-items: center;
       }
 
       h2 {

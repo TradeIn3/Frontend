@@ -46,6 +46,7 @@ import { AUTH_DONATE_FULL_DELETE_PATH, AUTH_DONATE_FULL_QUESTION_PATH } from "..
 import QuestionModal from "./QuestionModal";
 import PostLoader from "../Loaders/PostLoader";
 import DeleteModal from "./DeleteModal";
+import StarRateIcon from '@material-ui/icons/StarRate';
 const handleReservePaymentSuccess = async (
   response,
   detail,
@@ -155,7 +156,7 @@ class DonateFull extends Component {
     }
     const props = this.props;
     let data = {
-      amount: 100000,
+      amount: 15,
       username: this.props.myDetails.username,
       order_product: this.props.match.params.id,
     };
@@ -274,6 +275,7 @@ class DonateFull extends Component {
   render() {
     const { selected, answer, sort } = this.state;
     const { post, loading, success } = this.props;
+    console.log(loading,success,post)
     if (loading || !post) return <PostLoader />;
     if (!success && !loading) return <FourOFour />;
     return (
@@ -586,7 +588,7 @@ class DonateFull extends Component {
             >
               <div className="product__rt__sell">
                 <h1>{post.title}</h1>
-                <h3>{post.brand}</h3>
+                <h3>{post.brand} {post.is_premium && <span  className="product__rt__sell__premium"><StarRateIcon style={{position:"relative"}} className="card__star"/> Premium</span>}</h3>
                 <h2>FREE</h2>
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
@@ -811,7 +813,7 @@ class DonateFull extends Component {
             <div className="product__rt">
               <div className="product__rt__sell">
                 <h1>{post.title}</h1>
-                <h3>{post.brand}</h3>
+                <h3>{post.brand} {post.is_premium && <span  className="product__rt__sell__premium"><StarRateIcon style={{position:"relative"}} className="card__star"/> Premium</span>}</h3>
                 <h2>&#8377;{post.price}</h2>
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges

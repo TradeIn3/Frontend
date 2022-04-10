@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { PostImageUrl } from "../../api/pathConstants";
 import OrderCard from "./OrderCard";
 import ReserveCard from "./ReserveCard";
+import StarRateIcon from '@material-ui/icons/StarRate';
 export default class PostCard extends Component {
   render() {
     const { item, type } = this.props;
@@ -14,8 +15,10 @@ export default class PostCard extends Component {
          <div className="card__top__hd">SELLING</div>
        </div> */}
 
+ 
         <div className="card__img">
           <img src={PostImageUrl + "" + item.image} />
+          {item.is_premium && <StarRateIcon className="card__star"/>}
         </div>
         <div className="card__btm">
           <div className="card__btm__lft">

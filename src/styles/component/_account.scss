@@ -4,17 +4,16 @@
   box-sizing: border-box;
 }
 
-.probig{
 
-}
 
 .home{
-  min-height: 664px;
-  height: 55vh;
   background-size: cover;
   background-position: center center;
-  position: relative;
-  max-height: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image:   url("https://u-web-assets.mercdn.net/assets/banner/love-this-season-md-2x.webp");
   background-position: 50% 50%;
   &__btm{
@@ -92,6 +91,25 @@
       margin: 0 auto;
       align-items: center;
       text-align:center;
+      &__coins{
+        display: flex;
+        align-items: center;
+        width: 4rem;
+        justify-content: space-around;
+        color: white;
+        font-family: roboto;
+        font-weight: 500;
+      }
+      &__coinsbig{
+        display: flex;
+        align-items: center;
+        width: 4rem;
+        justify-content: space-around;
+        color: #6e6e6e;
+        font-family: roboto;
+        font-weight: 500;
+        margin: 0 auto;
+      }
       &__pic {
         // padding-left: 25px;
         width: max-content;
@@ -146,6 +164,7 @@
           }
         }
       }
+
 
       &__headings {
         h3 {

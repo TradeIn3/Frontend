@@ -21,6 +21,7 @@ import WebsiteLogo from "../../assets/WebsiteLogo.svg";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { getToken } from "../../redux/token/tokenActions";
 import { connect } from "react-redux";
+import StarRateIcon from '@material-ui/icons/StarRate';
 import { Scrollbars } from "react-custom-scrollbars";
 import FourOFour from "../FourOFour/FourOFourError";
 import {
@@ -605,7 +606,7 @@ class PostFull extends Component {
             >
               <div className="product__rt__sell">
                 <h1>{post.title}</h1>
-                <h3>{post.brand}</h3>
+                <h3>{post.brand}{post.is_premium && <span  className="product__rt__sell__premium"><StarRateIcon style={{position:"relative"}} className="card__star"/> Premium</span>}</h3>
                 <h2>&#8377;{post.price}</h2>
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges
@@ -843,7 +844,7 @@ class PostFull extends Component {
             <div className="product__rt">
               <div className="product__rt__sell">
                 <h1>{post.title}</h1>
-                <h3>{post.brand}</h3>
+                <h3>{post.brand}{post.is_premium && <span  className="product__rt__sell__premium"><StarRateIcon style={{position:"relative"}} className="card__star"/> Premium</span>}</h3>
                 <h2>&#8377;{post.price}</h2>
                 <div className="product__rt__sell__deli">
                   + &#8377;15 delivery charges

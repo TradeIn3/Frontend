@@ -136,6 +136,7 @@ class Account extends Component {
                   <h3>{user.first_name + " " + user.last_name}</h3>
                   <h5>{user.username}</h5>
                 </div>
+                <div className="authhome__upper__profile__coins"> <OfflineBoltIcon style={{color:"#ffef00"}}/>{user.coins} </div>
               </div>
             </div>
             {is_mine && (

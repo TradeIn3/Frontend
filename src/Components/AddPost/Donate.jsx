@@ -180,7 +180,7 @@ class Donate extends Component {
     data.append("title", this.state.title);
     data.append("description", this.state.desc);
     data.append("brand", this.state.brand);
-    data.append("premium", this.state.premium);
+    data.append("is_premium", this.state.premium);
     data.append("price", 0);
     data.append("is_barter", false);
     data.append("is_donate", true);
@@ -214,7 +214,7 @@ class Donate extends Component {
               className="outer1__sell__lt"
             >
               <div className="outer1__sell__lt__heading1">
-                <div style={{ color: "goldenrod", padding: "6px 8px" }}>
+                <div style={{ color: "#ffef00", padding: "6px 8px" }}>
                   <OfflineBoltIcon />
                 </div>
                 <h3>Post ad to earn 50 Trade-coin in your account</h3>
@@ -346,7 +346,7 @@ class Donate extends Component {
                           onChange={this.onHandleChange}
                           required
                           style={{ paddingTop: "10px", width: "100%" }}
-                          className="login__right__myForm__formData__username"
+                          // className="login__right__myForm__formData__username"
                           name="brand"
                           value={this.state["value"]}
                           placeholder="Brand"
@@ -590,7 +590,7 @@ class Donate extends Component {
                   <div className="outer1__sell__rt__box__coin__icon">
                     <OfflineBoltIcon />
                   </div>
-                  <h1>50</h1>
+                  <h1>{this.props.myDetails.coins}</h1>
                 </div>
                 <h2> Trade coin Balance</h2>
               </div>
@@ -621,6 +621,7 @@ class Donate extends Component {
                         style={{ paddingTop: "1rem" }}
                         control={<Radio />}
                         label="Premium Ad"
+                        disabled={this.props.myDetails.coins<250}
                         value="true"
                       />
                     </RadioGroup>
@@ -634,7 +635,7 @@ class Donate extends Component {
                 >
                   <div
                     className="outer1__sell__rt__radio__rt1__con"
-                    style={{ color: "goldenrod", paddingBottom: "1.2rem" }}
+                    style={{ color: "#ffef00", paddingBottom: "1.2rem" }}
                   >
                     <OfflineBoltIcon />
                     <div
@@ -646,7 +647,7 @@ class Donate extends Component {
                   </div>
                   <div
                     className="outer1__sell__rt__radio__rt1__con"
-                    style={{ color: "goldenrod", paddingTop: "1.7rem" }}
+                    style={{ color: "#ffef00", paddingTop: "1.7rem" }}
                   >
                     <OfflineBoltIcon />
                     <div
@@ -654,7 +655,7 @@ class Donate extends Component {
                       
                   "
                     >
-                      <h4> 200 / Month</h4>
+                      <h4> 250 / Month</h4>
                     </div>
                   </div>
                 </Grid>

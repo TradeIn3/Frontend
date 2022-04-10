@@ -142,6 +142,7 @@ class AccountDetails extends Component {
                    </div>
                     <h3>{this.props.user.first_name+" "+this.props.user.last_name}</h3>
                     <h5>{this.props.user.username}</h5>
+                    <div className="authhome__upper__profile__coinsbig"> <OfflineBoltIcon style={{color:"#ffef00"}}/>{user.coins} </div>
                   </div>
                   <div className="acc__fs" style={{marginTop:"12px"}}>
                   {is_mine && (
