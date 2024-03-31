@@ -27,7 +27,7 @@ import {
 	Drawer,
 	Button,
 } from "@material-ui/core";
-import { getCategories, getColors } from "../../utils/index.js";
+import { getCategories, getColors } from "../../Utils/index.js";
 import {
 	addPostFilters,
 	getAllBrands,

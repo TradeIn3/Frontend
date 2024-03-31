@@ -35,7 +35,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import LoopIcon from "@material-ui/icons/Loop";
 import { editImage } from "../../redux/mydetails/myDetailsActions";
-import { getFormattedPath } from "../../utils/index.js";
+import { getFormattedPath } from "../../Utils/index.js";
 import { AUTH_ACCOUNT_PATH } from "../../constants/routeConstants";
 
 class AccountDetails extends Component {
