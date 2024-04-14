@@ -23,7 +23,7 @@ import Sidebar from "../Layout/Sidebar";
 import { Breakpoint } from "react-socks";
 import BookHeader from "../../assets/BookHeader.svg";
 import SearchIcon from "@material-ui/icons/Search";
-import { getBookGenres } from "../../Utils/index.js";
+import { getBookGenres } from "../../helper";
 
 export function bottomDrawer(sort, handleDrawerClose) {
 	return (

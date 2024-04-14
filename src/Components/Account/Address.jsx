@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Breakpoint } from "react-socks";
-import { getCategories } from "../../Utils/index.js";
+import { getCategories } from "../../helper";
 import NoProfileImage from "../../assets/NoProfile.svg";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { editAddress } from "../../redux/mydetails/myDetailsActions";

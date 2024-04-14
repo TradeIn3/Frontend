@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import { CreateNewPost, CreatePostSuccess } from "../../redux/post/postActions";
 import { connect } from "react-redux";
-import { getCategories, getColors } from "../../Utils/index.js";
+import { getCategories, getColors } from "../../helper";
 import { plugToRequest } from "react-cookies";
 import { withRouter } from "react-router-dom";
 

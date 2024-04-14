@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Breakpoint } from "react-socks";
-import { getCategories } from "../../Utils/index.js";
+import { getCategories } from "../../helper";
 import NoProfileImage from "../../assets/NoProfile.svg";
 import { Button, Grid, TextField } from "@material-ui/core";
 import {
